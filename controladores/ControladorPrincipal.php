@@ -86,5 +86,25 @@ switch ($datos['ruta']) {
         $librosControlador = new LibrosControlador($datos);
         $librosControlador->librosControlador();
         break;
+    case "actualizarLibro":
+        $librosControlador = new LibrosControlador($datos);
+        $librosControlador->librosControlador();
+        break;
+    case "confirmaActualizarLibro":
+        if ($datos['ruta'] == "confirmaActualizarLibro") {
+
+            $validarRegistro = new ValidadorLibros();
+            $erroresValidacion = $validarRegistro->validarFormularioInsertarLibro($datos);
+        }
+////////////////////////////////////////////////////////////////
+        if (isset($erroresValidacion) && $erroresValidacion != FALSE) {
+            $erroresValidacion = json_encode($erroresValidacion);
+            if ($datos['ruta'] == "confirmaActualizarLibro") {
+                header("location:../principal.php?contenido=vistas/vistasLibros/vistaActualizarLibro.php&erroresValidacion=" . $erroresValidacion);
+            }
+        }
+        $librosControlador = new LibrosControlador($datos);
+        $librosControlador->librosControlador();
+        break;
 }
 ?>

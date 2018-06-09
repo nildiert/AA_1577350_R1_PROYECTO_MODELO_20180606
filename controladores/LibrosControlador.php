@@ -90,6 +90,29 @@ class LibrosControlador {
                     }
                 }
                 break;
+            case "actualizarLibro":
+                $usuarioBd = new UsuarioBd(USUARIO_BD, CONTRASENIA_BD);
+                $gestarLibros = new LibroDAO($usuarioBd, BASE, SERVIDOR);
+//                $consultaLibro = new LibroVO();
+                $consultaDeLibro = $gestarLibros->seleccionarId(array($this->datos["idAct"])); //Se consulta el libro para traer los datos.
+                $actualizarDatosLibro = $consultaDeLibro['registroEncontrado'][0];
+                session_start();
+                $_SESSION['actualizarDatosLibro'] = $actualizarDatosLibro;
+                header("location:../principal.php?contenido=vistas/vistasLibros/vistaActualizarLibro.php");
+
+
+                break;
+            case "confirmaActualizarLibro":
+                $usuarioBd = new UsuarioBd(USUARIO_BD, CONTRASENIA_BD);
+                $gestarLibros = new LibroDAO($usuarioBd, BASE, SERVIDOR);
+//                $consultaLibro = new LibroVO();
+                $actualizarLibro = $gestarLibros->actualizar(array($this->datos)); //Se envía datos del libro para actualizar.
+
+//                $actualizarLibro = $consultaDeLibro['registroEncontrado'][0];
+                session_start();
+                $_SESSION['mensaje'] = "Actualización realizada.";
+                header("location:ControladorPrincipal.php?ruta=listarLibros");
+                break;
             default:
                 break;
         }

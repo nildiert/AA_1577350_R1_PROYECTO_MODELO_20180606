@@ -203,7 +203,23 @@ class LibroDAO extends ConBdMySql /* implements InterfaceCRUD */ {
     }
 
     public function actualizar($registro) {
-        $registro;
+        try {
+
+            $autor=$registro[0]['autor'];
+            $titulo=$registro[0]['titulo'];
+            $precio=$registro[0]['precio'];
+            $categoria=$registro[0]['categoriaLibro_catLibId'];
+            $isbn=$registro[0]['isbn'];
+
+            if (isset($registro[0]['isbn'])) {
+                $actualizar = "UPDATE libros SET autor= ? , titulo = ? , precio = ? , categoriaLibro_catLibId = ? WHERE isbn= ? ;";
+                $resultado = $this->conexion->prepare($actualizar);
+                $actualizacion = $resultado->execute(array($autor, $titulo, $precio, $categoria, $isbn));
+                return ['actualizacion' => $actualizacion, 'mensaje' => $mensaje];
+            }
+        } catch (Exception $exc) {
+            return ['actualizacion' => $actualizacion, 'mensaje' => $exc->getTraceAsString()];
+        }
     }
 
     public function eliminar($eId) {
