@@ -4,7 +4,6 @@
 /* * ***COMIENZO DE PROGRAMACIÓN EN BACKEND******** */
 /* * ********************************************** */
 include_once './../modelos/ConstantesConexion.php';
-include_once PATH . 'controladores/InsumosControlador.php';
 include_once PATH . 'controladores/LibrosControlador.php';
 
 include_once PATH . 'controladores/Validador.php';
@@ -15,6 +14,7 @@ include_once PATH . 'controladores/Usuario_sControlador.php';
 include_once PATH . 'controladores/CategoriaLibroControlador.php';
 include_once PATH . 'modelos/modeloLibro/ValidadorLibros.php';
 /* * ********************************************** */
+include_once PATH . 'controladores/InsumosControlador.php';
 
 $datos = array();
 
