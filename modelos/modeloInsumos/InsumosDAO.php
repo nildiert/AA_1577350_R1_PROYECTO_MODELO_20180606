@@ -43,7 +43,7 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         if (isset($_POST['buscar']))
             $_POST['buscar'] = trim($_POST['buscar']);
 
-            $planConsulta .= "SELECT i.InsCodigo,i.InsNombre,i.InsUnidadMedida,i.InsPrecio ";
+            $planConsulta = "SELECT i.InsCodigo,i.InsNombre,i.InsUnidadMedida,i.InsPrecio ";
             $planConsulta .= "FROM insumos i ";
             $planConsulta .= "WHERE i.InsEstado=1 ";
 
@@ -75,15 +75,14 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
             $condicionBuscar = (($where && !$filtros == 0) ? " or " : " where ");
             $filtros++;
             $planConsulta.=$condicionBuscar;
-            $planConsulta.="( isbn like '%" . $_POST['buscar'] . "%'";
-            $planConsulta.=" or titulo like '%" . $_POST['buscar'] . "%'";
-            $planConsulta.=" or autor like '%" . $_POST['buscar'] . "%'";
-            $planConsulta.=" or precio like '%" . $_POST['buscar'] . "%'";
-            $planConsulta.=" or catLibId like '%" . $_POST['buscar'] . "%'";
-            $planConsulta.=" or catLibNombre like '%" . $_POST['buscar'] . "%'";
+            $planConsulta.="( InsCodigo like '%" . $_POST['buscar'] . "%'";
+            $planConsulta.=" or InsNombre like '%" . $_POST['buscar'] . "%'";
+            $planConsulta.=" or InsUnidadMedida like '%" . $_POST['buscar'] . "%'";
+            $planConsulta.=" or InsPrecio like '%" . $_POST['buscar'] . "%'";
+            
             $planConsulta.=" ) ";
         };
-        $planConsulta.= "  order by l.isbn desc";
+        $planConsulta.= "  order by i.InsCodigo desc";
         $planConsulta.=" LIMIT " . $limit . " OFFSET " . $offset . " ; ";
 
         $listar = $this->conexion->prepare($planConsulta);
@@ -156,8 +155,8 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
 //
 //        $resultadoConsulta = FALSE;
 
-        $planConsulta = "select * from Insumoss l ";
-        $planConsulta .= " where l.isbn= ? ;";
+        $planConsulta = "select * from Insumoss i ";
+        $planConsulta .= " where i.isbn= ? ;";
         $listar = $this->conexion->prepare($planConsulta);
         $listar->execute(array($sId[0]));
 
@@ -175,12 +174,12 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
     public function insertar($registro) {
          try {
 
-            $inserta = $this->conexion->prepare('INSERT INTO Insumoss (isbn, titulo, autor, precio, categoriaInsumos_catLibId) VALUES ( :isbn, :titulo, :autor, :precio, :categoriaInsumos_catLibId );');
-            $inserta->bindParam(":isbn", $registro['isbn']);
-            $inserta->bindParam(":titulo", $registro['titulo']);
-            $inserta->bindParam(":autor", $registro['autor']);
-            $inserta->bindParam(":precio", $registro['precio']);
-            $inserta->bindParam(":categoriaInsumos_catLibId", $registro['categoriaInsumos_catLibId']);
+            $inserta = $this->conexion->prepare('INSERT INTO Insumos (InsCodigo, InsNombre, InsUnidadMedida, InsPrecio) VALUES ( :InsCodigo, :InsNombre, :InsUnidadMedida, :InsPrecio );');
+            $inserta->bindParam(":InsCodigo", $registro['InsCodigo']);
+            $inserta->bindParam(":InsNombre", $registro['InsNombre']);
+            $inserta->bindParam(":InsUnidadMedida", $registro['InsUnidadMedida']);
+            $inserta->bindParam(":InsPrecio", $registro['InsPrecio']);
+            
             $insercion = $inserta->execute();
             $clavePrimariaConQueInserto = $this->conexion->lastInsertId();
 
