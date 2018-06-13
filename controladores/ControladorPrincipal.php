@@ -5,6 +5,8 @@
 /* * ********************************************** */
 include_once './../modelos/ConstantesConexion.php';
 include_once PATH . 'controladores/LibrosControlador.php';
+include_once PATH . 'controladores/InsumosControlador.php';
+
 include_once PATH . 'controladores/Validador.php';
 /* * ********************************************** */
 include_once PATH . 'controladores/Usuario_sControlador.php';
@@ -69,6 +71,10 @@ switch ($datos['ruta']) {
         $librosControlador = new LibrosControlador($datos);
         $librosControlador->librosControlador();
         break;
+    case "listarInsumos":
+        $librosControlador = new LibrosControlador($datos);
+        $librosControlador->librosControlador();
+        break;    
     case "insertarLibro":
         if ($datos['ruta'] == "insertarLibro") {
 
