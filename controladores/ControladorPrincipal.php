@@ -5,10 +5,7 @@
 /* * ********************************************** */
 include_once './../modelos/ConstantesConexion.php';
 include_once PATH . 'controladores/LibrosControlador.php';
-<<<<<<< HEAD
-=======
 include_once PATH . 'controladores/InsumosControlador.php';
->>>>>>> bugs
 
 include_once PATH . 'controladores/Validador.php';
 /* * ********************************************** */
