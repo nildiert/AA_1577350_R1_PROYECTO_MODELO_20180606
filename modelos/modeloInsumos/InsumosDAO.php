@@ -15,24 +15,23 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
     }
 
     public function seleccionarTodos() {
-        $planConsulta = "select SQL_CALC_FOUND_ROWS l.isbn,l.titulo,l.autor,l.precio,cl.catLibId,cl.catLibNombre from libros l ";
-        $planConsulta.= " join categorialibro cl ";
-        $planConsulta.= " ON  l.categoriaLibro_catLibId=cl.catLibId ";
-        $planConsulta.= "  order by l.isbn ASC;";
+        $planConsulta .= "SELECT i.InsCodigo,i.InsNombre,i.InsUnidadMedida,i.InsPrecio ";
+        $planConsulta .= "FROM insumos i ";
+        $planConsulta .= "WHERE i.InsEstado=1 ";
 
-        $registrosLibro = $this->conexion->prepare($planConsulta); //Se envia la consulta
-        $registrosLibro->execute(); //Ejecución de la consulta        
-        $listadoRegistrosLibro = array();
+        $registrosInsumos = $this->conexion->prepare($planConsulta); //Se envia la consulta
+        $registrosInsumos->execute(); //Ejecución de la consulta        
+        $listadoRegistrosInsumos = array();
 
-        while ($registro = $registrosLibro->fetch(PDO::FETCH_OBJ)) {
-            $listadoRegistrosLibro[] = $registro;
+        while ($registro = $registrosInsumos->fetch(PDO::FETCH_OBJ)) {
+            $listadoRegistrosInsumos[] = $registro;
         }
 
         $this->cierreBd();
-        return $listadoRegistrosLibro;
+        return $listadoRegistrosInsumos;
     }
 
-    public function consultaPaginada(LibroVO $consultarLibro = NULL, $limit = NULL, $pagInicio = NULL) {
+    public function consultaPaginada(InsumosVO $consultarInsumos = NULL, $limit = NULL, $pagInicio = NULL) {
 
         $parametrosPaginacion = $this->solicitudPaginacion();
         $offset = $parametrosPaginacion[0];
@@ -44,41 +43,32 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         if (isset($_POST['buscar']))
             $_POST['buscar'] = trim($_POST['buscar']);
 
-        $planConsulta = "select SQL_CALC_FOUND_ROWS l.isbn,l.titulo,l.autor,l.precio,cl.catLibId,cl.catLibNombre from libros l ";
-        $planConsulta.= " join categorialibro cl ";
-        $planConsulta.= " ON  l.categoriaLibro_catLibId=cl.catLibId ";
+            $planConsulta .= "SELECT i.InsCodigo,i.InsNombre,i.InsUnidadMedida,i.InsPrecio ";
+            $planConsulta .= "FROM insumos i ";
+            $planConsulta .= "WHERE i.InsEstado=1 ";
 
-        if (!empty($_POST['isbn'])) {
-            $planConsulta.=" where l.isbn='" . $_POST['isbn'] . "'";
+        if (!empty($_POST['InsCodigo'])) {
+            $planConsulta.=" where i.InsCodigo='" . $_POST['InsCodigo'] . "'";
             $filtros = 0;  // cantidad de filtros/condiciones o criterios de búsqueda al comenzar la consulta        
         } else {
             $where = false; // inicializar $where a falso ( al comenzar la consulta NO HAY condiciones o criterios de búsqueda)
             $filtros = 0;  // cantidad de filtros/condiciones o criterios de búsqueda al comenzar la consulta
-            if (!empty($_POST['titulo'])) {
+            if (!empty($_POST['InsNombre'])) {
                 $where = true; // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-                $planConsulta.=(($where && !$filtros) ? " where " : " and ") . "l.titulo like upper('%" . $_POST['titulo'] . "%')"; // con tipo de búsqueda aproximada sin importar mayúsculas ni minúsculas
+                $planConsulta.=(($where && !$filtros) ? " where " : " and ") . "i.InsNombre like upper('%" . $_POST['InsNombre'] . "%')"; // con tipo de búsqueda aproximada sin importar mayúsculas ni minúsculas
                 $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
             }
-            if (!empty($datos['autor'])) {
+            if (!empty($datos['InsUnidadMedida'])) {
                 $where = true;  // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-                $planConsulta.=(($where && !$filtros) ? " where " : " and ") . " l.autor like upper('%" . $_POST['autor'] . "%')"; // con tipo de búsqueda aproximada sin importar mayúsculas ni minúsculas
+                $planConsulta.=(($where && !$filtros) ? " where " : " and ") . " i.InsUnidadMedida like upper('%" . $_POST['InsUnidadMedida'] . "%')"; // con tipo de búsqueda aproximada sin importar mayúsculas ni minúsculas
                 $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
             }
-            if (!empty($_POST['precio'])) {
+            if (!empty($_POST['InsPrecio '])) {
                 $where = true;  // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-                $planConsulta.=(($where && !$filtros) ? " where " : " and ") . " l.precio = " . $_POST['precio'];
+                $planConsulta.=(($where && !$filtros) ? " where " : " and ") . " i.InsPrecio  = " . $_POST['InsPrecio '];
                 $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
             }
-            if (!empty($_POST['categoriaLibro_catLibId'])) {
-                $where = true;  // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-                $planConsulta.=(($where && !$filtros) ? " where " : " and ") . " l.categoriaLibro_catLibId like upper('%" . $_POST['categoriaLibro_catLibId'] . "%')";
-                $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
-            }
-            if (!empty($_POST['catLibNombre'])) {
-                $where = true;  // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-                $planConsulta.=(($where && !$filtros) ? " where " : " and ") . " cl.catLibNombre like upper('%" . $_POST['catLibNombre'] . "%')";
-                $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
-            }
+            
         }
         if (!empty($_POST['buscar'])) {
             $where = TRUE;
@@ -99,10 +89,10 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         $listar = $this->conexion->prepare($planConsulta);
         $listar->execute();
 
-        $listadoLibros = array();
+        $listadoInsumoss = array();
 
         while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
-            $listadoLibros[] = $registro;
+            $listadoInsumoss[] = $registro;
         }
 
         $listar2 = $this->conexion->prepare("SELECT FOUND_ROWS() as total;");
@@ -112,7 +102,7 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         }
         $this->cantidadTotalRegistros = $totalRegistros;
         
-        return array($totalRegistros, $listadoLibros);
+        return array($totalRegistros, $listadoInsumoss);
     }
 
     public function solicitudPaginacion($limit = 5) {
@@ -143,19 +133,19 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         $conteoEnlaces = 0;
         for ($i = $_GET['pag']; $i < ($_GET['pag'] + $limit) && $i < $totalPag && $conteoEnlaces < $totalEnlacesPaginacion; $i++) {
 
-            $dbs[] = "<a href='controladores/ControladorPrincipal.php?ruta=listarLibros&pag=$i'>$i</a>";
+            $dbs[] = "<a href='controladores/ControladorPrincipal.php?ruta=listarInsumoss&pag=$i'>$i</a>";
             $conteoEnlaces++;
             $siguiente = $i;
         }
 
-        $mostrar = "<center><a href='controladores/ControladorPrincipal.php?ruta=listarLibros&pag=0'>..::PAGINAS INICIALES::..</a><br>";
-        $mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarLibros&pag=" . (($anterior)) . "'>..::BLOQUE ANTERIOR::..</a>";
+        $mostrar = "<center><a href='controladores/ControladorPrincipal.php?ruta=listarInsumoss&pag=0'>..::PAGINAS INICIALES::..</a><br>";
+        $mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarInsumoss&pag=" . (($anterior)) . "'>..::BLOQUE ANTERIOR::..</a>";
 
         $mostrar.= implode("-", $dbs);
 
         if ($_GET['pag'] < $totalPag) {
-            $mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarLibros&pag=" . ($siguiente + 1) . "'>..::BLOQUE SIGUIENTE::..</a><br>";
-            $mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarLibros&pag=" . ($totalPag - $totalEnlacesPaginacion) . "'>..::BLOQUE FINAL::..</a><br></center>";
+            $mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarInsumoss&pag=" . ($siguiente + 1) . "'>..::BLOQUE SIGUIENTE::..</a><br>";
+            $mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarInsumoss&pag=" . ($totalPag - $totalEnlacesPaginacion) . "'>..::BLOQUE FINAL::..</a><br></center>";
         }
 
 
@@ -166,7 +156,7 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
 //
 //        $resultadoConsulta = FALSE;
 
-        $planConsulta = "select * from libros l ";
+        $planConsulta = "select * from Insumoss l ";
         $planConsulta .= " where l.isbn= ? ;";
         $listar = $this->conexion->prepare($planConsulta);
         $listar->execute(array($sId[0]));
@@ -185,12 +175,12 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
     public function insertar($registro) {
          try {
 
-            $inserta = $this->conexion->prepare('INSERT INTO libros (isbn, titulo, autor, precio, categoriaLibro_catLibId) VALUES ( :isbn, :titulo, :autor, :precio, :categoriaLibro_catLibId );');
+            $inserta = $this->conexion->prepare('INSERT INTO Insumoss (isbn, titulo, autor, precio, categoriaInsumos_catLibId) VALUES ( :isbn, :titulo, :autor, :precio, :categoriaInsumos_catLibId );');
             $inserta->bindParam(":isbn", $registro['isbn']);
             $inserta->bindParam(":titulo", $registro['titulo']);
             $inserta->bindParam(":autor", $registro['autor']);
             $inserta->bindParam(":precio", $registro['precio']);
-            $inserta->bindParam(":categoriaLibro_catLibId", $registro['categoriaLibro_catLibId']);
+            $inserta->bindParam(":categoriaInsumos_catLibId", $registro['categoriaInsumos_catLibId']);
             $insercion = $inserta->execute();
             $clavePrimariaConQueInserto = $this->conexion->lastInsertId();
 

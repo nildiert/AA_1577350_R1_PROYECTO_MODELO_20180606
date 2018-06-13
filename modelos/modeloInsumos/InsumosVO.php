@@ -14,54 +14,46 @@
 class InsumosVO {
     //put your code here
     
-    private $isbn;
-    private $titulo;
-    private $autor;
-    private $precio;
-    private $categoriaLibro_catLibId;
+    private $InsCodigo;
+    private $InsNombre;
+    private $InsUnidadMedida;
+    private $InsPrecio; 
+
+    function getInsCodigo() {
+        return $this->InsCodigo;
+    }
+
+    function getInsNombre() {
+        return $this->InsNombre;
+    }
+
+    function getInsUnidadMedida() {
+        return $this->InsUnidadMedida;
+    }
+    
+    function getInsPrecio() {
+        return $this->InsPrecio;
+    }
+
+
+    function setInsCodigo($InsCodigo) {
+        $this->InsCodigo = $InsCodigo;
+    }
+
+    function setInsNombre($InsNombre) {
+        $this->InsNombre = $InsNombre;
+    }
+
+    function setInsUnidadMedida($InsUnidadMedida) {
+        $this->InsUnidadMedida = $InsUnidadMedida;
+    }
+    
+    function setInsPrecio($InsPrecio) {
+        $this->InsPrecio = $InsPrecio;
+    }    
+
+
  
-    function getIsbn() {
-        return $this->isbn;
-    }
-
-    function getTitulo() {
-        return $this->titulo;
-    }
-
-    function getAutor() {
-        return $this->autor;
-    }
-
-    function getPrecio() {
-        return $this->precio;
-    }
-
-    function getCategoriaLibro_catLibId() {
-        return $this->categoriaLibro_catLibId;
-    }
-
-    function setIsbn($isbn) {
-        $this->isbn = $isbn;
-    }
-
-    function setTitulo($titulo) {
-        $this->titulo = $titulo;
-    }
-
-    function setAutor($autor) {
-        $this->autor = $autor;
-    }
-
-    function setPrecio($precio) {
-        $this->precio = $precio;
-    }
-
-    function setCategoriaLibro_catLibId($categoriaLibro_catLibId) {
-        $this->categoriaLibro_catLibId = $categoriaLibro_catLibId;
-    }
-
-
-
 
 }
 

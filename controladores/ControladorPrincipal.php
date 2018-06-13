@@ -71,16 +71,17 @@ switch ($datos['ruta']) {
         $librosControlador = new LibrosControlador($datos);
         $librosControlador->librosControlador();
         break;
-    case "listarInsumos":
-        $librosControlador = new LibrosControlador($datos);
-        $librosControlador->librosControlador();
-        break;    
     case "insertarLibro":
         if ($datos['ruta'] == "insertarLibro") {
 
             $validarRegistro = new ValidadorLibros();
             $erroresValidacion = $validarRegistro->validarFormularioInsertarLibro($datos);
-        }
+        }        
+    case "listarInsumos":
+        $librosControlador = new LibrosControlador($datos);
+        $librosControlador->librosControlador();
+        break;    
+
 //////////////////////////////////////////////////////////////
         if (isset($erroresValidacion)) {
 
