@@ -1,3 +1,7 @@
+<head>
+<link href="../../../plantillas/ElaAdmin/css/style.css" rel="stylesheet">
+</head>
+
 <?php
 //echo "<pre>";
 //print_r($_SESSION);
@@ -65,35 +69,9 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
 
 
 ?>
-<style type="text/css">
-    .derecha   { float: right; }
-    .izquierda { float: left;  }
-    fieldset.scheduler-border {
-        border: 1px groove #ddd !important;
-        padding: 0 1.4em 1.4em 1.4em !important;
-        margin: 0 0 1.5em 0 !important;
-        -webkit-box-shadow:  0px 0px 0px 0px #000;
-        box-shadow:  0px 0px 0px 0px #000;
-    }
 
-    legend.scheduler-border {
-        font-size: 1.2em !important;
-        font-weight: bold !important;
-        text-align: left !important;
-
-    }  
-    table th {
-        text-align: center;
-    }
-    table tr {
-        text-align: center;
-    }
-    thead th{
-        color: #79008E;
-        font-weight: normal;
-    }
-</style>
 <div class="container-fluid">
+<div class="card col-lg-4">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">Gestión de Libros.</h1>
@@ -101,15 +79,16 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
         <!-- /.col-lg-12 -->    
     </div>
     <!-- /.row -->
-</div>
+    
+
 <!-- /.container-fluid -->
 <div>
-    <fieldset class="scheduler-border"><legend class="scheduler-border">FILTRO</legend>
+    
 
         <form name="formFiltroLibros" action="controladores/ControladorPrincipal.php" method="POST">
             <input type="hidden" name="ruta" value="listarLibros"/>
-            <table> 
-                <tr><td>ISBN:</td><td><input type="number" name="isbn" onclick="" value="<?php
+            <table class="table"> 
+                <tr><td>ISBN:</td><td><input class="form-control input-default " type="number" name="isbn" onclick="" value="<?php
                         if (isset($registroAInsertar['isbn'])) {
                             echo $registroAInsertar['isbn'];
                         }
@@ -125,7 +104,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                         ?>
                     </td>                        
                 </tr> 
-                <tr><td>TITULO:</td><td> <input type="text" name="titulo" onclick="" value="<?php
+                <tr><td>TITULO:</td><td> <input class="form-control input-default " type="text" name="titulo" onclick="" value="<?php
                         if (isset($registroAInsertar['titulo'])) {
                             echo $registroAInsertar['titulo'];
                         }
@@ -141,7 +120,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                         ?>
                     </td>                          
                 </tr> 
-                <tr><td>AUTOR:</td><td> <input type="text" onclick="" name="autor" value="<?php
+                <tr><td>AUTOR:</td><td> <input class="form-control input-default " type="text" onclick="" name="autor" value="<?php
                         if (isset($registroAInsertar['autor'])) {
                             echo $registroAInsertar['autor'];
                         }
@@ -157,7 +136,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                         ?>
                     </td>                          
                 </tr> 
-                <tr><td>PRECIO: </td><td><input type="number" onclick=""  name="precio" value="<?php
+                <tr><td>PRECIO: </td><td><input type="number" class="form-control input-default " onclick=""  name="precio" value="<?php
                         if (isset($registroAInsertar['precio'])) {
                             echo $registroAInsertar['precio'];
                         }
@@ -175,7 +154,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                 </tr>                   
                 <tr><td>CATEGORIA </td>
                     <td>
-                        <select id="categoriaLibro_catLibId" name="categoriaLibro_catLibId">                    
+                        <select class="form-control input-default " id="categoriaLibro_catLibId" name="categoriaLibro_catLibId">                    
                             <?php
                             for ($j = 0; $j < $cantCategorias; $j++) {
                                 ?>
@@ -199,8 +178,8 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                     echo "</tr>\n";
                 }
                 ?>                    
-                <tr><td><input type="submit" value="Filtrar" name="enviar" title="Si es necesario limpie 'Buscar'"/></td>
-                    <td><input type="reset" value="limpiar" onclick="
+                <tr><td><input type="submit"  class="btn btn-info" value="Filtrar" name="enviar" title="Si es necesario limpie 'Buscar'"/></td>
+                    <td><input type="reset" class="btn btn-info" value="limpiar" onclick="
                             javascript:document.formFiltroLibros.isbn.value = '';
                             javascript:document.formFiltroLibros.titulo.value = '';
                             javascript:document.formFiltroLibros.autor.value = '';
@@ -209,42 +188,48 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                             javascript:document.formFiltroLibros.submit();
                                "/></td><td></td></tr> 
             </table>
+    
         </form>
-    </fieldset>
+    
+    
 </div>
-<fieldset class="scheduler-border"><legend class="scheduler-border">BUSCAR</legend>
+
 
     <div style="width: 800">
         <span class="izquierdo">
             <!--NUEVO BOTÓN PARA BUSCAR*************************-->
             <form name="formBuscarLibros" action="controladores/ControladorPrincipal.php" method="POST">
                 <input type="hidden" name="ruta" value="listarLibros"/>
-                <input type="text" name="buscar" placeholder="Término a Buscar" value="<?php
+                <input class="form-control input-default" type="text" name="buscar" placeholder="Término a Buscar" value="<?php
                 if (isset($_SESSION['buscarF'])) {
                     echo $_SESSION['buscarF'];
                 }
                 ?>">
-                <input type="submit"  value="Buscar" title="Si es necesario limpie 'Filtrar'">&nbsp;&nbsp;||&nbsp;&nbsp;
-                <input type="button"  value="Limpiar Búsqueda" onclick="javascript:document.formBuscarLibros.buscar.value = '';
+                <input type="submit"  value="Buscar" title="Si es necesario limpie 'Filtrar'" class="btn btn-info ">&nbsp;&nbsp;||&nbsp;&nbsp;
+                <input type="button" class="btn btn-info" value="Limpiar Búsqueda" onclick="javascript:document.formBuscarLibros.buscar.value = '';
                         javascript:document.formBuscarLibros.submit();">
             </form>
         </span>
-    </div>        
-</fieldset>
+    </div>
+</div>
+
 <br>
-<div style="width: 800">
+<div class="card">
     <span class="izquierdo">
         <!--NUEVO BOTÓN PARA DARLE FUNCIONALIDAD*************************-->
 
-        <input type="button" onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasLibros/vistaInsertarLibro.php'" value="Nuevo Libro">
+        <input type="button" class="btn btn-info" onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasLibros/vistaInsertarLibro.php'" value="Nuevo Libro">
 
     </span>
-</div>
+
+
+
 <br>
 <a name="listaDeLibros" id="a"></a>
-<div style="width: 800">
+
     <p>Total de Registros: <?php echo $totalRegistros; ?></p>
-    <table border=1>
+
+    <table class="table table-hover">
         <thead>
             <tr>
                 <td style="width: 100">ISBN</td>
@@ -263,10 +248,10 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
             <tr>
                 <td style="width: 100"><?php echo $listaDeLibros[$i]->isbn; ?></td>
                 <td style="width: 100"><?php echo strtoupper($listaDeLibros[$i]->titulo); ?></td>
-                <td style="width: 100"><?php echo strtoupper($listaDeLibros[$i]->autor); ?></td>;
+                <td style="width: 100"><?php echo strtoupper($listaDeLibros[$i]->autor); ?></td>
                 <td style="width: 100"><?php echo strtoupper($listaDeLibros[$i]->precio); ?></td>
-                <td style="width: 100"><?php echo $listaDeLibros[$i]->catLibId; ?></td>;
-                <td style="width: 100"><?php echo $listaDeLibros[$i]->catLibNombre; ?></td>;
+                <td style="width: 100"><?php echo $listaDeLibros[$i]->catLibId; ?></td>
+                <td style="width: 100"><?php echo $listaDeLibros[$i]->catLibNombre; ?></td>
                 <td style="width: 100"><a href="controladores/ControladorPrincipal.php?ruta=actualizarLibro&idAct=<?php echo $listaDeLibros[$i]->isbn; ?>" >Actualizar</a></td>
                 <td style="width: 100">  <a href="controladores/ControladorPrincipal.php?ruta=eliminarLibro&idAct=<?php echo $listaDeLibros[$i]->isbn; ?>">Eliminar</a>   </td>
                 <?php
@@ -284,4 +269,5 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
             </tr>
         </tfoot>
     </table>
+    </div>
 </div>

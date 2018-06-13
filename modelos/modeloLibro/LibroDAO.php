@@ -168,7 +168,7 @@ class LibroDAO extends ConBdMySql /* implements InterfaceCRUD */ {
 
         $planConsulta = "select * from libros l ";
         $planConsulta .= " where l.isbn= ? ;";
-        $listar = $this->conexion->prepare($planConsulta);
+        $listar = $this->conexion->prepare($planCons&laquota);
         $listar->execute(array($sId[0]));
 
         $registroEncontrado = array();
