@@ -35,16 +35,44 @@ class InsumosControlador {
                 $listaDeInsumos = $resultadoConsultaPaginada[1];
                 $paginacionVinculos = $gestarInsumos->enlacesPaginacion($totalRegistros, $limit, $pagInicio);
 
-                $gestarCategoriasInsumos = new CategoriaInsumosDAO($usuarioBd, BASE, SERVIDOR);
-                $registroCategoriasInsumos = $gestarCategoriasInsumos->seleccionarTodos(); /*                 * *********** */
-
                 session_start();
                 $_SESSION['listaDeInsumos'] = $listaDeInsumos;
                 $_SESSION['paginacionVinculos'] = $paginacionVinculos;
                 $_SESSION['totalRegistros'] = $totalRegistros;
-                $_SESSION['registroCategoriasInsumos'] = $registroCategoriasInsumos; /*                 * *********** */
+
+
+                $usuarioBd = null;
+                $gestarInsumos = null;
+                header("location: ../principal.php?contenido=vistas/vistasInsumos/listarRegistrosInsumos.php");
+                break;            
+/*            case "listarInsumos":
+
+                if (isset($this->datos['pag']) && (int) $this->datos['pag'] > 0) {
+                    $pagInicio = $this->datos['pag'];
+                } else {
+                    $pagInicio = 0;
+                }
+                $limit = 5;
+
+                $usuarioBd = new UsuarioBd(USUARIO_BD, CONTRASENIA_BD);
+                $consultarInsumos = new InsumosVO();
+
+                $gestarInsumos = new InsumosDAO($usuarioBd, BASE, SERVIDOR);
+                $resultadoConsultaPaginada = $gestarInsumos->consultaPaginada($consultarInsumos, $limit, $pagInicio);
+                $totalRegistros = $resultadoConsultaPaginada[0];
+                $listaDeInsumos = $resultadoConsultaPaginada[1];
+                $paginacionVinculos = $gestarInsumos->enlacesPaginacion($totalRegistros, $limit, $pagInicio);
+/*
+                $gestarCategoriasInsumos = new CategoriaInsumosDAO($usuarioBd, BASE, SERVIDOR);
+                $registroCategoriasInsumos = $gestarCategoriasInsumos->seleccionarTodos(); /*                 * *********** */
+
+ /*               session_start();
+                $_SESSION['listaDeInsumos'] = $listaDeInsumos;
+                $_SESSION['paginacionVinculos'] = $paginacionVinculos;
+                $_SESSION['totalRegistros'] = $totalRegistros;
+//                $_SESSION['registroCategoriasInsumos'] = $registroCategoriasInsumos; /*                 * *********** */
                 //se almacenan en sesion las variables del filtro
-                $_SESSION['InsCodigoF'] = (isset($this->datos['InsCodigo'])) ? $this->datos['InsCodigo'] : NULL;
+   /*             $_SESSION['InsCodigoF'] = (isset($this->datos['InsCodigo'])) ? $this->datos['InsCodigo'] : NULL;
                 $_SESSION['InsNombreF'] = (isset($this->datos['InsNombre'])) ? $this->datos['InsNombre'] : NULL;
                 $_SESSION['InsUnidadMedidaF'] = (isset($this->datos['InsUnidadMedida'])) ? $this->datos['InsUnidadMedida'] : NULL;
                 $_SESSION['InsPrecioF'] = (isset($this->datos['InsPrecio'])) ? $this->datos['InsPrecio'] : NULL;
@@ -56,7 +84,7 @@ class InsumosControlador {
                 $gestarInsumos = null;
                 header("location: ../principal.php?contenido=vistas/vistasInsumos/listarRegistrosInsumos.php");
                 break;
-
+*/
             case "insertarInsumos":
                 $usuarioBd = new UsuarioBd(USUARIO_BD, CONTRASENIA_BD);
                 $gestarInsumos = new InsumosDAO($usuarioBd, BASE, SERVIDOR);

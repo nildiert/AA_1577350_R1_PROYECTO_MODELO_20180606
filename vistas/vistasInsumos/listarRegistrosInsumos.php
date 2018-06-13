@@ -89,6 +89,8 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
     }
 </style>
 <div class="container-fluid">
+<div class="col-md-5">
+<div class="card p-30" >
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">Gestión de Insumos.</h1>
@@ -96,63 +98,63 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
         <!-- /.col-lg-12 -->    
     </div>
     <!-- /.row -->
-</div>
+
 <!-- /.container-fluid -->
-<div>
-    <fieldset class="scheduler-border"><legend class="scheduler-border">FILTRO</legend>
+
+
 
         <form name="formFiltroInsumos" action="controladores/ControladorPrincipal.php" method="POST">
             <input type="hidden" name="ruta" value="listarInsumos"/>
-            <table> 
-                <tr><td>InsCodigo:</td><td><input type="number" name="InsCodigo" onclick="" value="<?php
+            <label for="InsCodigo">InsCodigo</label>
+            
+            <input type="number" name="InsCodigo" onclick="" value="<?php
                         if (isset($registroAInsertar['InsCodigo'])) {
                             echo $registroAInsertar['InsCodigo'];
                         }
                         if (isset($_SESSION['InsCodigoF'])) {
                             echo $_SESSION['InsCodigoF'];
                         }
-                        ?>"/></td>
-                    <td>
+                        ?>"/>
+                    
                         <?php
                         if (isset($marcaCampo['InsCodigo'])) {
                             echo $marcaCampo['InsCodigo'];
                         }
                         ?>
-                    </td>                        
-                </tr> 
-                <tr><td>InsNombre:</td><td> <input type="text" name="InsNombre" onclick="" value="<?php
+                    
+                <label for="InsNombre">InsNombre:</label>
+                <input type="text" name="InsNombre" onclick="" value="<?php
                         if (isset($registroAInsertar['InsNombre'])) {
                             echo $registroAInsertar['InsNombre'];
                         }
                         if (isset($_SESSION['InsNombreF'])) {
                             echo $_SESSION['InsNombreF'];
                         }
-                        ?>" /></td>
-                    <td>
+                        ?>" />
+                    
                         <?php
                         if (isset($marcaCampo['InsNombre'])) {
                             echo $marcaCampo['InsNombre'];
                         }
                         ?>
-                    </td>                          
-                </tr> 
-                <tr><td>InsUnidadMedida:</td><td> <input type="text" onclick="" name="InsUnidadMedida" value="<?php
+                    
+                <label for="InsUnidadMedida">InsUnidadMedida:</label>
+                 <input type="text" onclick="" name="InsUnidadMedida" value="<?php
                         if (isset($registroAInsertar['InsUnidadMedida'])) {
                             echo $registroAInsertar['InsUnidadMedida'];
                         }
                         if (isset($_SESSION['InsUnidadMedidaF'])) {
                             echo $_SESSION['InsUnidadMedidaF'];
                         }
-                        ?>"/></td>
-                    <td>
+                        ?>"/>
+                    
                         <?php
                         if (isset($marcaCampo['InsUnidadMedida'])) {
                             echo $marcaCampo['InsUnidadMedida'];
                         }
                         ?>
-                    </td>                          
-                </tr> 
-                <tr><td>InsPrecio: </td><td><input type="number" onclick=""  name="InsPrecio" value="<?php
+                <label for="InsPrecio">InsPrecio:</label>
+                 </td><td><input type="number" onclick=""  name="InsPrecio" value="<?php
                         if (isset($registroAInsertar['InsPrecio'])) {
                             echo $registroAInsertar['InsPrecio'];
                         }
@@ -191,9 +193,9 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                                "/></td><td></td></tr> 
             </table>
         </form>
-    </fieldset>
-</div>
-<fieldset class="scheduler-border"><legend class="scheduler-border">BUSCAR</legend>
+
+
+
 
     <div style="width: 800">
         <span class="izquierdo">
@@ -208,10 +210,15 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                 <input type="submit"  value="Buscar" title="Si es necesario limpie 'Filtrar'">&nbsp;&nbsp;||&nbsp;&nbsp;
                 <input type="button"  value="Limpiar Búsqueda" onclick="javascript:document.formBuscarInsumos.buscar.value = '';
                         javascript:document.formBuscarInsumos.submit();">
+                        
             </form>
         </span>
+        </div>
     </div>        
-</fieldset>
+
+    </div>    
+    </div>
+</div>
 <br>
 <div style="width: 800">
     <span class="izquierdo">

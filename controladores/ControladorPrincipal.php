@@ -15,7 +15,7 @@ include_once PATH . 'controladores/Usuario_sControlador.php';
 include_once PATH . 'controladores/CategoriaLibroControlador.php';
 include_once PATH . 'modelos/modeloLibro/ValidadorLibros.php';
 /* * ********************************************** */
-include_once PATH . 'controladores/InsumosControlador.php';
+//include_once PATH . 'controladores/InsumosControlador.php';
 
 $datos = array();
 
@@ -78,10 +78,7 @@ switch ($datos['ruta']) {
             $validarRegistro = new ValidadorLibros();
             $erroresValidacion = $validarRegistro->validarFormularioInsertarLibro($datos);
         }        
-    case "listarInsumos":
-        $librosControlador = new LibrosControlador($datos);
-        $librosControlador->librosControlador();
-        break;    
+ 
 
 //////////////////////////////////////////////////////////////
         if (isset($erroresValidacion)) {
@@ -114,9 +111,11 @@ switch ($datos['ruta']) {
         $librosControlador = new LibrosControlador($datos);
         $librosControlador->librosControlador();
         break;
+        
     case "listarInsumos":
         $InsumosControlador = new InsumosControlador($datos);
         $InsumosControlador->InsumosControlador();
-        break;    
+        break;           
+
 }
 ?>
