@@ -1,3 +1,4 @@
+
 <?php session_start();  ?>
 <?php
 //include_once './controladores/ManejoSesiones/BloqueDeSeguridad.php';
@@ -373,4 +374,5 @@
 
 </body>
 
+>>>>>>> bugs
 </html>
