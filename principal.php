@@ -11,13 +11,24 @@
  
 <head>
 <title>KSQ DIGITAL</title>
-<?php
-        if (isset($_SESSION['mensaje'])) {
-            $mensaje = $_SESSION['mensaje'];
-            echo "<script type=\"text/javascript\">alert('" . $mensaje . "')</script>";
-            unset($_SESSION['mensaje']);
-        }
-        ?>   
+<div class="container">
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <?php
+                        if (isset($_SESSION['mensaje'])) {
+                            $mensaje = $_SESSION['mensaje'];
+
+                        // echo "<script type=\"text/javascript\">alert('" . $mensaje . "')</script>";
+                         echo " . $mensaje . ";
+                            unset($_SESSION['mensaje']);
+                            
+                        }
+                        ?>   
+            </div>                
+        </div>         
+    </div>
+</div>    
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
@@ -60,10 +71,10 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
                         <!-- Logo icon -->
-                         <span><img src="images/logo.png" alt="quimicos" class="dark-logo" /></span>
+                         <span><img src="" alt="quimicos" class="" style="color: #255E7D" /></span>
                         <!--End Logo icon -->
                         <!-- Logo text -->
-                        <b><img src="images/logo-text.png" alt="serch" class="dark-logo" /></b>
+                        <b><img src="" alt="serch" class="dark-logo" style="color: #51C0B0" /></b>
                     </a>
                 </div>
                 <!-- End Logo -->

@@ -45,8 +45,8 @@ class LibrosControlador {
                 $_SESSION['totalRegistros'] = $totalRegistros;
                 $_SESSION['registroCategoriasLibros'] = $registroCategoriasLibros; /*                 * *********** */
                 //se almacenan en sesion las variables del filtro
-               // $_SESSION['isbnF'] = (isset($this->datos['isbn'])) ? $this->datos['isbn'] : NULL;
-               $_SESSION['isbnF'] = (isset($_POST['isbn'])) ? $_POST['isbn'] : null; /********CORRECTO/*/
+                //                $_SESSION['isbnF'] = (isset($this->datos['isbn'])) ? $this->datos['isbn'] : NULL;
+                $_SESSION['isbnF'] = (isset($_POST['isbn'])) ? $_POST['isbn'] : NULL;/********CORRECTO/*/
 
                 $_SESSION['tituloF'] = (isset($this->datos['titulo'])) ? $this->datos['titulo'] : NULL;
                 $_SESSION['autorF'] = (isset($this->datos['autor'])) ? $this->datos['autor'] : NULL;

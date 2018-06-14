@@ -30,33 +30,32 @@ if (isset($_SESSION['registroCategoriasLibros'])) {   /*************************
 //http://ajpdsoft.com/modules.php?name=News&file=print&sid=486
 
 /* * ********Conservar filtro 'isbn' si lo hay************ */
-if (isset($_POST['isbn']) && !isset($_SESSION['isbnF'])) {
+if (isset($_POST['isbn']) && !isset($_SESSION['isbnF'])){
     $_SESSION['isbnF'] = $_POST['isbn'];
-} else if (isset($_SESSION['isbnF']) && !isset($_POST['isbn'])) {
+}else if (isset($_SESSION['isbnF']) && !isset($_POST['isbn'])){
     $_POST['isbn'] = $_SESSION['isbnF'];
 }
-
 /* * ********************************************* */
 /* * ********Conservar filtro 'titulo' si lo hay************ */
-if (isset($_POST['titulo']) && !isset($_SESSION['tituloF'])) {
+if (isset($_POST['titulo']) && !isset($_SESSION['tituloF'])){
     $_SESSION['tituloF'] = $_POST['titulo'];
-} else if (isset($_SESSION['tituloF']) && !isset($_POST['titulo'])) {
+}else if (isset($_SESSION['tituloF']) && !isset($_POST['titulo'])){
     $_POST['titulo'] = $_SESSION['tituloF'];
 }
 
 /* * ********************************************* */
 /* * ********Conservar filtro 'autor' si lo hay************ */
-if (isset($_POST['autor']) && !isset($_SESSION['autorF'])) {
+if (isset($_POST['autor']) && !isset($_SESSION['autorF'])){
     $_SESSION['autorF'] = $_POST['autor'];
-} else if (isset($_SESSION['autorF']) && !isset($_POST['autor'])) {
+}else if (isset($_SESSION['autorF']) && !isset($_POST['autor'])){
     $_POST['autor'] = $_SESSION['autorF'];
 }
 
 /* * ********************************************* */
 /* * ********Conservar filtro 'precio' si lo hay************ */
-if (isset($_POST['precio']) && !isset($_SESSION['precioF'])) {
+if (isset($_POST['precio']) && !isset($_SESSION['precioF'])){
     $_SESSION['precioF'] = $_POST['precio'];
-} else if (isset($_SESSION['precioF']) && !isset($_POST['precio'])) {
+}else if (isset($_SESSION['precioF']) && !isset($_POST['precio'])){
     $_POST['precio'] = $_SESSION['precioF'];
 }
 
@@ -96,17 +95,13 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
         <form name="formFiltroLibros" action="controladores/ControladorPrincipal.php" method="POST">
             <input type="hidden" name="ruta" value="listarLibros"/>
             <table class="table"> 
-                <tr><td>ISBN:</td><td><input class="form-control input-default " type="number" name="isbn" onclick="" value="<?php
+            <tr><td>ISBN:</td><td><input type="number" name="isbn" onclick="" value="<?php
                         if (isset($registroAInsertar['isbn'])) {
                             echo $registroAInsertar['isbn'];
                         }
                         if (isset($_SESSION['isbnF'])) {
                             echo $_SESSION['isbnF'];
-                        } else if ($_POST['isbn']) {echo $_POST['isbn'];}
-;
-
-                        
-
+                        }else if($_POST['isbn']){ echo $_POST['isbn']; };
                         ?>"/></td>
                     <td>
                         <?php
@@ -116,31 +111,29 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                         ?>
                     </td>                        
                 </tr> 
-                <tr><td>TITULO:</td><td> <input class="form-control input-default " type="text" name="titulo" onclick="" value="<?php
+                <tr><td>TITULO:</td><td><input type="text" name="titulo" onclick="" value="<?php
                         if (isset($registroAInsertar['titulo'])) {
                             echo $registroAInsertar['titulo'];
                         }
                         if (isset($_SESSION['tituloF'])) {
-                                echo $_SESSION['tituloF'];
-                            } else if ($_POST['titulo']) {echo $_POST['titulo'];}
-                        ;
-
-                        ?>" /></td>
+                            echo $_SESSION['tituloF'];
+                        }else if($_POST['titulo']){ echo $_POST['titulo']; };
+                        ?>"/></td>
                     <td>
                         <?php
                         if (isset($marcaCampo['titulo'])) {
                             echo $marcaCampo['titulo'];
                         }
                         ?>
-                    </td>                          
+                    </td>                        
                 </tr> 
-                <tr><td>AUTOR:</td><td> <input class="form-control input-default " type="text" onclick="" name="autor" value="<?php
+                <tr><td>AUTOR:</td><td><input type="text" name="autor" onclick="" value="<?php
                         if (isset($registroAInsertar['autor'])) {
                             echo $registroAInsertar['autor'];
                         }
                         if (isset($_SESSION['autorF'])) {
                             echo $_SESSION['autorF'];
-                        }
+                        }else if($_POST['autor']){ echo $_POST['autor']; };
                         ?>"/></td>
                     <td>
                         <?php
@@ -148,24 +141,24 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                             echo $marcaCampo['autor'];
                         }
                         ?>
-                    </td>                          
+                    </td>                        
                 </tr> 
-                <tr><td>PRECIO: </td><td><input type="number" class="form-control input-default " onclick=""  name="precio" value="<?php
+                <tr><td>PRECIO:</td><td><input type="text" name="precio" onclick="" value="<?php
                         if (isset($registroAInsertar['precio'])) {
                             echo $registroAInsertar['precio'];
                         }
                         if (isset($_SESSION['precioF'])) {
                             echo $_SESSION['precioF'];
-                        }
-                        ?>" /></td>
+                        }else if($_POST['precio']){ echo $_POST['precio']; };
+                        ?>"/></td>
                     <td>
                         <?php
                         if (isset($marcaCampo['precio'])) {
                             echo $marcaCampo['precio'];
                         }
                         ?>
-                    </td>                          
-                </tr>                   
+                    </td>                        
+                </tr> 
                 <tr><td>CATEGORIA </td>
                     <td>
                         <select class="form-control input-default " id="categoriaLibro_catLibId" name="categoriaLibro_catLibId">                    

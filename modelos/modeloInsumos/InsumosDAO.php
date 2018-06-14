@@ -94,10 +94,10 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         $listar = $this->conexion->prepare($planConsulta);
         $listar->execute();
 
-        $listadoInsumoss = array();
+        $listadoInsumos = array();
 
         while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
-            $listadoInsumoss[] = $registro;
+            $listadoInsumos[] = $registro;
         }
 
         $listar2 = $this->conexion->prepare("SELECT FOUND_ROWS() as total;");
@@ -107,7 +107,7 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         }
         $this->cantidadTotalRegistros = $totalRegistros;
         
-        return array($totalRegistros, $listadoInsumoss);
+        return array($totalRegistros, $listadoInsumos);
     }
 
     public function solicitudPaginacion($limit = 10) {
@@ -138,19 +138,19 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         $conteoEnlaces = 0;
         for ($i = $_GET['pag']; $i < ($_GET['pag'] + $limit) && $i < $totalPag && $conteoEnlaces < $totalEnlacesPaginacion; $i++) {
 
-            $dbs[] = "<a href='controladores/ControladorPrincipal.php?ruta=listarInsumoss&pag=$i'>$i</a>";
+            $dbs[] = "<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=$i'>$i</a>";
             $conteoEnlaces++;
             $siguiente = $i;
         }
 
-        $mostrar = "<center><a href='controladores/ControladorPrincipal.php?ruta=listarInsumoss&pag=0'>..::PAGINAS INICIALES::..</a><br>";
-        $mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarInsumoss&pag=" . (($anterior)) . "'>..::BLOQUE ANTERIOR::..</a>";
+        $mostrar = "<center><a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=0'>..::PAGINAS INICIALES::..</a><br>";
+        $mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=" . (($anterior)) . "'>..::BLOQUE ANTERIOR::..</a>";
 
         $mostrar.= implode("-", $dbs);
 
         if ($_GET['pag'] < $totalPag) {
-            $mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarInsumoss&pag=" . ($siguiente + 1) . "'>..::BLOQUE SIGUIENTE::..</a><br>";
-            $mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarInsumoss&pag=" . ($totalPag - $totalEnlacesPaginacion) . "'>..::BLOQUE FINAL::..</a><br></center>";
+            $mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=" . ($siguiente + 1) . "'>..::BLOQUE SIGUIENTE::..</a><br>";
+            $mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=" . ($totalPag - $totalEnlacesPaginacion) . "'>..::BLOQUE FINAL::..</a><br></center>";
         }
 
 
@@ -161,7 +161,7 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
 //
 //        $resultadoConsulta = FALSE;
 
-        $planConsulta = "select * from Insumoss i ";
+        $planConsulta = "select * from Insumos i ";
         $planConsulta .= " where i.isbn= ? ;";
         $listar = $this->conexion->prepare($planConsulta);
         $listar->execute(array($sId[0]));

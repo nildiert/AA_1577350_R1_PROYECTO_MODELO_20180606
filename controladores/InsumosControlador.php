@@ -19,32 +19,45 @@ class InsumosControlador {
         switch ($this->datos["ruta"]) {
             case "listarInsumos":
 
-                if (isset($this->datos['pag']) && (int) $this->datos['pag'] > 0) {
-                    $pagInicio = $this->datos['pag'];
-                } else {
-                    $pagInicio = 0;
-                }
-                $limit = 5;
+            if (isset($this->datos['pag']) && (int) $this->datos['pag'] > 0) {
+                $pagInicio = $this->datos['pag'];
+            } else {
+                $pagInicio = 0;
+            }
+            $limit = 5;
 
-                $usuarioBd = new UsuarioBd(USUARIO_BD, CONTRASENIA_BD);
-                $consultarInsumos = new InsumosVO();
+            $usuarioBd = new UsuarioBd(USUARIO_BD, CONTRASENIA_BD);
+            $consultarInsumos = new InsumosVO();
 
-                $gestarInsumos = new InsumosDAO($usuarioBd, BASE, SERVIDOR);
-                $resultadoConsultaPaginada = $gestarInsumos->consultaPaginada($consultarInsumos, $limit, $pagInicio);
-                $totalRegistros = $resultadoConsultaPaginada[0];
-                $listaDeInsumos = $resultadoConsultaPaginada[1];
-                $paginacionVinculos = $gestarInsumos->enlacesPaginacion($totalRegistros, $limit, $pagInicio);
+            $gestarInsumos = new InsumosDAO($usuarioBd, BASE, SERVIDOR);
+            $resultadoConsultaPaginada = $gestarInsumos->consultaPaginada($consultarInsumos, $limit, $pagInicio);
+            $totalRegistros = $resultadoConsultaPaginada[0];
+            $listaDeInsumos = $resultadoConsultaPaginada[1];
+            $paginacionVinculos = $gestarInsumos->enlacesPaginacion($totalRegistros, $limit, $pagInicio);
 
-                session_start();
-                $_SESSION['listaDeInsumos'] = $listaDeInsumos;
-                $_SESSION['paginacionVinculos'] = $paginacionVinculos;
-                $_SESSION['totalRegistros'] = $totalRegistros;
+            
+
+            session_start();
+            $_SESSION['listaDeInsumos'] = $listaDeInsumos;
+            $_SESSION['paginacionVinculos'] = $paginacionVinculos;
+            $_SESSION['totalRegistros'] = $totalRegistros;
+            $_SESSION['registroCategoriasInsumos'] = $registroCategoriasInsumos; /*                 * *********** */
+            //se almacenan en sesion las variables del filtro
+            //                $_SESSION['InsCodigoF'] = (isset($this->datos['InsCodigo'])) ? $this->datos['InsCodigo'] : NULL;
+            $_SESSION['InsCodigoF'] = (isset($_POST['InsCodigo'])) ? $_POST['InsCodigo'] : NULL;/********CORRECTO/*/
+
+            $_SESSION['InsNombreF'] = (isset($this->datos['InsNombre'])) ? $this->datos['InsNombre'] : NULL;
+            $_SESSION['InsCantActualF'] = (isset($this->datos['InsCantActual'])) ? $this->datos['InsCantActual'] : NULL;
+            $_SESSION['InsUnidadMedidaF'] = (isset($this->datos['InsUnidadMedida'])) ? $this->datos['InsUnidadMedida'] : NULL;
+            $_SESSION['InsPrecioF'] = (isset($this->datos['InsPrecio'])) ? $this->datos['InsPrecio'] : NULL;
+            $_SESSION['buscarF'] = (isset($this->datos['buscar'])) ? $this->datos['buscar'] : NULL;
 
 
-                $usuarioBd = null;
-                $gestarInsumos = null;
-                header("location: ../principal.php?contenido=vistas/vistasInsumos/listarRegistrosInsumos.php");
-                break;            
+
+            $usuarioBd = null;
+            $gestarInsumos = null;
+            header("location: ../principal.php?contenido=vistas/vistasInsumos/listarRegistrosInsumos.php");
+            break;      
 /*            case "listarInsumos":
 
                 if (isset($this->datos['pag']) && (int) $this->datos['pag'] > 0) {
