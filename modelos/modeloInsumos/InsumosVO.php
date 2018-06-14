@@ -16,6 +16,7 @@ class InsumosVO {
     
     private $InsCodigo;
     private $InsNombre;
+    private $InsCantActual;
     private $InsUnidadMedida;
     private $InsPrecio; 
 
@@ -26,6 +27,9 @@ class InsumosVO {
     function getInsNombre() {
         return $this->InsNombre;
     }
+    function getInsCantActual() {
+        return $this->InsCantActual;
+    }    
 
     function getInsUnidadMedida() {
         return $this->InsUnidadMedida;
@@ -42,6 +46,10 @@ class InsumosVO {
 
     function setInsNombre($InsNombre) {
         $this->InsNombre = $InsNombre;
+    }
+
+    function setInsCantActual($InsCantActual) {
+        $this->InsCantActual = $InsCantActual;
     }
 
     function setInsUnidadMedida($InsUnidadMedida) {

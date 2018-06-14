@@ -101,6 +101,7 @@ class InsumosControlador {
                     session_start();
                     $_SESSION['InsCodigo'] = $this->datos['InsCodigo'];
                     $_SESSION['InsNombre'] = $this->datos['InsNombre'];
+                    $_SESSION['InsCantActual'] = $this->datos['InsCantActual'];                    
                     $_SESSION['InsUnidadMedida'] = $this->datos['InsUnidadMedida'];
                     $_SESSION['InsPrecio'] = $this->datos['InsPrecio'];
                     $_SESSION['mensaje'] = "El Insumos ya existe en el sistema.";

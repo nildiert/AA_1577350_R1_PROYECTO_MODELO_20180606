@@ -15,7 +15,7 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
     }
 
     public function seleccionarTodos() {
-        $planConsulta .= "SELECT i.InsCodigo,i.InsNombre,i.InsUnidadMedida,i.InsPrecio ";
+        $planConsulta .= "SELECT i.InsCodigo,i.InsNombre,i.InsCantActual,i.InsUnidadMedida,i.InsPrecio ";
         $planConsulta .= "FROM insumos i ";
         $planConsulta .= "WHERE i.InsEstado=1 ";
 
@@ -43,9 +43,9 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         if (isset($_POST['buscar']))
             $_POST['buscar'] = trim($_POST['buscar']);
 
-            $planConsulta = "SELECT i.InsCodigo,i.InsNombre,i.InsUnidadMedida,i.InsPrecio ";
-            $planConsulta .= "FROM insumos i ";
-            $planConsulta .= "WHERE i.InsEstado=1 ";
+        $planConsulta .= "SELECT i.InsCodigo,i.InsNombre,i.InsCantActual,i.InsUnidadMedida,i.InsPrecio ";
+        $planConsulta .= "FROM insumos i ";
+        $planConsulta .= "WHERE i.InsEstado=1 ";
 
         if (!empty($_POST['InsCodigo'])) {
             $planConsulta.=" where i.InsCodigo='" . $_POST['InsCodigo'] . "'";
@@ -56,6 +56,11 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
             if (!empty($_POST['InsNombre'])) {
                 $where = true; // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
                 $planConsulta.=(($where && !$filtros) ? " where " : " and ") . "i.InsNombre like upper('%" . $_POST['InsNombre'] . "%')"; // con tipo de búsqueda aproximada sin importar mayúsculas ni minúsculas
+                $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
+            }            
+            if (!empty($_POST['InsCantActual'])) {
+                $where = true; // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
+                $planConsulta.=(($where && !$filtros) ? " where " : " and ") . "i.InsCantActual like upper('%" . $_POST['InsCantActual'] . "%')"; // con tipo de búsqueda aproximada sin importar mayúsculas ni minúsculas
                 $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
             }
             if (!empty($datos['InsUnidadMedida'])) {
@@ -77,6 +82,7 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
             $planConsulta.=$condicionBuscar;
             $planConsulta.="( InsCodigo like '%" . $_POST['buscar'] . "%'";
             $planConsulta.=" or InsNombre like '%" . $_POST['buscar'] . "%'";
+            $planConsulta.=" or InsCantActual like '%" . $_POST['buscar'] . "%'";
             $planConsulta.=" or InsUnidadMedida like '%" . $_POST['buscar'] . "%'";
             $planConsulta.=" or InsPrecio like '%" . $_POST['buscar'] . "%'";
             
@@ -174,9 +180,10 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
     public function insertar($registro) {
          try {
 
-            $inserta = $this->conexion->prepare('INSERT INTO Insumos (InsCodigo, InsNombre, InsUnidadMedida, InsPrecio) VALUES ( :InsCodigo, :InsNombre, :InsUnidadMedida, :InsPrecio );');
+            $inserta = $this->conexion->prepare('INSERT INTO Insumos (InsCodigo, InsNombre, InsCantActual, InsUnidadMedida, InsPrecio) VALUES ( :InsCodigo, :InsNombre, :InsCantActual, :InsUnidadMedida, :InsPrecio );');
             $inserta->bindParam(":InsCodigo", $registro['InsCodigo']);
             $inserta->bindParam(":InsNombre", $registro['InsNombre']);
+            $inserta->bindParam(":InsCantActual", $registro['InsCantActual']);
             $inserta->bindParam(":InsUnidadMedida", $registro['InsUnidadMedida']);
             $inserta->bindParam(":InsPrecio", $registro['InsPrecio']);
             
@@ -184,7 +191,7 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
             $clavePrimariaConQueInserto = $this->conexion->lastInsertId();
 
             return ['inserto' => 1, 'resultado' => $clavePrimariaConQueInserto];
-        } /* catch (Exception $exc) {
+        } /* catch (Exception $exc) { 
           return ['inserto' => FALSE, 'resultado' => $exc->getTraceAsString()];
           } */ catch (PDOException $pdoExc) {
             return ['inserto' => 0, 'resultado' => $pdoExc];

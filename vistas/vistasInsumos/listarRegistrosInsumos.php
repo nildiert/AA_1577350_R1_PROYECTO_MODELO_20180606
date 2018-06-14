@@ -37,6 +37,12 @@ if (isset($_POST['InsNombre']))
 if (isset($_SESSION['InsNombreF']) && !isset($_POST['InsNombre']))
     $_POST['InsNombre'] = $_SESSION['InsNombreF'];
 /* * ********************************************* */
+/* * ********Conservar filtro 'InsCantActual' si lo hay************ */
+if (isset($_POST['InsCantActual']))
+    $_SESSION['InsCantActualF'] = $_POST['InsCantActual'];
+if (isset($_SESSION['InsCantActualF']) && !isset($_POST['InsCantActual']))
+    $_POST['InsCantActual'] = $_SESSION['InsCantActualF'];
+/* * ********************************************* */
 /* * ********Conservar filtro 'InsUnidadMedida' si lo hay************ */
 if (isset($_POST['InsUnidadMedida']))
     $_SESSION['InsUnidadMedidaF'] = $_POST['InsUnidadMedida'];
@@ -137,7 +143,23 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                             echo $marcaCampo['InsNombre'];
                         }
                         ?>
+                <label for="InsCantActual">InsCantActual:</label>
+                <input type="text" name="InsCantActual" onclick="" value="<?php
+                        if (isset($registroAInsertar['InsCantActual'])) {
+                            echo $registroAInsertar['InsCantActual'];
+                        }
+                        if (isset($_SESSION['InsCantActualF'])) {
+                            echo $_SESSION['InsCantActualF'];
+                        }
+                        ?>" />
                     
+                        <?php
+                        if (isset($marcaCampo['InsCantActual'])) {
+                            echo $marcaCampo['InsCantActual'];
+                        }
+                        ?>
+
+
                 <label for="InsUnidadMedida">InsUnidadMedida:</label>
                  <input type="text" onclick="" name="InsUnidadMedida" value="<?php
                         if (isset($registroAInsertar['InsUnidadMedida'])) {
@@ -187,6 +209,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                     <td><input type="reset" value="limpiar" onclick="
                             javascript:document.formFiltroInsumos.InsCodigo.value = '';
                             javascript:document.formFiltroInsumos.InsNombre.value = '';
+                            javascript:document.formFiltroInsumos.InsCantActual.value = '';                            
                             javascript:document.formFiltroInsumos.InsUnidadMedida.value = '';
                             javascript:document.formFiltroInsumos.InsPrecio.value = '';
                             javascript:document.formFiltroInsumos.submit();
@@ -237,6 +260,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
             <tr>
                 <td style="width: 100">InsCodigo</td>
                 <td style="width: 100">InsNombre</td>
+                <td style="width: 100">InsCantActual</td>
                 <td style="width: 100">InsUnidadMedida</td>
                 <td style="width: 100">InsPrecio</td>
                 
@@ -250,6 +274,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
             <tr>
                 <td style="width: 100"><?php echo $listaDeInsumos[$i]->InsCodigo; ?></td>
                 <td style="width: 100"><?php echo strtoupper($listaDeInsumos[$i]->InsNombre); ?></td>
+                <td style="width: 100"><?php echo strtoupper($listaDeInsumos[$i]->InsCantActual); ?></td>
                 <td style="width: 100"><?php echo strtoupper($listaDeInsumos[$i]->InsUnidadMedida); ?></td>;
                 <td style="width: 100"><?php echo strtoupper($listaDeInsumos[$i]->InsPrecio); ?></td>
                 
