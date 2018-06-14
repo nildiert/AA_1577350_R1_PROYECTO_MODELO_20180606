@@ -1,4 +1,5 @@
 <?php
+//ceven
 //echo "<pre>";
 //print_r($_SESSION);
 //echo "</pre>";exit();
@@ -26,27 +27,27 @@ if (isset($_SESSION['registroCategoriasLibros'])) {   /*************************
 //http://ajpdsoft.com/modules.php?name=News&file=print&sid=486
 
 /* * ********Conservar filtro 'isbn' si lo hay************ */
-if (isset($_POST['isbn']) && !isset($_SESSION['isbnF']))
+if (isset($_POST['isbn']))
     $_SESSION['isbnF'] = $_POST['isbn'];
-else if (isset($_SESSION['isbnF']) && !isset($_POST['isbn']))
+if (isset($_SESSION['isbnF']) && !isset($_POST['isbn']))
     $_POST['isbn'] = $_SESSION['isbnF'];
 /* * ********************************************* */
 /* * ********Conservar filtro 'titulo' si lo hay************ */
-if (isset($_POST['titulo']) && !isset($_SESSION['tituloF']))
-    $_SESSION['tituloF'] = $_POST['titulo'];
-else if (isset($_SESSION['tituloF']) && !isset($_POST['titulo']))
+if (isset($_POST['titulo']))
+    $_SESSION['perDocumentoF'] = $_POST['titulo'];
+if (isset($_SESSION['tituloF']) && !isset($_POST['titulo']))
     $_POST['titulo'] = $_SESSION['tituloF'];
 /* * ********************************************* */
 /* * ********Conservar filtro 'autor' si lo hay************ */
-if (isset($_POST['autor']) && !isset($_SESSION['autorF']))
+if (isset($_POST['autor']))
     $_SESSION['autorF'] = $_POST['autor'];
-else if (isset($_SESSION['autorF']) && !isset($_POST['autor']))
+if (isset($_SESSION['autorF']) && !isset($_POST['autor']))
     $_POST['autor'] = $_SESSION['autorF'];
 /* * ********************************************* */
 /* * ********Conservar filtro 'precio' si lo hay************ */
-if (isset($_POST['precio']) && !isset($_SESSION['precioF']))
+if (isset($_POST['precio']))
     $_SESSION['precioF'] = $_POST['precio'];
-else if (isset($_SESSION['precioF']) && !isset($_POST['precio']))
+if (isset($_SESSION['precioF']) && !isset($_POST['precio']))
     $_POST['precio'] = $_SESSION['precioF'];
 /* * ********************************************* */
 /* * ********Conservar filtro 'categoriaLibro_catLibId' si lo hay************ */

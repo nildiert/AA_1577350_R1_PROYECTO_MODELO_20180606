@@ -45,9 +45,7 @@ class LibrosControlador {
                 $_SESSION['totalRegistros'] = $totalRegistros;
                 $_SESSION['registroCategoriasLibros'] = $registroCategoriasLibros; /*                 * *********** */
                 //se almacenan en sesion las variables del filtro
-                //                $_SESSION['isbnF'] = (isset($this->datos['isbn'])) ? $this->datos['isbn'] : NULL;
-                $_SESSION['isbnF'] = (isset($_POST['isbn'])) ? $_POST['isbn'] : NULL;/********CORRECTO/*/
-
+                $_SESSION['isbnF'] = (isset($this->datos['isbn'])) ? $this->datos['isbn'] : NULL;
                 $_SESSION['tituloF'] = (isset($this->datos['titulo'])) ? $this->datos['titulo'] : NULL;
                 $_SESSION['autorF'] = (isset($this->datos['autor'])) ? $this->datos['autor'] : NULL;
                 $_SESSION['precioF'] = (isset($this->datos['precio'])) ? $this->datos['precio'] : NULL;
@@ -97,6 +95,14 @@ class LibrosControlador {
                 $gestarLibros = new LibroDAO($usuarioBd, BASE, SERVIDOR);
 //                $consultaLibro = new LibroVO();
                 $consultaDeLibro = $gestarLibros->seleccionarId(array($this->datos["idAct"])); //Se consulta el libro para traer los datos.
+
+
+                $consultarCategoriasLibros = new CategoriaLibroDAO($usuarioBd, BASE, SERVIDOR);
+                $registroCategoriasLibros = $consultarCategoriasLibros->seleccionarTodos();
+                session_start();
+                $_SESSION['registroCategoriasLibros'] = $registroCategoriasLibros;
+
+
                 $actualizarDatosLibro = $consultaDeLibro['registroEncontrado'][0];
                 session_start();
                 $_SESSION['actualizarDatosLibro'] = $actualizarDatosLibro;
@@ -110,7 +116,7 @@ class LibrosControlador {
 //                $consultaLibro = new LibroVO();
                 $actualizarLibro = $gestarLibros->actualizar(array($this->datos)); //Se envía datos del libro para actualizar.
 
-//                $actualizarLibro = $consultaDeLibro['registroEncontrado'][0];
+                $actualizarLibro = $consultaDeLibro['registroEncontrado'][0];
                 session_start();
                 $_SESSION['mensaje'] = "Actualización realizada.";
                 header("location:ControladorPrincipal.php?ruta=listarLibros");

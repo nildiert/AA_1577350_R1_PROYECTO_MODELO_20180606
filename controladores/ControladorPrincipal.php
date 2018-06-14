@@ -5,8 +5,6 @@
 /* * ********************************************** */
 include_once './../modelos/ConstantesConexion.php';
 include_once PATH . 'controladores/LibrosControlador.php';
-include_once PATH . 'controladores/InsumosControlador.php';
-
 include_once PATH . 'controladores/Validador.php';
 /* * ********************************************** */
 include_once PATH . 'controladores/Usuario_sControlador.php';
@@ -14,8 +12,9 @@ include_once PATH . 'controladores/Usuario_sControlador.php';
 /* * ********************************************** */
 include_once PATH . 'controladores/CategoriaLibroControlador.php';
 include_once PATH . 'modelos/modeloLibro/ValidadorLibros.php';
+include_once PATH . 'controladores/InsumosControlador.php';
 /* * ********************************************** */
-//include_once PATH . 'controladores/InsumosControlador.php';
+
 
 $datos = array();
 
@@ -61,9 +60,6 @@ switch ($datos['ruta']) {
             if ($datos['ruta'] == "gestionDeRegistro") {
                 header("location:../registro.php?erroresValidacion=" . $erroresValidacion);
             }
-            if ($datos['ruta'] == "insertarUsuario_s") {
-                header("location:../principal.php?contenido=vistas/vistasUsuario_s/vistaInsertarUsuario_s.php&erroresValidacion=" . $erroresValidacion);
-            }
         }
         $usuario_sControlador = new Usuario_sControlador($datos);
         $usuario_sControlador->usuario_sControlador();
@@ -77,9 +73,7 @@ switch ($datos['ruta']) {
 
             $validarRegistro = new ValidadorLibros();
             $erroresValidacion = $validarRegistro->validarFormularioInsertarLibro($datos);
-        }        
- 
-
+        }
 //////////////////////////////////////////////////////////////
         if (isset($erroresValidacion)) {
 
@@ -90,6 +84,10 @@ switch ($datos['ruta']) {
         }
         $librosControlador = new LibrosControlador($datos);
         $librosControlador->librosControlador();
+        break;
+    case "listarDeEveser":
+        $eveserControlador = new EveserControlador($datos);
+        $eveserControlador->eveserControlador();
         break;
     case "actualizarLibro":
         $librosControlador = new LibrosControlador($datos);
@@ -111,11 +109,35 @@ switch ($datos['ruta']) {
         $librosControlador = new LibrosControlador($datos);
         $librosControlador->librosControlador();
         break;
-        
     case "listarInsumos":
         $InsumosControlador = new InsumosControlador($datos);
         $InsumosControlador->InsumosControlador();
-        break;           
+        break;
+    case "insertarInsumos":
+        if ($datos['ruta'] == "insertarInsumos") {
 
+            $validarRegistro = new ValidadorInsumos();
+            $erroresValidacion = $validarRegistro->validarFormularioInsertarInsumos($datos);
+        }        
+    case "actualizarInsumos":
+        $InsumossControlador = new InsumosControlador($datos);
+        $InsumosControlador->InsumosControlador();
+        break;
+    case "confirmaActualizarInsumos":
+        if ($datos['ruta'] == "confirmaActualizarInsumos") {
+
+            $validarRegistro = new ValidadorInsumos();
+            $erroresValidacion = $validarRegistro->validarFormularioInsertarInsumos($datos);
+        }
+////////////////////////////////////////////////////////////////
+        if (isset($erroresValidacion) && $erroresValidacion != FALSE) {
+            $erroresValidacion = json_encode($erroresValidacion);
+            if ($datos['ruta'] == "confirmaActualizarInsumos") {
+                header("location:../principal.php?contenido=vistas/vistasInsumos/vistaActualizarInsumos.php&erroresValidacion=" . $erroresValidacion);
+            }
+        }
+        $InsumosControlador = new InsumosControlador($datos);
+        $InsumosControlador->InsumosControlador();
+        break;
 }
 ?>

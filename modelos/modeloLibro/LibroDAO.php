@@ -41,19 +41,6 @@ class LibroDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         $condicionBuscar = "";
         $filtros = 0;
 
-        session_start();
-
-        if (isset($_SESSION['isbnF']) && !isset($_POST['isbn']))
-            $_POST['isbn'] = $_SESSION['isbnF'];
-        if (isset($_POST['isbn']) && !isset($_SESSION['isbnF']))
-            $_SESSION['isbnF'] = $_POST['isbn'];
-
-
-
-
-
-
-
         if (isset($_POST['buscar']))
             $_POST['buscar'] = trim($_POST['buscar']);
 
@@ -181,7 +168,7 @@ class LibroDAO extends ConBdMySql /* implements InterfaceCRUD */ {
 
         $planConsulta = "select * from libros l ";
         $planConsulta .= " where l.isbn= ? ;";
-        $listar = $this->conexion->prepare($planCons&laquota);
+        $listar = $this->conexion->prepare($planConsulta);
         $listar->execute(array($sId[0]));
 
         $registroEncontrado = array();
@@ -215,7 +202,7 @@ class LibroDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         }       
     }
 
-    public function actualizar($registro) {
+public function actualizar($registro) {
         try {
 
             $autor=$registro[0]['autor'];
