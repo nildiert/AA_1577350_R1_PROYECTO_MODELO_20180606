@@ -110,7 +110,7 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         return array($totalRegistros, $listadoInsumoss);
     }
 
-    public function solicitudPaginacion($limit = 5) {
+    public function solicitudPaginacion($limit = 10) {
 
         if (!isset($_GET['pag']) || $_GET['pag'] < 1) {
             $_GET['pag'] = 1;
@@ -127,7 +127,7 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         return array($offset, $limit);
     }
 
-    public function enlacesPaginacion($totalRegistros = NULL, $limit = 5, $offset = 0, $totalEnlacesPaginacion = 4) {
+    public function enlacesPaginacion($totalRegistros = NULL, $limit = 10, $offset = 0, $totalEnlacesPaginacion = 4) {
 
         $totalPag = ceil($totalRegistros / $limit);
 

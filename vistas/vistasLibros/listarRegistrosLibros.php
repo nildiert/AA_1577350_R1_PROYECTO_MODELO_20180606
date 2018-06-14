@@ -30,28 +30,36 @@ if (isset($_SESSION['registroCategoriasLibros'])) {   /*************************
 //http://ajpdsoft.com/modules.php?name=News&file=print&sid=486
 
 /* * ********Conservar filtro 'isbn' si lo hay************ */
-if (isset($_POST['isbn']))
+if (isset($_POST['isbn']) && !isset($_SESSION['isbnF'])) {
     $_SESSION['isbnF'] = $_POST['isbn'];
-if (isset($_SESSION['isbnF']) && !isset($_POST['isbn']))
+} else if (isset($_SESSION['isbnF']) && !isset($_POST['isbn'])) {
     $_POST['isbn'] = $_SESSION['isbnF'];
+}
+
 /* * ********************************************* */
 /* * ********Conservar filtro 'titulo' si lo hay************ */
-if (isset($_POST['titulo']))
-    $_SESSION['perDocumentoF'] = $_POST['titulo'];
-if (isset($_SESSION['tituloF']) && !isset($_POST['titulo']))
+if (isset($_POST['titulo']) && !isset($_SESSION['tituloF'])) {
+    $_SESSION['tituloF'] = $_POST['titulo'];
+} else if (isset($_SESSION['tituloF']) && !isset($_POST['titulo'])) {
     $_POST['titulo'] = $_SESSION['tituloF'];
+}
+
 /* * ********************************************* */
 /* * ********Conservar filtro 'autor' si lo hay************ */
-if (isset($_POST['autor']))
+if (isset($_POST['autor']) && !isset($_SESSION['autorF'])) {
     $_SESSION['autorF'] = $_POST['autor'];
-if (isset($_SESSION['autorF']) && !isset($_POST['autor']))
+} else if (isset($_SESSION['autorF']) && !isset($_POST['autor'])) {
     $_POST['autor'] = $_SESSION['autorF'];
+}
+
 /* * ********************************************* */
 /* * ********Conservar filtro 'precio' si lo hay************ */
-if (isset($_POST['precio']))
+if (isset($_POST['precio']) && !isset($_SESSION['precioF'])) {
     $_SESSION['precioF'] = $_POST['precio'];
-if (isset($_SESSION['precioF']) && !isset($_POST['precio']))
+} else if (isset($_SESSION['precioF']) && !isset($_POST['precio'])) {
     $_POST['precio'] = $_SESSION['precioF'];
+}
+
 /* * ********************************************* */
 /* * ********Conservar filtro 'categoriaLibro_catLibId' si lo hay************ */
 if (isset($_POST['categoriaLibro_catLibId']))
@@ -94,7 +102,11 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                         }
                         if (isset($_SESSION['isbnF'])) {
                             echo $_SESSION['isbnF'];
-                        }
+                        } else if ($_POST['isbn']) {echo $_POST['isbn'];}
+;
+
+                        
+
                         ?>"/></td>
                     <td>
                         <?php
@@ -109,8 +121,10 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                             echo $registroAInsertar['titulo'];
                         }
                         if (isset($_SESSION['tituloF'])) {
-                            echo $_SESSION['tituloF'];
-                        }
+                                echo $_SESSION['tituloF'];
+                            } else if ($_POST['titulo']) {echo $_POST['titulo'];}
+                        ;
+
                         ?>" /></td>
                     <td>
                         <?php

@@ -66,233 +66,245 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
 
 
 ?>
-<style type="text/css">
-    .derecha   { float: right; }
-    .izquierda { float: left;  }
-    fieldset.scheduler-border {
-        border: 1px groove #ddd !important;
-        padding: 0 1.4em 1.4em 1.4em !important;
-        margin: 0 0 1.5em 0 !important;
-        -webkit-box-shadow:  0px 0px 0px 0px #000;
-        box-shadow:  0px 0px 0px 0px #000;
-    }
 
-    legend.scheduler-border {
-        font-size: 1.2em !important;
-        font-weight: bold !important;
-        text-align: left !important;
+<div class="container ">
+    <div class="card p-30">
+        <div class="row">
+            <!-- /.container-fluid -->
+            <div class="col-lg-7">
+                <div>
+                    <h1 class="page-header">Gestión de Insumos</h1>
+                </div>
+                <form name="formFiltroInsumos" action="controladores/ControladorPrincipal.php" method="POST">
+                    <input type="hidden" class="form-control input-default" name="ruta" value="listarInsumos" />
+                    <label for="InsCodigo">CÓDIGO</label>
 
-    }  
-    table th {
-        text-align: center;
-    }
-    table tr {
-        text-align: center;
-    }
-    thead th{
-        color: #79008E;
-        font-weight: normal;
-    }
-</style>
-<div class="container-fluid">
-<div class="col-md-5">
-<div class="card p-30" >
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Gestión de Insumos.</h1>
-        </div>                        
-        <!-- /.col-lg-12 -->    
-    </div>
-    <!-- /.row -->
+                    <input type="number" class="form-control input-default" name="InsCodigo" onclick="" value="<?php
+                                if (isset($registroAInsertar['InsCodigo'])) {
+                                    echo $registroAInsertar['InsCodigo'];
+                                }
+                                if (isset($_SESSION['InsCodigoF'])) {
+                                    echo $_SESSION['InsCodigoF'];
+                                }
+                                ?>" />
 
-<!-- /.container-fluid -->
+                    <?php
+                                if (isset($marcaCampo['InsCodigo'])) {
+                                    echo $marcaCampo['InsCodigo'];
+                                }
+                                ?>
 
+                    <label for="InsNombre">NOMBRE:</label>
+                    <input type="text" class="form-control input-default" name="InsNombre" onclick="" value="<?php
+                                if (isset($registroAInsertar['InsNombre'])) {
+                                    echo $registroAInsertar['InsNombre'];
+                                }
+                                if (isset($_SESSION['InsNombreF'])) {
+                                    echo $_SESSION['InsNombreF'];
+                                }
+                                ?>" />
 
+                    <?php
+                                if (isset($marcaCampo['InsNombre'])) {
+                                    echo $marcaCampo['InsNombre'];
+                                }
+                                ?>
+                    <label for="InsCantActual">CANTIDAD ACTUAL:</label>
+                    <input type="text" class="form-control input-default" name="InsCantActual" onclick="" value="<?php
+                                if (isset($registroAInsertar['InsCantActual'])) {
+                                    echo $registroAInsertar['InsCantActual'];
+                                }
+                                if (isset($_SESSION['InsCantActualF'])) {
+                                    echo $_SESSION['InsCantActualF'];
+                                }
+                                ?>" />
 
-        <form name="formFiltroInsumos" action="controladores/ControladorPrincipal.php" method="POST">
-            <input type="hidden" name="ruta" value="listarInsumos"/>
-            <label for="InsCodigo">InsCodigo</label>
-            
-            <input type="number" name="InsCodigo" onclick="" value="<?php
-                        if (isset($registroAInsertar['InsCodigo'])) {
-                            echo $registroAInsertar['InsCodigo'];
-                        }
-                        if (isset($_SESSION['InsCodigoF'])) {
-                            echo $_SESSION['InsCodigoF'];
-                        }
-                        ?>"/>
-                    
-                        <?php
-                        if (isset($marcaCampo['InsCodigo'])) {
-                            echo $marcaCampo['InsCodigo'];
-                        }
-                        ?>
-                    
-                <label for="InsNombre">InsNombre:</label>
-                <input type="text" name="InsNombre" onclick="" value="<?php
-                        if (isset($registroAInsertar['InsNombre'])) {
-                            echo $registroAInsertar['InsNombre'];
-                        }
-                        if (isset($_SESSION['InsNombreF'])) {
-                            echo $_SESSION['InsNombreF'];
-                        }
-                        ?>" />
-                    
-                        <?php
-                        if (isset($marcaCampo['InsNombre'])) {
-                            echo $marcaCampo['InsNombre'];
-                        }
-                        ?>
-                <label for="InsCantActual">InsCantActual:</label>
-                <input type="text" name="InsCantActual" onclick="" value="<?php
-                        if (isset($registroAInsertar['InsCantActual'])) {
-                            echo $registroAInsertar['InsCantActual'];
-                        }
-                        if (isset($_SESSION['InsCantActualF'])) {
-                            echo $_SESSION['InsCantActualF'];
-                        }
-                        ?>" />
-                    
-                        <?php
-                        if (isset($marcaCampo['InsCantActual'])) {
-                            echo $marcaCampo['InsCantActual'];
-                        }
-                        ?>
+                    <?php
+                                if (isset($marcaCampo['InsCantActual'])) {
+                                    echo $marcaCampo['InsCantActual'];
+                                }
+                                ?>
 
 
-                <label for="InsUnidadMedida">InsUnidadMedida:</label>
-                 <input type="text" onclick="" name="InsUnidadMedida" value="<?php
-                        if (isset($registroAInsertar['InsUnidadMedida'])) {
-                            echo $registroAInsertar['InsUnidadMedida'];
-                        }
-                        if (isset($_SESSION['InsUnidadMedidaF'])) {
-                            echo $_SESSION['InsUnidadMedidaF'];
-                        }
-                        ?>"/>
-                    
-                        <?php
-                        if (isset($marcaCampo['InsUnidadMedida'])) {
-                            echo $marcaCampo['InsUnidadMedida'];
-                        }
-                        ?>
-                <label for="InsPrecio">InsPrecio:</label>
-                 </td><td><input type="number" onclick=""  name="InsPrecio" value="<?php
-                        if (isset($registroAInsertar['InsPrecio'])) {
-                            echo $registroAInsertar['InsPrecio'];
-                        }
-                        if (isset($_SESSION['InsPrecioF'])) {
-                            echo $_SESSION['InsPrecioF'];
-                        }
-                        ?>" /></td>
+                    <label for="InsUnidadMedida">UNIDAD DE MEDIDA:</label>
+                    <input type="text" class="form-control input-default" onclick="" name="InsUnidadMedida" value="<?php
+                                if (isset($registroAInsertar['InsUnidadMedida'])) {
+                                    echo $registroAInsertar['InsUnidadMedida'];
+                                }
+                                if (isset($_SESSION['InsUnidadMedidaF'])) {
+                                    echo $_SESSION['InsUnidadMedidaF'];
+                                }
+                                ?>" />
+
+                    <?php
+                                if (isset($marcaCampo['InsUnidadMedida'])) {
+                                    echo $marcaCampo['InsUnidadMedida'];
+                                }
+                                ?>
+                    <label for="InsPrecio">PRECIO:</label>
+                    </td>
+                    <td>
+                        <input class="form-control input-default" type="number" onclick="" name="InsPrecio" value="<?php
+                                if (isset($registroAInsertar['InsPrecio'])) {
+                                    echo $registroAInsertar['InsPrecio'];
+                                }
+                                if (isset($_SESSION['InsPrecioF'])) {
+                                    echo $_SESSION['InsPrecioF'];
+                                }
+                                ?>" />
+                    </td>
                     <td>
                         <?php
-                        if (isset($marcaCampo['InsPrecio'])) {
-                            echo $marcaCampo['InsPrecio'];
+                                if (isset($marcaCampo['InsPrecio'])) {
+                                    echo $marcaCampo['InsPrecio'];
+                                }
+                                ?>
+                    </td>
+                    </tr>
+            </div>
+            <div class="col-lg-5 card p-30 " style="display:  flex;justify-content:  center;">
+                <?php
+                        if (isset($mensajesError)) {
+        
+                            echo "<tr>\n"; //fila para imprimir errores si los hay
+                            echo "<td colspan=3>\n";
+                            foreach ($mensajesError as $value) {
+                                echo $value;
+                            }
+                            echo "</td>\n";
+                            echo "</tr>\n";
                         }
                         ?>
-                    </td>                          
-                </tr>                   
-                
-                <?php
-                if (isset($mensajesError)) {
-
-                    echo "<tr>\n"; //fila para imprimir errores si los hay
-                    echo "<td colspan=3>\n";
-                    foreach ($mensajesError as $value) {
-                        echo $value;
-                    }
-                    echo "</td>\n";
-                    echo "</tr>\n";
-                }
-                ?>                    
-                <tr><td><input type="submit" value="Filtrar" name="enviar" title="Si es necesario limpie 'Buscar'"/></td>
-                    <td><input type="reset" value="limpiar" onclick="
-                            javascript:document.formFiltroInsumos.InsCodigo.value = '';
-                            javascript:document.formFiltroInsumos.InsNombre.value = '';
-                            javascript:document.formFiltroInsumos.InsCantActual.value = '';                            
-                            javascript:document.formFiltroInsumos.InsUnidadMedida.value = '';
-                            javascript:document.formFiltroInsumos.InsPrecio.value = '';
-                            javascript:document.formFiltroInsumos.submit();
-                               "/></td><td></td></tr> 
-            </table>
-        </form>
-
-
-
-
-    <div style="width: 800">
-        <span class="izquierdo">
-            <!--NUEVO BOTÓN PARA BUSCAR*************************-->
-            <form name="formBuscarInsumos" action="controladores/ControladorPrincipal.php" method="POST">
-                <input type="hidden" name="ruta" value="listarInsumos"/>
-                <input type="text" name="buscar" placeholder="Término a Buscar" value="<?php
-                if (isset($_SESSION['buscarF'])) {
-                    echo $_SESSION['buscarF'];
-                }
-                ?>">
-                <input type="submit"  value="Buscar" title="Si es necesario limpie 'Filtrar'">&nbsp;&nbsp;||&nbsp;&nbsp;
-                <input type="button"  value="Limpiar Búsqueda" onclick="javascript:document.formBuscarInsumos.buscar.value = '';
-                        javascript:document.formBuscarInsumos.submit();">
-                        
-            </form>
-        </span>
+                <tr>
+                    <td>
+                        <input type="submit" value="Filtrar" name="enviar" title="Si es necesario limpie 'Buscar'" class="btn btn-info m-b-10 m-l-5"
+                        />
+                    </td>
+                    <td>
+                        <input type="reset" value="limpiar" class="btn btn-info m-b-10 m-l-5" onclick="
+                                    javascript:document.formFiltroInsumos.InsCodigo.value = '';
+                                    javascript:document.formFiltroInsumos.InsNombre.value = '';
+                                    javascript:document.formFiltroInsumos.InsCantActual.value = '';                            
+                                    javascript:document.formFiltroInsumos.InsUnidadMedida.value = '';
+                                    javascript:document.formFiltroInsumos.InsPrecio.value = '';
+                                    javascript:document.formFiltroInsumos.submit();
+                                       " />
+                    </td>
+                    <td></td>
+                </tr>
+        
+                </form>
+        
+        
+        
+        
+        
+                    <!--NUEVO BOTÓN PARA BUSCAR*************************-->
+                    <form name="formBuscarInsumos" class="container" action="controladores/ControladorPrincipal.php" method="POST">
+                        <div class="row">
+                            <input type="hidden" name="ruta" value="listarInsumos" />
+                            <input class="form-control input-default col-md-8" type="text" name="buscar" placeholder="Término a Buscar" value="<?php
+                        if (isset($_SESSION['buscarF'])) {
+                            echo $_SESSION['buscarF'];
+                        }
+                        ?>">
+                            <input type="submit" value="Buscar" class="btn btn-info col-md-4" title="Si es necesario limpie 'Filtrar'">
+                        </div>
+                        <div class="form-group">
+                                            <p class="text-muted m-b-15 f-s-12">Use this class are <code>input-group-rounded</code> and <code>btn-group-right</code> for input group rounded with search icon.</p>
+                                            <div class="input-group input-group-rounded">
+                                                <input placeholder="Término a Buscar" name="Search" class="form-control" type="text">
+                                                <span class="input-group-btn"><button class="btn btn-primary btn-group-right" type="submit"><i class="ti-search"></i></button></span>
+                                            </div>
+                                        </div>
+                        <input type="button" class="btn btn-info m-b-10 m-l-5" value="Limpiar Búsqueda" onclick="javascript:document.formBuscarInsumos.buscar.value = '';
+                                javascript:document.formBuscarInsumos.submit();">
+        
+                    </form>
+        
+        
+        
+        
+        
+        
+                <br>
+        
+            </div>
         </div>
-    </div>        
+    </div>
 
-    </div>    
+    <div class="card ">
+        <span class="izquierdo">
+            <!--NUEVO BOTÓN PARA DARLE FUNCIONALIDAD*************************-->
+
+            <input type="button" onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasInsumos/vistaInsertarInsumos.php'"
+                class="btn btn-info m-b-10 m-l-5" value="Nuevo Insumos">
+            <br>
+        </span>
+
+        <br>
+        <a name="listaDeInsumos" id="a"></a>
+        <br>
+        <p>Total de Registros:
+            <?php echo $totalRegistros; ?>
+        </p>
+        <br>
+        <table class="table table-hover ">
+            <thead>
+                <tr>
+                    <TH style="width: 100">CODIGO</TH>
+                    <TH style="width: 100">NOMBRE</TH>
+                    <TH style="width: 100">CANTIDAD ACTUAL</TH>
+                    <TH style="width: 100">UNIDAD DE MEDIDA</TH>
+                    <TH style="width: 100 ">PRECIO</TH>
+
+                    <TH style="width: 100 position:center" colspan="2"> ACCIONES </TH>
+                </tr>
+            </thead>
+            <?php
+            $i = 0;
+            foreach ($listaDeInsumos as $key => $value) {
+                ?>
+            <tr>
+                <td style="width: 100">
+                    <?php echo $listaDeInsumos[$i]->InsCodigo; ?>
+                </td>
+                <td style="width: 100">
+                    <?php echo strtoupper($listaDeInsumos[$i]->InsNombre); ?>
+                </td>
+                <td style="width: 100">
+                    <?php echo strtoupper($listaDeInsumos[$i]->InsCantActual); ?>
+                </td>
+                <td style="width: 100">
+                    <?php echo strtoupper($listaDeInsumos[$i]->InsUnidadMedida); ?>
+                </td>
+                <td style="width: 100">
+                    <?php echo strtoupper($listaDeInsumos[$i]->InsPrecio); ?>
+                </td>
+
+                <td style="width: 100">
+                    <a href="controladores/ControladorPrincipal.php?ruta=actualizarInsumos&idAct=<?php echo $listaDeInsumos[$i]->isbn; ?>">Actualizar</a>
+                </td>
+                <td style="width: 100">
+                    <a href="controladores/ControladorPrincipal.php?ruta=eliminarInsumos&idAct=<?php echo $listaDeInsumos[$i]->isbn; ?>">Eliminar</a>
+                </td>
+                <?php
+                    $i++;
+                    ?>
+                <tr>
+                    <?php
+                    }
+                    ?>
+                    <tfoot>
+                        <tr>
+                            <td colspan="8">
+                                <?php
+                        echo $paginacionVinculos;
+                        ?>
+                            </td>
+                        </tr>
+                    </tfoot>
+        </table>
     </div>
 </div>
-<br>
-<div style="width: 800">
-    <span class="izquierdo">
-        <!--NUEVO BOTÓN PARA DARLE FUNCIONALIDAD*************************-->
-
-        <input type="button" onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasInsumos/vistaInsertarInsumos.php'" value="Nuevo Insumos">
-
-    </span>
-</div>
-<br>
-<a name="listaDeInsumos" id="a"></a>
-<div style="width: 800">
-    <p>Total de Registros: <?php echo $totalRegistros; ?></p>
-    <table border=1>
-        <thead>
-            <tr>
-                <td style="width: 100">InsCodigo</td>
-                <td style="width: 100">InsNombre</td>
-                <td style="width: 100">InsCantActual</td>
-                <td style="width: 100">InsUnidadMedida</td>
-                <td style="width: 100">InsPrecio</td>
-                
-                <td style="width: 100"  colspan="2"> ACCIONES </td>
-            </tr>
-        </thead> 
-        <?php
-        $i = 0;
-        foreach ($listaDeInsumos as $key => $value) {
-            ?>
-            <tr>
-                <td style="width: 100"><?php echo $listaDeInsumos[$i]->InsCodigo; ?></td>
-                <td style="width: 100"><?php echo strtoupper($listaDeInsumos[$i]->InsNombre); ?></td>
-                <td style="width: 100"><?php echo strtoupper($listaDeInsumos[$i]->InsCantActual); ?></td>
-                <td style="width: 100"><?php echo strtoupper($listaDeInsumos[$i]->InsUnidadMedida); ?></td>;
-                <td style="width: 100"><?php echo strtoupper($listaDeInsumos[$i]->InsPrecio); ?></td>
-                
-                <td style="width: 100"><a href="controladores/ControladorPrincipal.php?ruta=actualizarInsumos&idAct=<?php echo $listaDeInsumos[$i]->isbn; ?>" >Actualizar</a></td>
-                <td style="width: 100">  <a href="controladores/ControladorPrincipal.php?ruta=eliminarInsumos&idAct=<?php echo $listaDeInsumos[$i]->isbn; ?>">Eliminar</a>   </td>
-                <?php
-                $i++;
-                ?><tr><?php
-                }
-                ?>
-        <tfoot> 
-            <tr>
-                <td colspan="8">
-                    <?php
-                    echo $paginacionVinculos;
-                    ?>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
 </div>
