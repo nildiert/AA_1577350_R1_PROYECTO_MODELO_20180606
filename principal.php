@@ -78,6 +78,7 @@ $seguridad->seguridad("login.php");
                 <div id="menu1">
                     <ul id="lista">
                         <li><a href="index.html" >HOME</a></li>
+                        <li><?php echo "Bienvenido ".$_SESSION['datosUsuario']->perNombre." ".$_SESSION['datosUsuario']->perApellido."   "; ?></li>
                         <li><a <a href="controladores/ControladorPrincipal.php?ruta=cerrarSesion">Cerrar Sesión</a></li>
                     </ul>
                 </div>
@@ -93,14 +94,15 @@ $seguridad->seguridad("login.php");
                         <li><a href="#">Gestión de Libros</a>
                             <ul>
                                 <li><a href="controladores/ControladorPrincipal.php?ruta=listarLibros">Listado de Libros</a></li>
-                                <!--<li><a href="principal.php?contenido=vistas/vistasLibros/vistaInsertarLibro.php">Agregar Libros</a></li>-->
+                                <?php if (isset($_SESSION['rolesEnSesion']) && in_array(1, $_SESSION['rolesEnSesion'])){?>
                                 <li><a href="controladores/ControladorPrincipal.php?ruta=mostrarInsertarLibros">Agregar Libros</a></li>
+                                <?php } ?>                                
                             </ul>
                         </li>
                         <li><a href="#">Gestión de Insumos</a>
                             <ul>
                                 <li><a href="controladores/ControladorPrincipal.php?ruta=listarInsumos">Listado de Insumos</a></li>
-                                <li><a href="principal.php?contenido=vistas/vistasUsuario_s/vistaInsertarInsumos.php">Agregar Insumos</a></li>
+                                <li><a href="principal.php?contenido=vistas/vistasInsumos/vistaInsertarInsumos.php">Agregar Insumos</a></li>
                             </ul>
                         <li><a href="#">Gestión de TablaX3</a></li>
                         <li><a href="#">Gestión de TablaX4</a></li>
@@ -112,6 +114,9 @@ $seguridad->seguridad("login.php");
             </aside>
             <main style="background-color: #dadada;">
                 <?php
+                echo "<pre>";
+                print_r($_SESSION);
+                echo "</pre>";
                 if (isset($_GET['contenido'])) {
                     include($_GET['contenido']);
                 }

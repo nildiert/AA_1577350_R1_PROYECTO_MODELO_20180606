@@ -11,10 +11,11 @@ class ClaseSesion {
             session_start();
         }
 
-        list($datosUsuario, $rolesUsuario) = $usuario_s;
+        list($datosUsuario, $rolesUsuario,$rolesEnSesion) = $usuario_s;
 
         $_SESSION['datosUsuario'] = $datosUsuario;
         $_SESSION['rolesUsuario'] = $rolesUsuario;
+        $_SESSION['rolesEnSesion'] = $rolesEnSesion;
 
     }
 

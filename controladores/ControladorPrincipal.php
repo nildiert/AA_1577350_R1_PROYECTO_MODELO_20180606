@@ -13,6 +13,8 @@ include_once PATH . 'controladores/Usuario_sControlador.php';
 include_once PATH . 'controladores/CategoriaLibroControlador.php';
 include_once PATH . 'modelos/modeloLibro/ValidadorLibros.php';
 include_once PATH . 'controladores/InsumosControlador.php';
+include_once PATH . 'modelos/modeloInsumos/ValidadorInsumos.php';
+
 /* * ********************************************** */
 
 
@@ -85,10 +87,7 @@ switch ($datos['ruta']) {
         $librosControlador = new LibrosControlador($datos);
         $librosControlador->librosControlador();
         break;
-    case "listarDeEveser":
-        $eveserControlador = new EveserControlador($datos);
-        $eveserControlador->eveserControlador();
-        break;
+
     case "actualizarLibro":
         $librosControlador = new LibrosControlador($datos);
         $librosControlador->librosControlador();
@@ -120,7 +119,7 @@ switch ($datos['ruta']) {
             $erroresValidacion = $validarRegistro->validarFormularioInsertarInsumos($datos);
         }        
     case "actualizarInsumos":
-        $InsumossControlador = new InsumosControlador($datos);
+        $InsumosControlador = new InsumosControlador($datos);
         $InsumosControlador->InsumosControlador();
         break;
     case "confirmaActualizarInsumos":

@@ -20,11 +20,12 @@ class Usuario_sControlador {
         switch ($this->datos["ruta"]) {
 
             case "cerrarSesion":
-                $cerrarSesion = new ClaseSesion(); 
+                $cerrarSesion = new ClaseSesion();
                 $cerrarSesion->cerrarSesion(); //Se cierra sesión
 
                 break;
             case "gestionDeAcceso":
+                
                 $usuarioBd = new UsuarioBd(USUARIO_BD, CONTRASENIA_BD);
 
                 $gestarUsuario_s = new Usuario_sDAO($usuarioBd, BASE, SERVIDOR);
@@ -39,9 +40,17 @@ class Usuario_sControlador {
                     //Consultamos los roles de la persona logueada
                     $consultaRoles = new RolDAO($usuarioBd, BASE, SERVIDOR);
                     $rolesUsuario = $consultaRoles->seleccionarRolPorPersona(array($existeUsuario_s['registroEncontrado'][0]->perDocumento));
+
+                    $cantidadRoles = count($rolesUsuario['registroEncontrado']);
+                    $rolesEnSesion = array();
+                    for ($i = 0; $i < $cantidadRoles; $i++) {
+                        $rolesEnSesion[] = $rolesUsuario['registroEncontrado'][0]->rolId;
+                    }
+
+
                     //ABRIR SESION ******************************************
                     $sesionPermitida = new ClaseSesion(); //Se abre sesiòn
-                    $sesionPermitida->crearSesion(array($existeUsuario_s['registroEncontrado'][0], $rolesUsuario)); //Se envìa a la sesiòn los datos del usuario logeado
+                    $sesionPermitida->crearSesion(array($existeUsuario_s['registroEncontrado'][0], $rolesUsuario,$rolesEnSesion)); //Se envìa a la sesiòn los datos del usuario logeado
 
                     header("location:../principal.php");
                 } else {
@@ -86,6 +95,7 @@ class Usuario_sControlador {
 
                 break;
             case "actualizarPersona":
+                
                 $usuarioBd = new UsuarioBd(USUARIO_BD, CONTRASENIA_BD);
                 $verPersona = new DAOPersona($usuarioBd, BASE, SERVIDOR);
 //                $claveUsuario = new VOUsuario();

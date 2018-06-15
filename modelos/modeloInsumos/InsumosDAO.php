@@ -6,21 +6,24 @@ include_once PATH . 'modelos/ConBdMySql.php';
 include_once PATH . 'modelos/UsuarioBD.php';
 include_once PATH . 'modelos/InterfaceCRUD.php';
 
-class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
+class InsumosDAO extends ConBdMySql/* implements InterfaceCRUD */
+{
 
     private $cantidadTotalRegistros;
 
-    function __construct(UsuarioBd $usuarioBd, $base, $servidor) {
+    public function __construct(UsuarioBd $usuarioBd, $base, $servidor)
+    {
         parent::__construct($usuarioBd, $base, $servidor);
     }
 
-    public function seleccionarTodos() {
+    public function seleccionarTodos()
+    {
         $planConsulta = "SELECT i.InsCodigo,i.InsNombre,i.InsCantActual,i.InsUnidadMedida,i.InsPrecio ";
         $planConsulta .= "FROM insumos i ";
-        $planConsulta .= "WHERE i.InsEstado=1 ";
-        
+  //      $planConsulta .= "WHERE i.InsEstado=1 ";//
+
         $registrosInsumos = $this->conexion->prepare($planConsulta); //Se envia la consulta
-        $registrosInsumos->execute(); //Ejecución de la consulta        
+        $registrosInsumos->execute(); //Ejecución de la consulta
         $listadoRegistrosInsumos = array();
 
         while ($registro = $registrosInsumos->fetch(PDO::FETCH_OBJ)) {
@@ -31,7 +34,8 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         return $listadoRegistrosInsumos;
     }
 
-    public function consultaPaginada(InsumosVO $consultarInsumos = NULL, $limit = NULL, $pagInicio = NULL) {
+    public function consultaPaginada(InsumosVO $consultarInsumos = null, $limit = null, $pagInicio = null)
+    {
 
         $parametrosPaginacion = $this->solicitudPaginacion();
         $offset = $parametrosPaginacion[0];
@@ -40,56 +44,58 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         $condicionBuscar = "";
         $filtros = 0;
 
-        if (isset($_POST['buscar']))
+        if (isset($_POST['buscar'])) {
             $_POST['buscar'] = trim($_POST['buscar']);
+        }
 
-            $planConsulta = "SELECT i.InsCodigo,i.InsNombre,i.InsCantActual,i.InsUnidadMedida,i.InsPrecio ";
-            $planConsulta .= "FROM insumos i ";
-            $planConsulta .= "WHERE i.InsEstado=1 ";
+        $planConsulta = "SELECT i.InsCodigo,i.InsNombre,i.InsCantActual,i.InsUnidadMedida,i.InsPrecio ";
+        $planConsulta .= "FROM insumos i ";
+        //$planConsulta .= "WHERE i.InsEstado=1 ";
+
 
         if (!empty($_POST['InsCodigo'])) {
-            $planConsulta.=" where i.InsCodigo='" . $_POST['InsCodigo'] . "'";
-            $filtros = 0;  // cantidad de filtros/condiciones o criterios de búsqueda al comenzar la consulta        
+            $planConsulta .= " where i.InsCodigo='" . $_POST['InsCodigo'] . "'";
+            $filtros = 0; // cantidad de filtros/condiciones o criterios de búsqueda al comenzar la consulta
         } else {
             $where = false; // inicializar $where a falso ( al comenzar la consulta NO HAY condiciones o criterios de búsqueda)
-            $filtros = 0;  // cantidad de filtros/condiciones o criterios de búsqueda al comenzar la consulta
+            $filtros = 0; // cantidad de filtros/condiciones o criterios de búsqueda al comenzar la consulta
             if (!empty($_POST['InsNombre'])) {
                 $where = true; // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-                $planConsulta.=(($where && !$filtros) ? " where " : " and ") . "i.InsNombre like upper('%" . $_POST['InsNombre'] . "%')"; // con tipo de búsqueda aproximada sin importar mayúsculas ni minúsculas
+                $planConsulta .= (($where && !$filtros) ? " where " : " and ") . "i.InsNombre like upper('%" . $_POST['InsNombre'] . "%')"; // con tipo de búsqueda aproximada sin importar mayúsculas ni minúsculas
                 $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
             }
-            if (!empty($datos['InsCantActual'])) {
-                $where = true;  // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-                $planConsulta.=(($where && !$filtros) ? " where " : " and ") . " i.InsCantActual like upper('%" . $_POST['InsCantActual'] . "%')"; // con tipo de búsqueda aproximada sin importar mayúsculas ni minúsculas
+            if (!empty($_POST['InsCantActual'])) {
+                $where = true; // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
+                $planConsulta .= (($where && !$filtros) ? " where " : " and ") . " i.InsCantActual = " . (float)$_POST['InsCantActual']; // con tipo de búsqueda aproximada sin importar mayúsculas ni minúsculas
                 $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
             }
             if (!empty($_POST['InsUnidadMedida'])) {
-                $where = true;  // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-                $planConsulta.=(($where && !$filtros) ? " where " : " and ") . " i.InsUnidadMedida = " . $_POST['InsUnidadMedida'];
+                $where = true; // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
+                $planConsulta .= (($where && !$filtros) ? " where " : " and ") . " i.InsUnidadMedida like upper('%" . $_POST['InsUnidadMedida']. "%')";
                 $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
             }
             if (!empty($_POST['InsPrecio'])) {
-                $where = true;  // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-                $planConsulta.=(($where && !$filtros) ? " where " : " and ") . " i.InsPrecio like upper('%" . $_POST['InsPrecio'] . "%')";
+                $where = true; // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
+                $planConsulta .= (($where && !$filtros) ? " where " : " and ") . " i.InsPrecio like upper('%" . $_POST['InsPrecio'] . "%')";
                 $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
             }
-            
+          
         }
         if (!empty($_POST['buscar'])) {
-            $where = TRUE;
+            $where = true;
             $condicionBuscar = (($where && !$filtros == 0) ? " or " : " where ");
             $filtros++;
-            $planConsulta.=$condicionBuscar;
-            $planConsulta.="( InsCodigo like '%" . $_POST['buscar'] . "%'";
-            $planConsulta.=" or InsNombre like '%" . $_POST['buscar'] . "%'";
-            $planConsulta.=" or InsCantActual like '%" . $_POST['buscar'] . "%'";
-            $planConsulta.=" or InsUnidadMedida like '%" . $_POST['buscar'] . "%'";
-            $planConsulta.=" or InsPrecio like '%" . $_POST['buscar'] . "%'";
-            $planConsulta.=" ) ";
+            $planConsulta .= $condicionBuscar;
+            $planConsulta .= "( InsCodigo like '%" . $_POST['buscar'] . "%'";
+            $planConsulta .= " or InsNombre like '%" . $_POST['buscar'] . "%'";
+            $planConsulta .= " or InsCantActual like '%" . $_POST['buscar'] . "%'";
+            $planConsulta .= " or InsUnidadMedida like '%" . $_POST['buscar'] . "%'";
+            $planConsulta .= " ) ";
         };
-        $planConsulta.= "  order by i.InsCodigo desc";
-        $planConsulta.=" LIMIT " . $limit . " OFFSET " . $offset . " ; ";
-
+        $planConsulta .= "  order by i.InsCodigo desc";
+        $planConsulta .= " LIMIT " . $limit . " OFFSET " . $offset . " ; ";
+//        echo $planConsulta;
+//        exit();
         $listar = $this->conexion->prepare($planConsulta);
         $listar->execute();
 
@@ -105,11 +111,12 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
             $totalRegistros = $registro->total;
         }
         $this->cantidadTotalRegistros = $totalRegistros;
-        
+
         return array($totalRegistros, $listadoInsumos);
     }
 
-    public function solicitudPaginacion($limit = 5) {
+    public function solicitudPaginacion($limit = 5)
+    {
 
         if (!isset($_GET['pag']) || $_GET['pag'] < 1) {
             $_GET['pag'] = 1;
@@ -126,7 +133,8 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         return array($offset, $limit);
     }
 
-    public function enlacesPaginacion($totalRegistros = NULL, $limit = 5, $offset = 0, $totalEnlacesPaginacion = 4) {
+    public function enlacesPaginacion($totalRegistros = null, $limit = 5, $offset = 0, $totalEnlacesPaginacion = 4)
+    {
 
         $totalPag = ceil($totalRegistros / $limit);
 
@@ -143,43 +151,45 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         }
 
         $mostrar = "<center><a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=0'>..::PAGINAS INICIALES::..</a><br>";
-        $mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=" . (($anterior)) . "'>..::BLOQUE ANTERIOR::..</a>";
+        $mostrar .= "<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=" . (($anterior)) . "'>..::BLOQUE ANTERIOR::..</a>";
 
-        $mostrar.= implode("-", $dbs);
+        $mostrar .= implode("-", $dbs);
 
         if ($_GET['pag'] < $totalPag) {
-            $mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=" . ($siguiente + 1) . "'>..::BLOQUE SIGUIENTE::..</a><br>";
-            $mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=" . ($totalPag - $totalEnlacesPaginacion) . "'>..::BLOQUE FINAL::..</a><br></center>";
+            $mostrar .= "<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=" . ($siguiente + 1) . "'>..::BLOQUE SIGUIENTE::..</a><br>";
+            $mostrar .= "<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=" . ($totalPag - $totalEnlacesPaginacion) . "'>..::BLOQUE FINAL::..</a><br></center>";
         }
-
 
         return $mostrar;
     }
 
-    public function seleccionarId($sId) {
-//
-//        $resultadoConsulta = FALSE;
-
+    public function seleccionarId($sId)
+    {
+        //
+        //        $resultadoConsulta = FALSE;
+        
         $planConsulta = "select * from Insumos i ";
         $planConsulta .= " where i.InsCodigo= ? ;";
         $listar = $this->conexion->prepare($planConsulta);
         $listar->execute(array($sId[0]));
-
+        
         $registroEncontrado = array();
         while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
             $registroEncontrado[] = $registro;
         }
-        if ($registro != FALSE) {
-            return ['exitoSeleccionId' => TRUE, 'registroEncontrado' => $registroEncontrado];
+        if ($registro != false) {
+            return ['exitoSeleccionId' => true, 'registroEncontrado' => $registroEncontrado];
         } else {
-            return ['exitoSeleccionId' => FALSE, 'registroEncontrado' => $registroEncontrado];
-        }        
+            return ['exitoSeleccionId' => false, 'registroEncontrado' => $registroEncontrado];
+        }
     }
+    
+    public function insertar($registro)
+    {
+        
+        try {
 
-    public function insertar($registro) {
-         try {
-
-            $inserta = $this->conexion->prepare('INSERT INTO insumos (InsCodigo, InsNombre, InsCantActual, InsUnidadMedida, InsPrecio) VALUES ( :InsCodigo, :InsNombre, :InsCantActual, :InsUnidadMedida, :InsPrecio );');
+            $inserta = $this->conexion->prepare('INSERT INTO Insumos (InsCodigo, InsNombre, InsCantActual, InsUnidadMedida, InsPrecio) VALUES ( :InsCodigo, :InsNombre, :InsCantActual, :InsUnidadMedida, :InsPrecio );');
             $inserta->bindParam(":InsCodigo", $registro['InsCodigo']);
             $inserta->bindParam(":InsNombre", $registro['InsNombre']);
             $inserta->bindParam(":InsCantActual", $registro['InsCantActual']);
@@ -190,23 +200,24 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
 
             return ['inserto' => 1, 'resultado' => $clavePrimariaConQueInserto];
         } /* catch (Exception $exc) {
-          return ['inserto' => FALSE, 'resultado' => $exc->getTraceAsString()];
-          } */ catch (PDOException $pdoExc) {
+        return ['inserto' => FALSE, 'resultado' => $exc->getTraceAsString()];
+        } */ catch (PDOException $pdoExc) {
             return ['inserto' => 0, 'resultado' => $pdoExc];
-        }       
+        }
     }
 
-public function actualizar($registro) {
+    public function actualizar($registro)
+    {
         try {
-
-            $InsCantActual=$registro[0]['InsCantActual'];
-            $InsNombre=$registro[0]['InsNombre'];
-            $InsUnidadMedida=$registro[0]['InsUnidadMedida'];
-            $categoria=$registro[0]['InsPrecio'];
-            $InsCodigo=$registro[0]['InsCodigo'];
+            
+            $InsCantActual = $registro[0]['InsCantActual'];
+            $InsNombre = $registro[0]['InsNombre'];
+            $InsUnidadMedida = $registro[0]['InsUnidadMedida'];
+            $categoria = $registro[0]['InsPrecio'];
+            $InsCodigo = $registro[0]['InsCodigo'];
 
             if (isset($registro[0]['InsCodigo'])) {
-                $actualizar = "UPDATE insumos SET InsCantActual= ? , InsNombre = ? , InsUnidadMedida = ? , InsPrecio = ? WHERE InsCodigo= ? ;";
+                $actualizar = "UPDATE Insumos SET InsCantActual= ? , InsNombre = ? , InsUnidadMedida = ? , InsPrecio = ? WHERE InsCodigo= ? ;";
                 $resultado = $this->conexion->prepare($actualizar);
                 $actualizacion = $resultado->execute(array($InsCantActual, $InsNombre, $InsUnidadMedida, $categoria, $InsCodigo));
                 return ['actualizacion' => $actualizacion, 'mensaje' => $mensaje];
@@ -214,9 +225,12 @@ public function actualizar($registro) {
         } catch (Exception $exc) {
             return ['actualizacion' => $actualizacion, 'mensaje' => $exc->getTraceAsString()];
         }
+        var_dump ($actualizacion);
+        exit();
     }
 
-    public function eliminar($eId) {
+    public function eliminar($eId)
+    {
         $eId;
     }
 

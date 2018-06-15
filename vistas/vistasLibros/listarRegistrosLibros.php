@@ -263,10 +263,10 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
             <tr>
                 <td style="width: 100"><?php echo $listaDeLibros[$i]->isbn; ?></td>
                 <td style="width: 100"><?php echo strtoupper($listaDeLibros[$i]->titulo); ?></td>
-                <td style="width: 100"><?php echo strtoupper($listaDeLibros[$i]->autor); ?></td>;
+                <td style="width: 100"><?php echo strtoupper($listaDeLibros[$i]->autor); ?></td>
                 <td style="width: 100"><?php echo strtoupper($listaDeLibros[$i]->precio); ?></td>
-                <td style="width: 100"><?php echo $listaDeLibros[$i]->catLibId; ?></td>;
-                <td style="width: 100"><?php echo $listaDeLibros[$i]->catLibNombre; ?></td>;
+                <td style="width: 100"><?php echo $listaDeLibros[$i]->catLibId; ?></td>
+                <td style="width: 100"><?php echo $listaDeLibros[$i]->catLibNombre; ?></td>
                 <td style="width: 100"><a href="controladores/ControladorPrincipal.php?ruta=actualizarLibro&idAct=<?php echo $listaDeLibros[$i]->isbn; ?>" >Actualizar</a></td>
                 <td style="width: 100">  <a href="controladores/ControladorPrincipal.php?ruta=eliminarLibro&idAct=<?php echo $listaDeLibros[$i]->isbn; ?>">Eliminar</a>   </td>
                 <?php

@@ -1,8 +1,8 @@
 <?php
 
-class ValidadorLibros {
+class ValidadorInsumos {
 
-    public function validarFormularioInsertarLibro($datos) {
+    public function validarFormularioInsertarInsumos($datos) {
         $mensajesError = NULL;
         $datosViejos = NULL;
         $marcaCampo = NULL;

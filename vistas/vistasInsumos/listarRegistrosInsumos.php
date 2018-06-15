@@ -109,7 +109,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
         <form name="formFiltroInsumos" action="controladores/ControladorPrincipal.php" method="POST">
             <input type="hidden" name="ruta" value="listarInsumos"/>
             <table> 
-                <tr><td>InsCodigo:</td><td><input type="number" name="InsCodigo" onclick="" value="<?php
+                <tr><td>InsCodigo:</td><td><input type="text" name="InsCodigo" onclick="" value="<?php
                         if (isset($registroAInsertar['InsCodigo'])) {
                             echo $registroAInsertar['InsCodigo'];
                         }
@@ -141,7 +141,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                         ?>
                     </td>                          
                 </tr> 
-                <tr><td>InsCantActual:</td><td> <input type="text" onclick="" name="InsCantActual" value="<?php
+                <tr><td>InsCantActual:</td><td> <input type="double" onclick="" name="InsCantActual" value="<?php
                         if (isset($registroAInsertar['InsCantActual'])) {
                             echo $registroAInsertar['InsCantActual'];
                         }
@@ -157,7 +157,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                         ?>
                     </td>                          
                 </tr> 
-                <tr><td>InsUnidadMedida: </td><td><input type="number" onclick=""  name="InsUnidadMedida" value="<?php
+                <tr><td>InsUnidadMedida: </td><td><input type="text" onclick=""  name="InsUnidadMedida" value="<?php
                         if (isset($registroAInsertar['InsUnidadMedida'])) {
                             echo $registroAInsertar['InsUnidadMedida'];
                         }
@@ -267,9 +267,9 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
             <tr>
                 <td style="width: 100"><?php echo $listaDeInsumos[$i]->InsCodigo; ?></td>
                 <td style="width: 100"><?php echo strtoupper($listaDeInsumos[$i]->InsNombre); ?></td>
-                <td style="width: 100"><?php echo strtoupper($listaDeInsumos[$i]->InsCantActual); ?></td>;
+                <td style="width: 100"><?php echo strtoupper($listaDeInsumos[$i]->InsCantActual); ?></td>
                 <td style="width: 100"><?php echo strtoupper($listaDeInsumos[$i]->InsUnidadMedida); ?></td>
-                <td style="width: 100"><?php echo $listaDeInsumos[$i]->InsPrecio; ?></td>;
+                <td style="width: 100"><?php echo $listaDeInsumos[$i]->InsPrecio; ?></td>
                 <td style="width: 100"><a href="controladores/ControladorPrincipal.php?ruta=actualizarInsumos&idAct=<?php echo $listaDeInsumos[$i]->InsCodigo; ?>" >Actualizar</a></td>
                 <td style="width: 100">  <a href="controladores/ControladorPrincipal.php?ruta=eliminarInsumos&idAct=<?php echo $listaDeInsumos[$i]->InsCodigo; ?>">Eliminar</a>   </td>
                 <?php

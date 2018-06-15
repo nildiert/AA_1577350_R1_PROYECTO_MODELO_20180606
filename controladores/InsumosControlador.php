@@ -41,7 +41,7 @@ class InsumosControlador {
                 $_SESSION['listaDeInsumos'] = $listaDeInsumos;
                 $_SESSION['paginacionVinculos'] = $paginacionVinculos;
                 $_SESSION['totalRegistros'] = $totalRegistros;
-                $_SESSION['registroCategoriasInsumos'] = $registroCategoriasInsumos; /*                 * *********** */
+
                 //se almacenan en sesion las variables del filtro
                 $_SESSION['InsCodigo'] = (isset($this->datos['InsCodigo'])) ? $this->datos['InsCodigo'] : NULL;
                 $_SESSION['InsNombre'] = (isset($this->datos['InsNombre'])) ? $this->datos['InsNombre'] : NULL;
@@ -94,10 +94,9 @@ class InsumosControlador {
                 $consultaDeInsumos = $gestarInsumos->seleccionarId(array($this->datos["idAct"])); //Se consulta el Insumos para traer los datos.
 
 
-                $consultarCategoriasInsumos = new CategoriaInsumosDAO($usuarioBd, BASE, SERVIDOR);
-                $registroCategoriasInsumos = $consultarCategoriasInsumos->seleccionarTodos();
+
                 session_start();
-                $_SESSION['registroCategoriasInsumos'] = $registroCategoriasInsumos;
+
 
 
                 $actualizarDatosInsumos = $consultaDeInsumos['registroEncontrado'][0];
