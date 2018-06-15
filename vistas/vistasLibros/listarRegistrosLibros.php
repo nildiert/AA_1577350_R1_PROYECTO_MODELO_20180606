@@ -26,10 +26,12 @@ if (isset($_SESSION['registroCategoriasLibros'])) {   /*************************
 //http://ajpdsoft.com/modules.php?name=News&file=print&sid=486
 
 /* * ********Conservar filtro 'isbn' si lo hay************ */
-if (isset($_POST['isbn']) && !isset($_SESSION['isbnF']))
+if (isset($_POST['isbn']) && !isset($_SESSION['isbnF'])) {
     $_SESSION['isbnF'] = $_POST['isbn'];
-else if (isset($_SESSION['isbnF']) && !isset($_POST['isbn']))
+} else if (isset($_SESSION['isbnF']) && !isset($_POST['isbn'])) {
     $_POST['isbn'] = $_SESSION['isbnF'];
+} // Copie y pegue
+
 /* * ********************************************* */
 /* * ********Conservar filtro 'titulo' si lo hay************ */
 if (isset($_POST['titulo']) && !isset($_SESSION['tituloF']))
@@ -113,9 +115,11 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                         if (isset($registroAInsertar['isbn'])) {
                             echo $registroAInsertar['isbn'];
                         }
-                        if (isset($_SESSION['isbnF'])) {
-                            echo $_SESSION['isbnF'];
-                        }
+                            if (isset($_SESSION['isbnF'])) { //Cambie desde aqui
+                                echo $_SESSION['isbnF'];
+                            } else if ($_POST['isbn']) {echo $_POST['isbn'];} 
+                            ;//Hasta aqui Luego se va a libros controlador
+
                         ?>"/></td>
                     <td>
                         <?php

@@ -1,8 +1,8 @@
 <?php session_start();  ?>
 <?php
-include_once './controladores/ManejoSesiones/BloqueDeSeguridad.php';
-$seguridad = new BloqueDeSeguridad();
-$seguridad->seguridad("login.php");
+//include_once './controladores/ManejoSesiones/BloqueDeSeguridad.php';
+//$seguridad = new BloqueDeSeguridad();
+//$seguridad->seguridad("login.php");
 ?>
 
 <!DOCTYPE html>

@@ -41,6 +41,18 @@ class LibroDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         $condicionBuscar = "";
         $filtros = 0;
 
+        session_start();//Solo se coloca una vez .l.
+
+            if (isset($_SESSION['isbnF']) && !isset($_POST['isbn'])) { //coloque desde aquí
+                $_POST['isbn'] = $_SESSION['isbnF'];
+            }
+
+            if (isset($_POST['isbn']) && !isset($_SESSION['isbnF'])) {
+                $_SESSION['isbnF'] = $_POST['isbn'];
+            }//hasta aqui
+
+
+
         if (isset($_POST['buscar']))
             $_POST['buscar'] = trim($_POST['buscar']);
 
