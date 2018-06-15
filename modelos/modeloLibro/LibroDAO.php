@@ -50,6 +50,41 @@ class LibroDAO extends ConBdMySql /* implements InterfaceCRUD */ {
             if (isset($_POST['isbn']) && !isset($_SESSION['isbnF'])) {
                 $_SESSION['isbnF'] = $_POST['isbn'];
             }//hasta aqui
+            if (isset($_SESSION['tituloF']) && !isset($_POST['titulo'])) { //coloque desde aquí
+                $_POST['titulo'] = $_SESSION['tituloF'];
+            }
+
+            if (isset($_POST['titulo']) && !isset($_SESSION['tituloF'])) {
+                $_SESSION['tituloF'] = $_POST['titulo'];
+            }//hasta aqui
+            if (isset($_SESSION['autorF']) && !isset($_POST['autor'])) { //coloque desde aquí
+                $_POST['autor'] = $_SESSION['autorF'];
+            }
+
+            if (isset($_POST['autor']) && !isset($_SESSION['autorF'])) {
+                $_SESSION['autorF'] = $_POST['autor'];
+            }//hasta aqui
+            if (isset($_SESSION['precioF']) && !isset($_POST['precio'])) { //coloque desde aquí
+                $_POST['precio'] = $_SESSION['precioF'];
+            }
+
+            if (isset($_POST['precio']) && !isset($_SESSION['precioF'])) {
+                $_SESSION['precioF'] = $_POST['precio'];
+            }//hasta aqui
+            if (isset($_SESSION['categoriaLibro_catLibIdF']) && !isset($_POST['categoriaLibro_catLibId'])) { //coloque desde aquí
+                $_POST['categoriaLibro_catLibId'] = $_SESSION['categoriaLibro_catLibIdF'];
+            }
+
+            if (isset($_POST['categoriaLibro_catLibId']) && !isset($_SESSION['categoriaLibro_catLibIdF'])) {
+                $_SESSION['categoriaLibro_catLibIdF'] = $_POST['categoriaLibro_catLibId'];
+            }//hasta aqui
+            if (isset($_SESSION['catLibNombreF']) && !isset($_POST['catLibNombre'])) { //coloque desde aquí
+                $_POST['catLibNombre'] = $_SESSION['catLibNombreF'];
+            }
+
+            if (isset($_POST['catLibNombre']) && !isset($_SESSION['catLibNombreF'])) {
+                $_SESSION['catLibNombreF'] = $_POST['catLibNombre'];
+            }//hasta aqui
 
 
 

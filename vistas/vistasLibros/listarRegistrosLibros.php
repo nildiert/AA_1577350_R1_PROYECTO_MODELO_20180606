@@ -34,28 +34,32 @@ if (isset($_POST['isbn']) && !isset($_SESSION['isbnF'])) {
 
 /* * ********************************************* */
 /* * ********Conservar filtro 'titulo' si lo hay************ */
-if (isset($_POST['titulo']) && !isset($_SESSION['tituloF']))
+if (isset($_POST['titulo']) && !isset($_SESSION['tituloF'])) {
     $_SESSION['tituloF'] = $_POST['titulo'];
-else if (isset($_SESSION['tituloF']) && !isset($_POST['titulo']))
+} else if (isset($_SESSION['tituloF']) && !isset($_POST['titulo'])) {
     $_POST['titulo'] = $_SESSION['tituloF'];
+}
 /* * ********************************************* */
 /* * ********Conservar filtro 'autor' si lo hay************ */
-if (isset($_POST['autor']) && !isset($_SESSION['autorF']))
+if (isset($_POST['autor']) && !isset($_SESSION['autorF'])) {
     $_SESSION['autorF'] = $_POST['autor'];
-else if (isset($_SESSION['autorF']) && !isset($_POST['autor']))
+} else if (isset($_SESSION['autorF']) && !isset($_POST['autor'])) {
     $_POST['autor'] = $_SESSION['autorF'];
+}    
 /* * ********************************************* */
 /* * ********Conservar filtro 'precio' si lo hay************ */
-if (isset($_POST['precio']) && !isset($_SESSION['precioF']))
+if (isset($_POST['precio']) && !isset($_SESSION['precioF'])) {
     $_SESSION['precioF'] = $_POST['precio'];
-else if (isset($_SESSION['precioF']) && !isset($_POST['precio']))
+} else if (isset($_SESSION['precioF']) && !isset($_POST['precio'])) {
     $_POST['precio'] = $_SESSION['precioF'];
+}    
 /* * ********************************************* */
 /* * ********Conservar filtro 'categoriaLibro_catLibId' si lo hay************ */
 if (isset($_POST['categoriaLibro_catLibId']))
     $_SESSION['categoriaLibro_catLibIdF'] = $_POST['categoriaLibro_catLibId'];
 if (isset($_SESSION['categoriaLibro_catLibIdF']) && !isset($_POST['categoriaLibro_catLibId']))
     $_POST['categoriaLibro_catLibId'] = $_SESSION['categoriaLibro_catLibIdF'];
+    
 /* * ********************************************* */
 /* * ********Conservar filtro 'buscar' si lo hay************ */
 if (isset($_POST['buscar']))
@@ -115,7 +119,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                         if (isset($registroAInsertar['isbn'])) {
                             echo $registroAInsertar['isbn'];
                         }
-                            if (isset($_SESSION['isbnF'])) { //Cambie desde aqui
+                            if (!isset($_SESSION['isbnF'])) { //Cambie desde aqui
                                 echo $_SESSION['isbnF'];
                             } else if ($_POST['isbn']) {echo $_POST['isbn'];} 
                             ;//Hasta aqui Luego se va a libros controlador
@@ -133,9 +137,10 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                         if (isset($registroAInsertar['titulo'])) {
                             echo $registroAInsertar['titulo'];
                         }
-                        if (isset($_SESSION['tituloF'])) {
+                        if (!isset($_SESSION['tituloF'])) { //Cambie desde aqui
                             echo $_SESSION['tituloF'];
-                        }
+                        } else if ($_POST['titulo']) {echo $_POST['titulo'];} 
+                        ;//Hasta aqui Luego se va a libros controlador
                         ?>" /></td>
                     <td>
                         <?php
@@ -149,9 +154,10 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                         if (isset($registroAInsertar['autor'])) {
                             echo $registroAInsertar['autor'];
                         }
-                        if (isset($_SESSION['autorF'])) {
+                        if (!isset($_SESSION['autorF'])) { //Cambie desde aqui
                             echo $_SESSION['autorF'];
-                        }
+                        } else if ($_POST['autor']) {echo $_POST['autor'];} 
+                        ;//Hasta aqui Luego se va a libros controlador
                         ?>"/></td>
                     <td>
                         <?php
@@ -165,9 +171,10 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                         if (isset($registroAInsertar['precio'])) {
                             echo $registroAInsertar['precio'];
                         }
-                        if (isset($_SESSION['precioF'])) {
+                        if (isset($_SESSION['precioF'])) { //Cambie desde aqui
                             echo $_SESSION['precioF'];
-                        }
+                        } else if ($_POST['precio']) {echo $_POST['precio'];} 
+                        ;//Hasta aqui Luego se va a libros controlador
                         ?>" /></td>
                     <td>
                         <?php

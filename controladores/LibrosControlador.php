@@ -47,12 +47,12 @@ class LibrosControlador {
                 //se almacenan en sesion las variables del filtro
                 $_SESSION['isbnF'] = (isset($_POST['isbn'])) ? $_POST['isbn'] : null; /********CORRECTO  CAMBIE TODA ESTA MRDA QUEHAY DE AQUI PARA ABAJO .L. ()POST ME VOY A LIBRO DAO/*/
 
-                $_SESSION['tituloF'] = (isset($this->datos['titulo'])) ? $this->datos['titulo'] : NULL;
-                $_SESSION['autorF'] = (isset($this->datos['autor'])) ? $this->datos['autor'] : NULL;
-                $_SESSION['precioF'] = (isset($this->datos['precio'])) ? $this->datos['precio'] : NULL;
-                $_SESSION['catLibIdF'] = (isset($this->datos['catLibId'])) ? $this->datos['catLibId'] : NULL;
-                $_SESSION['catLibNombreF'] = (isset($this->datos['catLibNombre'])) ? $this->datos['catLibNombre'] : NULL;
-                $_SESSION['buscarF'] = (isset($this->datos['buscar'])) ? $this->datos['buscar'] : NULL;
+                $_SESSION['tituloF'] = (isset($this->$_POST['titulo'])) ? $this->$_POST['titulo'] : NULL;
+                $_SESSION['autorF'] = (isset($this->$_POST['autor'])) ? $this->$_POST['autor'] : NULL;
+                $_SESSION['precioF'] = (isset($this->$_POST['precio'])) ? $this->$_POST['precio'] : NULL;
+                $_SESSION['catLibIdF'] = (isset($this->$_POST['catLibId'])) ? $this->$_POST['catLibId'] : NULL;
+                $_SESSION['catLibNombreF'] = (isset($this->$_POST['catLibNombre'])) ? $this->$_POST['catLibNombre'] : NULL;
+                $_SESSION['buscarF'] = (isset($this->$_POST['buscar'])) ? $this->$_POST['buscar'] : NULL;
 
 
 

@@ -26,10 +26,11 @@ if (isset($_SESSION['registroCategoriasInsumos'])) {   /************************
 //http://ajpdsoft.com/modules.php?name=News&file=print&sid=486
 
 /* * ********Conservar filtro 'InsCodigo' si lo hay************ */
-if (isset($_POST['InsCodigo']) && !isset($_SESSION['InsCodigoF']))
+if (isset($_POST['InsCodigo']) && !isset($_SESSION['InsCodigoF'])) {
     $_SESSION['InsCodigoF'] = $_POST['InsCodigo'];
-else if (isset($_SESSION['InsCodigoF']) && !isset($_POST['InsCodigo']))
+} else if (isset($_SESSION['InsCodigoF']) && !isset($_POST['InsCodigo'])) {
     $_POST['InsCodigo'] = $_SESSION['InsCodigoF'];
+} // Copie y pegue
 /* * ********************************************* */
 /* * ********Conservar filtro 'InsNombre' si lo hay************ */
 if (isset($_POST['InsNombre']) && !isset($_SESSION['InsNombreF']))

@@ -114,9 +114,9 @@
             </aside>
             <main style="background-color: #dadada;">
                 <?php
-                echo "<pre>";
+                /*echo "<pre>";
                 print_r($_SESSION);
-                echo "</pre>";
+                echo "</pre>";*/
                 if (isset($_GET['contenido'])) {
                     include($_GET['contenido']);
                 }
