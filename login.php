@@ -44,7 +44,9 @@ if (isset($_SESSION['mensaje'])) {
     <div class="container-login100">
             <div class="wrap-login100">        
         <form class="login100-form validate-form " role="form" method="GET" action="controladores/ControladorPrincipal.php" name="formLogin">
-            <span class="login100-form-title p-b-34">
+
+
+<span class="login100-form-title p-b-34">
 				Ingreso de usuarios
             </span>
             <div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name">            

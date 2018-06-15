@@ -138,5 +138,9 @@ switch ($datos['ruta']) {
         $InsumosControlador = new InsumosControlador($datos);
         $InsumosControlador->InsumosControlador();
         break;
+    case "eliminarInsumos":
+        $InsumosControlador = new InsumosControlador($datos);
+        $InsumosControlador->InsumosControlador();
+        break;        
 }
 ?>

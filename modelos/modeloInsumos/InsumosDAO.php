@@ -274,9 +274,30 @@ class InsumosDAO extends ConBdMySql/* implements InterfaceCRUD */
         exit();
     }
 
-    public function eliminar($eId)
-    {
-        $eId;
+    public function eliminar($eId) {
+/* 
+        try {
+
+    
+
+            $InsCodigo=$eId[0]['InsCodigo'];
+
+            if (isset($eId[0]['InsCodigo'])) {
+                $actualizar = "UPDATE libros SET estado = 0 WHERE isbn = '".$isbn."';";
+               //  DELETE FROM `libros` WHERE `libros`.`isbn` = '".$isbn."' AND `libros`.`categoriaLibro_catLibId` = '".$categoria."';
+                
+                $eliminar= "('DELETE FROM insumos WHERE InsCodigo= :InsCodigo')";
+                
+                $resultado = $this->conexion->prepare($eliminar);
+                $eliminacion = $resultado->execute(array($InsCodigo));
+                return ['eliminacion' => $eliminacion, 'mensaje' => $mensaje];
+     
+                
+        } catch (Exception $exc) {
+            return ['eliminacion' => $eliminacion, 'mensaje' => $exc->getTraceAsString()];
+        }*/
     }
 
 }
+
+

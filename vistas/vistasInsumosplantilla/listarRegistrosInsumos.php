@@ -2,10 +2,11 @@
 <link href="../../../plantillas/ElaAdmin/css/style.css" rel="stylesheet">
 </head>
 <?php
+//plantilla
 //echo "<pre>";
 //print_r($_SESSION);
 //echo "</pre>";exit();
-//session_start();
+//session_start(); 
 if (isset($_SESSION['mensaje'])) {
     $mensaje = $_SESSION['mensaje'];
     echo "<script languaje='javascript'>alert('$mensaje')</script>";
@@ -82,44 +83,51 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                     <input type="hidden" class="form-control input-default" name="ruta" value="listarInsumos" />
                     <label for="InsCodigo"></label>
 
-                    <input type="number" placeholder="Código" class="form-control input-default" name="InsCodigo" onclick="" value="<?php
-                                if (isset($registroAInsertar['InsCodigo'])) {
-                                    echo $registroAInsertar['InsCodigo'];
-                                }
-                                if (isset($_SESSION['InsCodigoF'])) {
-                                    echo $_SESSION['InsCodigoF'];
-                                }
+                    <input type="text" placeholder="Código" class="form-control input-default" name="InsCodigo" onclick="" value="<?php
+                    if (isset($registroAInsertar['InsCodigo'])) {
+                        echo $registroAInsertar['InsCodigo'];
+                    }
+                    if (!isset($_SESSION['InsCodigoF'])) { //Cambie desde aqui
+                        echo $_SESSION['InsCodigoF'];
+                    } else if ($_POST['InsCodigo']) {echo $_POST['InsCodigo'];} 
+                    
+                    ;//Hasta aqui Luego se va a libros controlador
                                 ?>" />
 
                     <?php
-                                if (isset($marcaCampo['InsCodigo'])) {
-                                    echo $marcaCampo['InsCodigo'];
-                                }
-                                ?>
+                        
+                        if (isset($marcaCampo['InsCodigo'])) {
+                            echo $marcaCampo['InsCodigo'];
+                        }
+                        ?>
 
                     <label for="InsNombre"></label>
                     <input type="text" placeholder="Nombre" class="form-control input-default" name="InsNombre" onclick="" value="<?php
-                                if (isset($registroAInsertar['InsNombre'])) {
-                                    echo $registroAInsertar['InsNombre'];
-                                }
-                                if (isset($_SESSION['InsNombreF'])) {
-                                    echo $_SESSION['InsNombreF'];
-                                }
+                        if (isset($registroAInsertar['InsNombre'])) {
+                            echo $registroAInsertar['InsNombre'];
+                        }
+                        if (isset($_SESSION['InsNombreF'])) { //Cambie desde aqui
+                            echo $_SESSION['InsNombreF'];
+                        } else if ($_POST['InsNombre']) {echo $_POST['InsNombre'];} 
+                        ;//Hasta aqui Luego se va a libros controlador
                                 ?>" />
 
                     <?php
-                                if (isset($marcaCampo['InsNombre'])) {
-                                    echo $marcaCampo['InsNombre'];
-                                }
-                                ?>
+                        
+                        if (isset($marcaCampo['InsNombre'])) {
+                            echo $marcaCampo['InsNombre'];
+                        }
+                        
+                        ?>
                     <label for="InsCantActual"></label>
-                    <input type="text" placeholder="Cantidad actual" class="form-control input-default" name="InsCantActual" onclick="" value="<?php
-                                if (isset($registroAInsertar['InsCantActual'])) {
-                                    echo $registroAInsertar['InsCantActual'];
-                                }
-                                if (isset($_SESSION['InsCantActualF'])) {
-                                    echo $_SESSION['InsCantActualF'];
-                                }
+                    <input type="double" placeholder="Cantidad actual" class="form-control input-default" name="InsCantActual" onclick="" value="<?php
+                          if (isset($registroAInsertar['InsCantActual'])) {
+                            echo $registroAInsertar['InsCantActual'];
+                        }
+                        if (!isset($_SESSION['InsCantActualF'])) { //Cambie desde aqui
+                            echo $_SESSION['InsCantActualF'];
+                        } else if ($_POST['InsCantActual']) {echo $_POST['InsCantActual'];} 
+                        ;//Hasta aqui Luego se va a libros controlador
                                 ?>" />
 
                     <?php
@@ -131,12 +139,13 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
 
                     <label for="InsUnidadMedida"></label>
                     <input type="text" placeholder="Unidad de medida" class="form-control input-default" onclick="" name="InsUnidadMedida" value="<?php
-                                if (isset($registroAInsertar['InsUnidadMedida'])) {
-                                    echo $registroAInsertar['InsUnidadMedida'];
-                                }
-                                if (isset($_SESSION['InsUnidadMedidaF'])) {
-                                    echo $_SESSION['InsUnidadMedidaF'];
-                                }
+                        if (isset($registroAInsertar['InsUnidadMedida'])) {
+                            echo $registroAInsertar['InsUnidadMedida'];
+                        }
+                        if (isset($_SESSION['InsUnidadMedidaF'])) { //Cambie desde aqui
+                            echo $_SESSION['InsUnidadMedidaF'];
+                        } else if ($_POST['InsUnidadMedida']) {echo $_POST['InsUnidadMedida'];} 
+                        ;//Hasta aqui Luego se va a libros controlador
                                 ?>" />
 
                     <?php
@@ -147,12 +156,13 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                     <label for="InsPrecio"></label>
                     
                         <input placeholder="Precio" class="form-control input-default" type="number" onclick="" name="InsPrecio" value="<?php
-                                if (isset($registroAInsertar['InsPrecio'])) {
-                                    echo $registroAInsertar['InsPrecio'];
-                                }
-                                if (isset($_SESSION['InsPrecioF'])) {
-                                    echo $_SESSION['InsPrecioF'];
-                                }
+                        if (isset($registroAInsertar['InsPrecio'])) {
+                            echo $registroAInsertar['InsPrecio'];
+                        }
+                        if (!isset($_SESSION['InsPrecioF'])) { //Cambie desde aqui
+                            echo $_SESSION['InsPrecioF'];
+                        } else if ($_POST['InsPrecio']) {echo $_POST['InsPrecio'];} 
+                        ;//Hasta aqui Luego se va a libros controlador
                                 ?>" />
                     
                         <?php

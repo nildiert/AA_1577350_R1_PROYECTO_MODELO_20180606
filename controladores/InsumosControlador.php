@@ -117,6 +117,15 @@ class InsumosControlador {
                 $_SESSION['mensaje'] = "Actualización realizada.";
                 header("location:ControladorPrincipal.php?ruta=listarInsumos");
                 break;
+            case "eliminarInsumos":
+            $usuarioBd = new UsuarioBd(USUARIO_BD, CONTRASENIA_BD);
+            $gestarInsumos = new InsumosDAO($usuarioBd, BASE, SERVIDOR);
+//                $consultaInsumos = new InsumosVO();
+            $consultaDeInsumos = $gestarInsumos->seleccionarId(array($this->datos["idAct"])); //Se consulta el Insumos para traer los datos.
+
+
+
+            session_start();            
             default:
                 break;
         }

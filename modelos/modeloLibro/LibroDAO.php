@@ -67,7 +67,7 @@ class LibroDAO extends ConBdMySql /* implements InterfaceCRUD */ {
             if (isset($_SESSION['precioF']) && !isset($_POST['precio'])) { //coloque desde aquí
                 $_POST['precio'] = $_SESSION['precioF'];
             }
-
+ 
             if (isset($_POST['precio']) && !isset($_SESSION['precioF'])) {
                 $_SESSION['precioF'] = $_POST['precio'];
             }//hasta aqui
