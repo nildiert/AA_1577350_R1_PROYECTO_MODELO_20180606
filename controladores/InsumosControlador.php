@@ -43,12 +43,12 @@ class InsumosControlador {
                 $_SESSION['totalRegistros'] = $totalRegistros;
 
                 //se almacenan en sesion las variables del filtro
-                $_SESSION['InsCodigo'] = (isset($this->datos['InsCodigo'])) ? $this->datos['InsCodigo'] : NULL;
-                $_SESSION['InsNombre'] = (isset($this->datos['InsNombre'])) ? $this->datos['InsNombre'] : NULL;
-                $_SESSION['InsCantActual'] = (isset($this->datos['InsCantActual'])) ? $this->datos['InsCantActual'] : NULL;
-                $_SESSION['InsUnidadMedida'] = (isset($this->datos['InsUnidadMedida'])) ? $this->datos['InsUnidadMedida'] : NULL;
-                $_SESSION['InsPrecio'] = (isset($this->datos['InsPrecio'])) ? $this->datos['InsPrecio'] : NULL;
-                $_SESSION['buscarF'] = (isset($this->datos['buscar'])) ? $this->datos['buscar'] : NULL;
+                $_SESSION['InsCodigo'] = (isset($this->$_POST['InsCodigo'])) ? $this->$_POST['InsCodigo'] : NULL;
+                $_SESSION['InsNombre'] = (isset($this->$_POST['InsNombre'])) ? $this->$_POST['InsNombre'] : NULL;
+                $_SESSION['InsCantActual'] = (isset($this->$_POST['InsCantActual'])) ? $this->$_POST['InsCantActual'] : NULL;
+                $_SESSION['InsUnidadMedida'] = (isset($this->$_POST['InsUnidadMedida'])) ? $this->$_POST['InsUnidadMedida'] : NULL;
+                $_SESSION['InsPrecio'] = (isset($this->$_POST['InsPrecio'])) ? $this->$_POST['InsPrecio'] : NULL;
+                $_SESSION['buscarF'] = (isset($this->$_POST['buscar'])) ? $this->$_POST['buscar'] : NULL;
 
 
                 $usuarioBd = null;

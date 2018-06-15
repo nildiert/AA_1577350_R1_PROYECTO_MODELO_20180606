@@ -44,6 +44,51 @@ class InsumosDAO extends ConBdMySql/* implements InterfaceCRUD */
         $condicionBuscar = "";
         $filtros = 0;
 
+        session_start();//Solo se coloca una vez .l.
+
+
+
+
+
+
+
+
+        if (isset($_SESSION['InsCodigoF']) && !isset($_POST['InsCodigo'])) { //coloque desde aquí
+            $_POST['InsCodigo'] = $_SESSION['InsCodigoF'];
+        }
+
+        if (isset($_POST['InsCodigo']) && !isset($_SESSION['InsCodigoF'])) {
+            $_SESSION['InsCodigoF'] = $_POST['InsCodigo'];
+        }//hasta aqui
+        if (isset($_SESSION['InsNombreF']) && !isset($_POST['InsNombre'])) { //coloque desde aquí
+            $_POST['InsNombre'] = $_SESSION['InsNombreF'];
+        }
+
+        if (isset($_POST['InsNombre']) && !isset($_SESSION['InsNombreF'])) {
+            $_SESSION['InsNombreF'] = $_POST['InsNombre'];
+        }//hasta aqui
+        if (isset($_SESSION['InsCantActualF']) && !isset($_POST['InsCantActual'])) { //coloque desde aquí
+            $_POST['InsCantActual'] = $_SESSION['InsCantActualF'];
+        }
+
+        if (isset($_POST['InsCantActual']) && !isset($_SESSION['InsCantActualF'])) {
+            $_SESSION['InsCantActualF'] = $_POST['InsCantActual'];
+        }//hasta aqui        
+        if (isset($_SESSION['InsUnidadMedidaF']) && !isset($_POST['InsUnidadMedida'])) { //coloque desde aquí
+            $_POST['InsUnidadMedida'] = $_SESSION['InsUnidadMedidaF'];
+        }
+
+        if (isset($_POST['InsUnidadMedida']) && !isset($_SESSION['InsUnidadMedidaF'])) {
+            $_SESSION['InsUnidadMedidaF'] = $_POST['InsUnidadMedida'];
+        }//hasta aqui        
+        if (isset($_SESSION['InsPrecioF']) && !isset($_POST['InsPrecio'])) { //coloque desde aquí
+            $_POST['InsPrecio'] = $_SESSION['InsPrecioF'];
+        }
+
+        if (isset($_POST['InsPrecio']) && !isset($_SESSION['InsPrecioF'])) {
+            $_SESSION['InsPrecioF'] = $_POST['InsPrecio'];
+        }//hasta aqui        
+
         if (isset($_POST['buscar'])) {
             $_POST['buscar'] = trim($_POST['buscar']);
         }
@@ -79,7 +124,7 @@ class InsumosDAO extends ConBdMySql/* implements InterfaceCRUD */
                 $planConsulta .= (($where && !$filtros) ? " where " : " and ") . " i.InsPrecio like upper('%" . $_POST['InsPrecio'] . "%')";
                 $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
             }
-          
+           
         }
         if (!empty($_POST['buscar'])) {
             $where = true;

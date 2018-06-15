@@ -33,28 +33,32 @@ if (isset($_POST['InsCodigo']) && !isset($_SESSION['InsCodigoF'])) {
 } // Copie y pegue
 /* * ********************************************* */
 /* * ********Conservar filtro 'InsNombre' si lo hay************ */
-if (isset($_POST['InsNombre']) && !isset($_SESSION['InsNombreF']))
+if (isset($_POST['InsNombre']) && !isset($_SESSION['InsNombreF'])) {
     $_SESSION['InsNombreF'] = $_POST['InsNombre'];
-else if (isset($_SESSION['InsNombreF']) && !isset($_POST['InsNombre']))
+} else if (isset($_SESSION['InsNombreF']) && !isset($_POST['InsNombre'])) {
     $_POST['InsNombre'] = $_SESSION['InsNombreF'];
+} // Copie y pegue
 /* * ********************************************* */
 /* * ********Conservar filtro 'InsCantActual' si lo hay************ */
-if (isset($_POST['InsCantActual']) && !isset($_SESSION['InsCantActualF']))
+if (isset($_POST['InsCantActual']) && !isset($_SESSION['InsCantActualF'])) {
     $_SESSION['InsCantActualF'] = $_POST['InsCantActual'];
-else if (isset($_SESSION['InsCantActualF']) && !isset($_POST['InsCantActual']))
+} else if (isset($_SESSION['InsCantActualF']) && !isset($_POST['InsCantActual'])) {
     $_POST['InsCantActual'] = $_SESSION['InsCantActualF'];
+} // Copie y pegue
 /* * ********************************************* */
 /* * ********Conservar filtro 'InsUnidadMedida' si lo hay************ */
-if (isset($_POST['InsUnidadMedida']) && !isset($_SESSION['InsUnidadMedidaF']))
+if (isset($_POST['InsUnidadMedida']) && !isset($_SESSION['InsUnidadMedidaF'])) {
     $_SESSION['InsUnidadMedidaF'] = $_POST['InsUnidadMedida'];
-else if (isset($_SESSION['InsUnidadMedidaF']) && !isset($_POST['InsUnidadMedida']))
+} else if (isset($_SESSION['InsUnidadMedidaF']) && !isset($_POST['InsUnidadMedida'])) {
     $_POST['InsUnidadMedida'] = $_SESSION['InsUnidadMedidaF'];
+} // Copie y pegue
 /* * ********************************************* */
 /* * ********Conservar filtro 'InsPrecio' si lo hay************ */
-if (isset($_POST['InsPrecio']) && !isset($_SESSION['InsPrecioF']))
+if (isset($_POST['InsPrecio']) && !isset($_SESSION['InsPrecioF'])) {
     $_SESSION['InsPrecioF'] = $_POST['InsPrecio'];
-else if (isset($_SESSION['InsPrecioF']) && !isset($_POST['InsPrecio']))
+} else if (isset($_SESSION['InsPrecioF']) && !isset($_POST['InsPrecio'])) {
     $_POST['InsPrecio'] = $_SESSION['InsPrecioF'];
+} // Copie y pegue
 /* * ********************************************* */
 /* * ********Conservar filtro 'buscar' si lo hay************ */
 if (isset($_POST['buscar']))
@@ -111,15 +115,19 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
             <input type="hidden" name="ruta" value="listarInsumos"/>
             <table> 
                 <tr><td>InsCodigo:</td><td><input type="text" name="InsCodigo" onclick="" value="<?php
+                        
                         if (isset($registroAInsertar['InsCodigo'])) {
                             echo $registroAInsertar['InsCodigo'];
                         }
-                        if (isset($_SESSION['InsCodigoF'])) {
+                        if (!isset($_SESSION['InsCodigoF'])) { //Cambie desde aqui
                             echo $_SESSION['InsCodigoF'];
-                        }
+                        } else if ($_POST['InsCodigo']) {echo $_POST['InsCodigo'];} 
+                        
+                        ;//Hasta aqui Luego se va a libros controlador
                         ?>"/></td>
                     <td>
                         <?php
+                        
                         if (isset($marcaCampo['InsCodigo'])) {
                             echo $marcaCampo['InsCodigo'];
                         }
@@ -127,31 +135,39 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                     </td>                        
                 </tr> 
                 <tr><td>InsNombre:</td><td> <input type="text" name="InsNombre" onclick="" value="<?php
+                        
                         if (isset($registroAInsertar['InsNombre'])) {
                             echo $registroAInsertar['InsNombre'];
                         }
-                        if (isset($_SESSION['InsNombreF'])) {
+                        if (isset($_SESSION['InsNombreF'])) { //Cambie desde aqui
                             echo $_SESSION['InsNombreF'];
-                        }
+                        } else if ($_POST['InsNombre']) {echo $_POST['InsNombre'];} 
+                        ;//Hasta aqui Luego se va a libros controlador
                         ?>" /></td>
                     <td>
                         <?php
+                        
                         if (isset($marcaCampo['InsNombre'])) {
                             echo $marcaCampo['InsNombre'];
                         }
+                        
                         ?>
                     </td>                          
                 </tr> 
                 <tr><td>InsCantActual:</td><td> <input type="double" onclick="" name="InsCantActual" value="<?php
+                        
                         if (isset($registroAInsertar['InsCantActual'])) {
                             echo $registroAInsertar['InsCantActual'];
                         }
-                        if (isset($_SESSION['InsCantActualF'])) {
+                        if (!isset($_SESSION['InsCantActualF'])) { //Cambie desde aqui
                             echo $_SESSION['InsCantActualF'];
-                        }
+                        } else if ($_POST['InsCantActual']) {echo $_POST['InsCantActual'];} 
+                        ;//Hasta aqui Luego se va a libros controlador
+                        
                         ?>"/></td>
                     <td>
                         <?php
+                        
                         if (isset($marcaCampo['InsCantActual'])) {
                             echo $marcaCampo['InsCantActual'];
                         }
@@ -159,15 +175,18 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                     </td>                          
                 </tr> 
                 <tr><td>InsUnidadMedida: </td><td><input type="text" onclick=""  name="InsUnidadMedida" value="<?php
+                        
                         if (isset($registroAInsertar['InsUnidadMedida'])) {
                             echo $registroAInsertar['InsUnidadMedida'];
                         }
-                        if (isset($_SESSION['InsUnidadMedidaF'])) {
+                        if (isset($_SESSION['InsUnidadMedidaF'])) { //Cambie desde aqui
                             echo $_SESSION['InsUnidadMedidaF'];
-                        }
+                        } else if ($_POST['InsUnidadMedida']) {echo $_POST['InsUnidadMedida'];} 
+                        ;//Hasta aqui Luego se va a libros controlador
                         ?>" /></td>
                     <td>
                         <?php
+                        
                         if (isset($marcaCampo['InsUnidadMedida'])) {
                             echo $marcaCampo['InsUnidadMedida'];
                         }
@@ -175,15 +194,18 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                     </td>                          
                 </tr>                   
                 <tr><td>InsPrecio: </td><td><input type="number" onclick=""  name="InsPrecio" value="<?php
+                        
                         if (isset($registroAInsertar['InsPrecio'])) {
                             echo $registroAInsertar['InsPrecio'];
                         }
-                        if (isset($_SESSION['InsPrecioF'])) {
+                        if (!isset($_SESSION['InsPrecioF'])) { //Cambie desde aqui
                             echo $_SESSION['InsPrecioF'];
-                        }
+                        } else if ($_POST['InsPrecio']) {echo $_POST['InsPrecio'];} 
+                        ;//Hasta aqui Luego se va a libros controlador
                         ?>" /></td>
                     <td>
                         <?php
+                        
                         if (isset($marcaCampo['InsPrecio'])) {
                             echo $marcaCampo['InsPrecio'];
                         }

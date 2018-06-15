@@ -31,7 +31,7 @@ if (isset($_POST['isbn']) && !isset($_SESSION['isbnF'])) {
 } else if (isset($_SESSION['isbnF']) && !isset($_POST['isbn'])) {
     $_POST['isbn'] = $_SESSION['isbnF'];
 } // Copie y pegue
-
+ 
 /* * ********************************************* */
 /* * ********Conservar filtro 'titulo' si lo hay************ */
 if (isset($_POST['titulo']) && !isset($_SESSION['tituloF'])) {

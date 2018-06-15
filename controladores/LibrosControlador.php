@@ -26,7 +26,7 @@ class LibrosControlador {
                     $pagInicio = 0;
                 }
                 $limit = 5;
-
+ 
                 $usuarioBd = new UsuarioBd(USUARIO_BD, CONTRASENIA_BD);
                 $consultarLibro = new LibroVO();
 
