@@ -66,8 +66,11 @@ if (isset($_SESSION['mensaje'])) {
                                <?php
                                if (isset($erroresValidacion['mensajesError']['documento']))
                                    echo "<font color='red'>" . $erroresValidacion['mensajesError']['documento'] . "</font>";
-                               ?>                                        
+                               ?>     
+                               <span class="focus-input100"></span>                                   
             
+            </div>
+            <div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name">            
                              <input class="input100" placeholder="Nombres" name="nombre" type="text"   required="required"
                                value="<?php
                                if (isset($erroresValidacion['datosViejos']['nombre']))
@@ -85,7 +88,9 @@ if (isset($_SESSION['mensaje'])) {
                                if (isset($erroresValidacion['mensajesError']['nombre']))
                                    echo "<font color='red'>" . $erroresValidacion['mensajesError']['nombre'] . "</font>";
                                ?>
-
+                               <span class="focus-input100"></span>
+            </div>
+            <div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name">            
                         <input class="input100" placeholder="Apellidos" name="apellidos" type="text"  required="required" 
                                value="<?php
                                if (isset($erroresValidacion['datosViejos']['apellidos']))
@@ -103,6 +108,9 @@ if (isset($_SESSION['mensaje'])) {
                                if (isset($erroresValidacion['mensajesError']['apellidos']))
                                    echo "<font color='red'>" . $erroresValidacion['mensajesError']['apellidos'] . "</font>";
                                ?>
+                               <span class="focus-input100"></span>
+            </div>                               
+            <div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name">            
                         <input class="input100" id="InputCorreo" placeholder="Correo Electrónico" name="email" type="email"  required="required"
                                value="<?php
                                if (isset($erroresValidacion['datosViejos']['email']))
@@ -120,14 +128,17 @@ if (isset($_SESSION['mensaje'])) {
                                if (isset($erroresValidacion['mensajesError']['email']))
                                    echo "<font color='red'>" . $erroresValidacion['mensajesError']['email'] . "</font>";
                                ?>
-
+                               <span class="focus-input100"></span>
+            </div>                               
                                
 
-                <span class="focus-input100"></span>
-            </div>
+                
             
             <div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="Type password">
             <input class="input100" id="InputPassword" placeholder="Password" name="password" type="password" value=""  required="required">
+            <span class="focus-input100"></span>
+            </div>            
+            <div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="Type password">
             <input class="input100" id="InputPassword2" class="form-control" placeholder="Confirmar Password" name="password2" type="password" value="">            
 
                 <span class="focus-input100"></span>

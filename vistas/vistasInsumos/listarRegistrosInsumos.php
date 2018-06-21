@@ -90,7 +90,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                     if (isset($registroAInsertar['InsCodigo'])) {
                         echo $registroAInsertar['InsCodigo'];
                     }
-                    if (!isset($_SESSION['InsCodigoF'])) { //Cambie desde aqui
+                    if (isset($_SESSION['InsCodigoF'])) { //Cambie desde aqui
                         echo $_SESSION['InsCodigoF'];
                     } else if ($_POST['InsCodigo']) {echo $_POST['InsCodigo'];} 
                     
@@ -127,7 +127,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                           if (isset($registroAInsertar['InsCantActual'])) {
                             echo $registroAInsertar['InsCantActual'];
                         }
-                        if (!isset($_SESSION['InsCantActualF'])) { //Cambie desde aqui
+                        if (isset($_SESSION['InsCantActualF'])) { //Cambie desde aqui
                             echo $_SESSION['InsCantActualF'];
                         } else if ($_POST['InsCantActual']) {echo $_POST['InsCantActual'];} 
                         ;//Hasta aqui Luego se va a libros controlador
@@ -162,7 +162,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                         if (isset($registroAInsertar['InsPrecio'])) {
                             echo $registroAInsertar['InsPrecio'];
                         }
-                        if (!isset($_SESSION['InsPrecioF'])) { //Cambie desde aqui
+                        if (isset($_SESSION['InsPrecioF'])) { //Cambie desde aqui
                             echo $_SESSION['InsPrecioF'];
                         } else if ($_POST['InsPrecio']) {echo $_POST['InsPrecio'];} 
                         ;//Hasta aqui Luego se va a libros controlador
@@ -211,14 +211,14 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
 </div>
 <div class="col-lg-1"></div>
                         <div class="col-lg-5 card p-30 " >
-                            <div class="card-title">
+                            <div class="card-title ">
                                 <h1>Buscar insumos</h1>
                             </div>
 
     
                     <!--NUEVO BOTÓN PARA BUSCAR*************************-->
-                
-                    <form name="formBuscarInsumos" class="container" action="controladores/ControladorPrincipal.php" method="POST">
+                        <div class="row">
+                                 <form name="formBuscarInsumos" class="container" action="controladores/ControladorPrincipal.php" method="POST">
                         
                                         <input type="hidden" name="ruta" value="listarInsumos" />
                 
@@ -227,6 +227,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                                         echo $_SESSION['buscarF'];
                                     }
                                     ?>">
+                                    </div>
                 <div class="button-list m-t-10">                                    
                         
                                         <input  type="submit" value="Buscar" class="btn btn-info col-md-4 " title="Si es necesario limpie 'Filtrar'">
@@ -266,7 +267,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
         </p>
         <br>
         
-        <table class="table table-hover ">
+        <table class="table table-hover table-responsive-sm table-responsive-md table-responsive-lg     table-responsive-xl">
             <thead>
                 <tr>
                     <TH style="width: 100">CODIGO</TH>
