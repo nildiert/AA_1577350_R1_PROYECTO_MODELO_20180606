@@ -1,6 +1,6 @@
 <?php
 
-define("BASE", "id6245058_ksqdigital");            //definimos una constante para la base
+define("BASE", "ksqdigital");            //definimos una constante para la base
 define("SERVIDOR", "localhost");        //definimos una constante para el servidor
 define("USUARIO_BD", "root");          //definimos una constante para el usuario
 //define("CONTRASENIA_BD","root");      //definimos una constante para la contraseña
