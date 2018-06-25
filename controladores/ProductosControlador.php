@@ -120,17 +120,34 @@ class ProductosControlador {
                 header("location:ControladorPrincipal.php?ruta=listarProductos");
                 break;
             case "eliminarProductos":
-            $usuarioBd = new UsuarioBd(USUARIO_BD, CONTRASENIA_BD);
-            $gestarProductos = new ProductosDAO($usuarioBd, BASE, SERVIDOR);
-//                $consultaProductos = new ProductosVO();
-            $consultaDeProductos = $gestarProductos->seleccionarId(array($this->datos["idAct"])); //Se consulta el Productos para traer los datos.
-
-
-
-            session_start();            
-            default:
-                break;
-        }
+                $usuarioBd = new UsuarioBd(USUARIO_BD, CONTRASENIA_BD);
+                $gestarProductos = new ProductosDAO($usuarioBd, BASE, SERVIDOR);
+    //                $consultaProductos = new ProductosVO();
+                $consultaDeProductos = $gestarProductos->seleccionarId(array($this->datos["idAct"])); //Se consulta el Productos para traer los datos.
+    
+                
+                $eliminarDatosProductos = $consultaDeProductos['registroEncontrado'][0];
+                session_start();
+                $_SESSION['eliminarDatosProductos'] = $eliminarDatosProductos;
+                header("location:../principal.php?contenido=vistas/vistasProductos/vistaeliminarProductos.php");
+    
+    
+    
+                session_start();            
+                default:
+                    break;
+            case "confirmaEliminarProductos":
+                    $usuarioBd = new UsuarioBd(USUARIO_BD, CONTRASENIA_BD);
+                    $gestarProductos = new ProductosDAO($usuarioBd, BASE, SERVIDOR);
+    //                $consultaProductos = new ProductosVO();
+                    $eliminarProductos = $gestarProductos->eliminar(array($this->datos)); //Se envía datos del Productos para eliminar.
+    
+                    $eliminarProductos = $consultaDeProductos['registroEncontrado'][0];
+                    session_start();
+                    $_SESSION['mensaje'] = "Se ha eliminado el Producto.";
+                    header("location:ControladorPrincipal.php?ruta=listarProductos");
+                    break;                
+            }
     }
 
 }

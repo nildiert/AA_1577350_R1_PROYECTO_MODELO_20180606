@@ -16,6 +16,8 @@ include_once PATH . 'controladores/InsumosControlador.php';
 include_once PATH . 'modelos/modeloInsumos/ValidadorInsumos.php';
 include_once PATH . 'controladores/ProductosControlador.php';
 include_once PATH . 'modelos/modeloProductos/ValidadorProductos.php';
+include_once PATH . 'controladores/OrdenProduccionControlador.php';
+include_once PATH . 'modelos/modeloOrdenProduccion/ValidadorOrdenProduccion.php';
 
 /* * ********************************************** */
 
@@ -57,6 +59,7 @@ switch ($datos['ruta']) {
             $validarRegistro = new ValidadorUsuarios_s();
             $erroresValidacion = $validarRegistro->validarFormularioRegistrarse($datos);
         }
+
 //////////////////////////////////////////////////////////////
         if ($erroresValidacion) {
 
@@ -68,6 +71,7 @@ switch ($datos['ruta']) {
         $usuario_sControlador = new Usuario_sControlador($datos);
         $usuario_sControlador->usuario_sControlador();
         break;
+
     case "listarLibros":
         $librosControlador = new LibrosControlador($datos);
         $librosControlador->librosControlador();
@@ -160,11 +164,27 @@ switch ($datos['ruta']) {
             $InsumosControlador = new InsumosControlador($datos);
             $InsumosControlador->InsumosControlador();
             break;
-    case "eliminarProductos":
-        $ProductosControlador = new ProductosControlador($datos);
-        $ProductosControlador->ProductosControlador();
-        break;        
-        case "listarProductos":
+        case "eliminarProductos":
+            $ProductosControlador = new ProductosControlador($datos);
+            $ProductosControlador->ProductosControlador();
+            break;        
+        case "confirmaEliminarProductos":
+                if ($datos['ruta'] == "confirmaEliminarProductos") {
+        
+                    $validarRegistro = new ValidadorProductos();
+                    $erroresValidacion = $validarRegistro->validarFormularioInsertarProductos($datos);
+                }
+        ////////////////////////////////////////////////////////////////
+                if (isset($erroresValidacion) && $erroresValidacion != FALSE) {
+                    $erroresValidacion = json_encode($erroresValidacion);
+                    if ($datos['ruta'] == "confirmaEliminarProductos") {
+                        header("location:../principal.php?contenido=vistas/vistasProductos/vistaEliminarProductos.php&erroresValidacion=" . $erroresValidacion);
+                    }
+                }
+                $ProductosControlador = new ProductosControlador($datos);
+                $ProductosControlador->ProductosControlador();
+                break;
+    case "listarProductos":
         $ProductosControlador = new ProductosControlador($datos);
         $ProductosControlador->ProductosControlador();
         break;
@@ -194,5 +214,72 @@ switch ($datos['ruta']) {
         $ProductosControlador = new ProductosControlador($datos);
         $ProductosControlador->ProductosControlador();
         break;
+        case "eliminarOrdenProduccion":
+            $OrdenProduccionControlador = new OrdenProduccionControlador($datos);
+            $OrdenProduccionControlador->OrdenProduccionControlador();
+            break;        
+        case "confirmaEliminarOrdenProduccion":
+                if ($datos['ruta'] == "confirmaEliminarOrdenProduccion") {
+        
+                    $validarRegistro = new ValidadorOrdenProduccion();
+                    $erroresValidacion = $validarRegistro->validarFormularioInsertarOrdenProduccion($datos);
+                }
+        ////////////////////////////////////////////////////////////////
+                if (isset($erroresValidacion) && $erroresValidacion != FALSE) {
+                    $erroresValidacion = json_encode($erroresValidacion);
+                    if ($datos['ruta'] == "confirmaEliminarOrdenProduccion") {
+                        header("location:../principal.php?contenido=vistas/vistasOrdenProduccion/vistaEliminarOrdenProduccion.php&erroresValidacion=" . $erroresValidacion);
+                    }
+                }
+                $OrdenProduccionControlador = new OrdenProduccionControlador($datos);
+                $OrdenProduccionControlador->OrdenProduccionControlador();
+                break;
+    case "listarOrdenProduccion":
+        $OrdenProduccionControlador = new OrdenProduccionControlador($datos);
+        $OrdenProduccionControlador->OrdenProduccionControlador();
+        break;
+    case "insertarOrdenProduccion":
+        if ($datos['ruta'] == "insertarOrdenProduccion") {
+
+            $validarRegistro = new ValidadorOrdenProduccion();
+            $erroresValidacion = $validarRegistro->validarFormularioInsertarOrdenProduccion($datos);
+        }        
+    case "actualizarOrdenProduccion":
+        $OrdenProduccionControlador = new OrdenProduccionControlador($datos);
+        $OrdenProduccionControlador->OrdenProduccionControlador();
+        break;
+        case "confirmaActualizarOrdenProduccion":
+        if ($datos['ruta'] == "confirmaActualizarOrdenProduccion") {
+            
+            $validarRegistro = new ValidadorOrdenProduccion();
+            $erroresValidacion = $validarRegistro->validarFormularioInsertarOrdenProduccion($datos);
+        }
+        ////////////////////////////////////////////////////////////////
+        if (isset($erroresValidacion) && $erroresValidacion != FALSE) {
+            $erroresValidacion = json_encode($erroresValidacion);
+            if ($datos['ruta'] == "confirmaActualizarOrdenProduccion") {
+                header("location:../principal.php?contenido=vistas/vistasOrdenProduccion/vistaActualizarOrdenProduccion.php&erroresValidacion=" . $erroresValidacion);
+            }
+        }
+        $OrdenProduccionControlador = new OrdenProduccionControlador($datos);
+        $OrdenProduccionControlador->OrdenProduccionControlador();
+        break;
+    case "listarRegistro":
+        $RegistroControlador = new RegistroControlador($datos);
+        $RegistroControlador->RegistroControlador();
+        break;
+    case "insertarRegistro":
+        if ($datos['ruta'] == "insertarRegistro") {
+
+            $validarRegistro = new ValidadorRegistro();
+            $erroresValidacion = $validarRegistro->validarFormularioInsertarRegistro($datos);
+        }        
+    case "Registro":
+    if ($datos['ruta'] == "Registro") {
+        header("location:../principal.php?contenido=registro2.php");
+        break;
+    }
+     
+  
 }
-?>
+    ?>

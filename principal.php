@@ -1,4 +1,5 @@
 <?php session_start();  ?>
+
 <?php
 include_once './controladores/ManejoSesiones/BloqueDeSeguridad.php';
 $seguridad = new BloqueDeSeguridad();
@@ -149,31 +150,39 @@ $seguridad->seguridad("login.php");
                             </ul>
                         </li>-->
                         <li class="nav-label">KSQ DIGITAL</li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-shopping-bag"></i><span class="hide-menu">Ventas</span></a>
-                            <ul aria-expanded="true" class="collapse">
-                                <li><a href="controladores/ControladorPrincipal.php?ruta=listarOrdProd">Listado de Ventas</a></li>
-                                <li><a onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasOrdProd/vistaInsertarOrdProd.php'">Agregar Venta</a></li>
-                                
-
-                            </ul>
-                        </li>                        
-                        <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-archive"></i><span class="hide-menu">Productos</span></a>
-                            <ul aria-expanded="true" class="collapse">
-                                <li><a href="controladores/ControladorPrincipal.php?ruta=listarProductos">Listado de Productos</a></li>
-                                <li><a onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasProductos/vistaInsertarProductos.php'">Agregar Productos</a></li>
-                                
-
-                            </ul>
-                        </li>                        
                         <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-spinner"></i><span class="hide-menu">Insumos</span></a>
                             <ul aria-expanded="true" class="collapse">
-                                <li><a href="controladores/ControladorPrincipal.php?ruta=listarInsumos">Listado de Insumos</a></li>
-                                <li><a onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasInsumos/vistaInsertarInsumos.php'">Agregar Insumos</a></li>
+                                <li><a class="hide-menu" href="controladores/ControladorPrincipal.php?ruta=listarInsumos">Listado de Insumos</a></li>
+                                <li style="cursor: pointer;"><a style="cursor: pointer;" onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasInsumos/vistaInsertarInsumos.php'">Agregar Insumos</a></li>
                                 
 
                             </ul>
                         </li>
-                        
+                        <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-archive"></i><span class="hide-menu">Productos</span></a>
+                            <ul aria-expanded="true" class="collapse">
+                                <li><a href="controladores/ControladorPrincipal.php?ruta=listarProductos">Listado de Productos</a></li>
+                                <li style="cursor: pointer;"><a onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasProductos/vistaInsertarProductos.php'">Agregar Productos</a></li>
+                                
+
+                            </ul>
+                        </li>                        
+                        <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-shopping-bag"></i><span class="hide-menu">Ventas</span></a>
+                            <ul aria-expanded="true" class="collapse">
+                                <li><a href="controladores/ControladorPrincipal.php?ruta=listarOrdenProduccion">Listado de Ventas</a></li>
+                                <li style="cursor: pointer;"><a onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasOrdenProduccion/vistaInsertarOrdenProduccion.php'">Agregar Venta</a></li>
+                                
+
+                            </ul>
+                        </li>                        
+                        <li class="nav-label">ADMINISTRADOR</li>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-users"></i><span class="hide-menu">Registro</span></a>
+                            <ul aria-expanded="true" class="collapse">
+                                <li><a class="hide-menu" href="controladores/ControladorPrincipal.php?ruta=Registro" >Registro de usuarios</a></li>
+                                
+                                
+
+                            </ul>
+                        </li>                        
                         
                         
                     </ul>

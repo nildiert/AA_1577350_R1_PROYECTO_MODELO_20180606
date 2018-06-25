@@ -18,110 +18,127 @@ class ProductosDAO extends ConBdMySql/* implements InterfaceCRUD */
 
     public function seleccionarTodos()
     {
-        $planConsulta = "SELECT i.InsCodigo,i.InsNombre,i.InsCantActual,i.InsUnidadMedida,i.InsPrecio ";
-        $planConsulta .= "FROM Productos i ";
-  //      $planConsulta .= "WHERE i.InsEstado=1 ";//
 
+
+        $planConsulta = " SELECT pt.ProCodigo, pt.ProNombre, pt.ProPresentacion, pt.ProPrecioBogota, pt.ProPrecioNacional, pt.ProMaquila ";
+        $planConsulta .= " FROM productos pt ";
+        
+        
+        //      $planConsulta .= "WHERE i.InsEstado=1 ";//
+        
         $registrosProductos = $this->conexion->prepare($planConsulta); //Se envia la consulta
         $registrosProductos->execute(); //Ejecución de la consulta
         $listadoRegistrosProductos = array();
-
+        
         while ($registro = $registrosProductos->fetch(PDO::FETCH_OBJ)) {
             $listadoRegistrosProductos[] = $registro;
         }
-
+        
         $this->cierreBd();
         return $listadoRegistrosProductos;
     }
-
+    
     public function consultaPaginada(ProductosVO $consultarProductos = null, $limit = null, $pagInicio = null)
     {
-
+        
         $parametrosPaginacion = $this->solicitudPaginacion();
         $offset = $parametrosPaginacion[0];
         $limit = $parametrosPaginacion[1];
-
+        
         $condicionBuscar = "";
         $filtros = 0;
-
+        
         session_start();//Solo se coloca una vez .l.
+        
+        
+        
+        
 
-
-
-
-
-
-
-
-        if (isset($_SESSION['InsCodigoF']) && !isset($_POST['InsCodigo'])) { //coloque desde aquí
-            $_POST['InsCodigo'] = $_SESSION['InsCodigoF'];
+        
+        
+        
+        if (isset($_SESSION['ProCodigoF']) && !isset($_POST['ProCodigo'])) { //coloque desde aquí
+            $_POST['ProCodigo'] = $_SESSION['ProCodigoF'];
         }
-
-        if (isset($_POST['InsCodigo']) && !isset($_SESSION['InsCodigoF'])) {
-            $_SESSION['InsCodigoF'] = $_POST['InsCodigo'];
+        
+        if (isset($_POST['ProCodigo']) && !isset($_SESSION['ProCodigoF'])) {
+            $_SESSION['ProCodigoF'] = $_POST['ProCodigo'];
         }//hasta aqui
-        if (isset($_SESSION['InsNombreF']) && !isset($_POST['InsNombre'])) { //coloque desde aquí
-            $_POST['InsNombre'] = $_SESSION['InsNombreF'];
+        if (isset($_SESSION['ProNombreF']) && !isset($_POST['ProNombre'])) { //coloque desde aquí
+            $_POST['ProNombre'] = $_SESSION['ProNombreF'];
         }
 
-        if (isset($_POST['InsNombre']) && !isset($_SESSION['InsNombreF'])) {
-            $_SESSION['InsNombreF'] = $_POST['InsNombre'];
+        if (isset($_POST['ProNombre']) && !isset($_SESSION['ProNombreF'])) {
+            $_SESSION['ProNombreF'] = $_POST['ProNombre'];
         }//hasta aqui
-        if (isset($_SESSION['InsCantActualF']) && !isset($_POST['InsCantActual'])) { //coloque desde aquí
-            $_POST['InsCantActual'] = $_SESSION['InsCantActualF'];
+        if (isset($_SESSION['ProPresentacionF']) && !isset($_POST['ProPresentacion'])) { //coloque desde aquí
+            $_POST['ProPresentacion'] = $_SESSION['ProPresentacionF'];
         }
 
-        if (isset($_POST['InsCantActual']) && !isset($_SESSION['InsCantActualF'])) {
-            $_SESSION['InsCantActualF'] = $_POST['InsCantActual'];
+        if (isset($_POST['ProPresentacion']) && !isset($_SESSION['ProPresentacionF'])) {
+            $_SESSION['ProPresentacionF'] = $_POST['ProPresentacion'];
         }//hasta aqui        
-        if (isset($_SESSION['InsUnidadMedidaF']) && !isset($_POST['InsUnidadMedida'])) { //coloque desde aquí
-            $_POST['InsUnidadMedida'] = $_SESSION['InsUnidadMedidaF'];
+        if (isset($_SESSION['ProPrecioBogotaF']) && !isset($_POST['ProPrecioBogota'])) { //coloque desde aquí
+            $_POST['ProPrecioBogota'] = $_SESSION['ProPrecioBogotaF'];
         }
-
-        if (isset($_POST['InsUnidadMedida']) && !isset($_SESSION['InsUnidadMedidaF'])) {
-            $_SESSION['InsUnidadMedidaF'] = $_POST['InsUnidadMedida'];
+        
+        if (isset($_POST['ProPrecioBogota']) && !isset($_SESSION['ProPrecioBogotaF'])) {
+            $_SESSION['ProPrecioBogotaF'] = $_POST['ProPrecioBogota'];
         }//hasta aqui        
-        if (isset($_SESSION['InsPrecioF']) && !isset($_POST['InsPrecio'])) { //coloque desde aquí
-            $_POST['InsPrecio'] = $_SESSION['InsPrecioF'];
+        if (isset($_SESSION['ProPrecioNacionalF']) && !isset($_POST['ProPrecioNacional'])) { //coloque desde aquí
+            $_POST['ProPrecioNacional'] = $_SESSION['ProPrecioNacionalF'];
         }
-
-        if (isset($_POST['InsPrecio']) && !isset($_SESSION['InsPrecioF'])) {
-            $_SESSION['InsPrecioF'] = $_POST['InsPrecio'];
+        
+        if (isset($_POST['ProPrecioNacional']) && !isset($_SESSION['ProPrecioNacionalF'])) {
+            $_SESSION['ProPrecioNacionalF'] = $_POST['ProPrecioNacional'];
         }//hasta aqui        
-
+        if (isset($_SESSION['ProMaquilaF']) && !isset($_POST['ProMaquila'])) { //coloque desde aquí
+            $_POST['ProMaquila'] = $_SESSION['ProMaquilaF'];
+        }
+        
+        if (isset($_POST['ProMaquila']) && !isset($_SESSION['ProMaquilaF'])) {
+            $_SESSION['ProMaquilaF'] = $_POST['ProMaquila'];
+        }//hasta aqui        
+        
         if (isset($_POST['buscar'])) {
             $_POST['buscar'] = trim($_POST['buscar']);
         }
+        
+        $planConsulta = " SELECT pt.ProCodigo, pt.ProNombre, pt.ProPresentacion, pt.ProPrecioBogota, pt.ProPrecioNacional, pt.ProMaquila ";
+        $planConsulta .= " FROM productos pt ";
 
-        $planConsulta = "SELECT i.InsCodigo,i.InsNombre,i.InsCantActual,i.InsUnidadMedida,i.InsPrecio ";
-        $planConsulta .= "FROM Productos i ";
         //$planConsulta .= "WHERE i.InsEstado=1 ";
-
-
-        if (!empty($_POST['InsCodigo'])) {
-            $planConsulta .= " where i.InsCodigo='" . $_POST['InsCodigo'] . "'";
+        
+        
+        if (!empty($_POST['ProCodigo'])) {
+            $planConsulta .= " where pt.ProCodigo='" . $_POST['ProCodigo'] . "'";
             $filtros = 0; // cantidad de filtros/condiciones o criterios de búsqueda al comenzar la consulta
         } else {
             $where = false; // inicializar $where a falso ( al comenzar la consulta NO HAY condiciones o criterios de búsqueda)
             $filtros = 0; // cantidad de filtros/condiciones o criterios de búsqueda al comenzar la consulta
-            if (!empty($_POST['InsNombre'])) {
+            if (!empty($_POST['ProNombre'])) {
                 $where = true; // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-                $planConsulta .= (($where && !$filtros) ? " where " : " and ") . "i.InsNombre like upper('%" . $_POST['InsNombre'] . "%')"; // con tipo de búsqueda aproximada sin importar mayúsculas ni minúsculas
+                $planConsulta .= (($where && !$filtros) ? " where " : " and ") . "pt.ProNombre like upper('%" . $_POST['ProNombre'] . "%')"; // con tipo de búsqueda aproximada sin importar mayúsculas ni minúsculas
                 $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
             }
-            if (!empty($_POST['InsCantActual'])) {
+            if (!empty($_POST['ProPresentacion'])) {
                 $where = true; // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-                $planConsulta .= (($where && !$filtros) ? " where " : " and ") . " i.InsCantActual = " . (float)$_POST['InsCantActual']; // con tipo de búsqueda aproximada sin importar mayúsculas ni minúsculas
+                $planConsulta .= (($where && !$filtros) ? " where " : " and ") . " pt.ProPresentacion = " . (float)$_POST['ProPresentacion']; // con tipo de búsqueda aproximada sin importar mayúsculas ni minúsculas
                 $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
             }
-            if (!empty($_POST['InsUnidadMedida'])) {
+            if (!empty($_POST['ProPrecioBogota'])) {
                 $where = true; // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-                $planConsulta .= (($where && !$filtros) ? " where " : " and ") . " i.InsUnidadMedida like upper('%" . $_POST['InsUnidadMedida']. "%')";
+                $planConsulta .= (($where && !$filtros) ? " where " : " and ") . " pt.ProPrecioBogota like upper('%" . $_POST['ProPrecioBogota']. "%')";
                 $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
             }
-            if (!empty($_POST['InsPrecio'])) {
+            if (!empty($_POST['ProPrecioNacional'])) {
                 $where = true; // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-                $planConsulta .= (($where && !$filtros) ? " where " : " and ") . " i.InsPrecio like upper('%" . $_POST['InsPrecio'] . "%')";
+                $planConsulta .= (($where && !$filtros) ? " where " : " and ") . " pt.ProPrecioNacional like upper('%" . $_POST['ProPrecioNacional'] . "%')";
+                $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
+            }
+            if (!empty($_POST['ProMaquila'])) {
+                $where = true; // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
+                $planConsulta .= (($where && !$filtros) ? " where " : " and ") . " pt.ProMaquila like upper('%" . $_POST['ProMaquila'] . "%')";
                 $filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
             }
            
@@ -131,13 +148,15 @@ class ProductosDAO extends ConBdMySql/* implements InterfaceCRUD */
             $condicionBuscar = (($where && !$filtros == 0) ? " or " : " where ");
             $filtros++;
             $planConsulta .= $condicionBuscar;
-            $planConsulta .= "( InsCodigo like '%" . $_POST['buscar'] . "%'";
-            $planConsulta .= " or InsNombre like '%" . $_POST['buscar'] . "%'";
-            $planConsulta .= " or InsCantActual like '%" . $_POST['buscar'] . "%'";
-            $planConsulta .= " or InsUnidadMedida like '%" . $_POST['buscar'] . "%'";
+            $planConsulta .= "( ProCodigo like '%" . $_POST['buscar'] . "%'";
+            $planConsulta .= " or ProNombre like '%" . $_POST['buscar'] . "%'";
+            $planConsulta .= " or ProPresentacion like '%" . $_POST['buscar'] . "%'";
+            $planConsulta .= " or ProPrecioBogota like '%" . $_POST['buscar'] . "%'";
+            $planConsulta .= " or ProPrecioNacional like '%" . $_POST['buscar'] . "%'";
+            $planConsulta .= " or ProMaquila like '%" . $_POST['buscar'] . "%'";
             $planConsulta .= " ) ";
         };
-        $planConsulta .= "  order by i.InsCodigo desc";
+        $planConsulta .= "  order by pt.ProCodigo desc";
         $planConsulta .= " LIMIT " . $limit . " OFFSET " . $offset . " ; ";
 //        echo $planConsulta;
 //        exit();
@@ -213,8 +232,8 @@ class ProductosDAO extends ConBdMySql/* implements InterfaceCRUD */
         //
         //        $resultadoConsulta = FALSE;
         
-        $planConsulta = "select * from Productos i ";
-        $planConsulta .= " where i.InsCodigo= ? ;";
+        $planConsulta = "select * from Productos pt ";
+        $planConsulta .= " where pt.ProCodigo= ? ;";
         $listar = $this->conexion->prepare($planConsulta);
         $listar->execute(array($sId[0]));
         
@@ -234,12 +253,13 @@ class ProductosDAO extends ConBdMySql/* implements InterfaceCRUD */
         
         try {
 
-            $inserta = $this->conexion->prepare('INSERT INTO Productos (InsCodigo, InsNombre, InsCantActual, InsUnidadMedida, InsPrecio) VALUES ( :InsCodigo, :InsNombre, :InsCantActual, :InsUnidadMedida, :InsPrecio );');
-            $inserta->bindParam(":InsCodigo", $registro['InsCodigo']);
-            $inserta->bindParam(":InsNombre", $registro['InsNombre']);
-            $inserta->bindParam(":InsCantActual", $registro['InsCantActual']);
-            $inserta->bindParam(":InsUnidadMedida", $registro['InsUnidadMedida']);
-            $inserta->bindParam(":InsPrecio", $registro['InsPrecio']);
+            $inserta = $this->conexion->prepare('INSERT INTO productos (ProCodigo, ProNombre, ProPresentacion, ProPrecioBogota, ProPrecioNacional, ProMaquila) VALUES ( :ProCodigo, :ProNombre, :ProPresentacion, :ProPrecioBogota, :ProPrecioNacional, :ProMaquila );');
+            $inserta->bindParam(":ProCodigo", $registro['ProCodigo']);
+            $inserta->bindParam(":ProNombre", $registro['ProNombre']);
+            $inserta->bindParam(":ProPresentacion", $registro['ProPresentacion']);
+            $inserta->bindParam(":ProPrecioBogota", $registro['ProPrecioBogota']);
+            $inserta->bindParam(":ProPrecioNacional", $registro['ProPrecioNacional']);
+            $inserta->bindParam(":ProMaquila", $registro['ProMaquila']);
             $insercion = $inserta->execute();
             $clavePrimariaConQueInserto = $this->conexion->lastInsertId();
 
@@ -255,16 +275,21 @@ class ProductosDAO extends ConBdMySql/* implements InterfaceCRUD */
     {
         try {
             
-            $InsCantActual = $registro[0]['InsCantActual'];
-            $InsNombre = $registro[0]['InsNombre'];
-            $InsUnidadMedida = $registro[0]['InsUnidadMedida'];
-            $categoria = $registro[0]['InsPrecio'];
-            $InsCodigo = $registro[0]['InsCodigo'];
+            $ProPresentacion = $registro[0]['ProPresentacion'];
+            $ProNombre = $registro[0]['ProNombre'];
+            $ProPrecioBogota = $registro[0]['ProPrecioBogota'];
+            $ProPrecioNacional = $registro[0]['ProPrecioNacional'];
+            $ProCodigo = $registro[0]['ProCodigo'];
+            $ProMaquila = $registro[0]['ProMaquila'];
 
-            if (isset($registro[0]['InsCodigo'])) {
-                $actualizar = "UPDATE Productos SET InsCantActual= ? , InsNombre = ? , InsUnidadMedida = ? , InsPrecio = ? WHERE InsCodigo= ? ;";
+            if (isset($registro[0]['ProCodigo'])) {
+                $actualizar = "UPDATE productos SET ProPresentacion= ? , ProNombre = ? , ProPrecioBogota = ? , ProPrecioNacional = ? , ProMaquila = ? WHERE ProCodigo= ? ;";
                 $resultado = $this->conexion->prepare($actualizar);
-                $actualizacion = $resultado->execute(array($InsCantActual, $InsNombre, $InsUnidadMedida, $categoria, $InsCodigo));
+                
+                
+                $actualizacion = $resultado->execute(array($ProPresentacion, $ProNombre, $ProPrecioBogota, $ProPrecioNacional, $ProMaquila,$ProCodigo));
+                //var_dump($resultado);
+                //exit();
                 return ['actualizacion' => $actualizacion, 'mensaje' => $mensaje];
             }
         } catch (Exception $exc) {
@@ -275,27 +300,21 @@ class ProductosDAO extends ConBdMySql/* implements InterfaceCRUD */
     }
 
     public function eliminar($eId) {
-/* 
         try {
+        $ProCodigo = $eId[0]['ProCodigo'];
 
-    
+        if (isset($eId[0]['ProCodigo'])) {
+            $eliminar = "DELETE FROM productos WHERE ProCodigo= ? ;";
+            $resultado = $this->conexion->prepare($eliminar);
+            $eliminacion = $resultado->execute(array($ProCodigo));
+            return ['eliminacion' => $eliminacion, 'mensaje' => $mensaje];
+        }
+    } catch (Exception $exc) {
+        return ['eliminacion' => $eliminacion, 'mensaje' => $exc->getTraceAsString()];
+    }
+//    var_dump ($actualizacion);
+    exit();
 
-            $InsCodigo=$eId[0]['InsCodigo'];
-
-            if (isset($eId[0]['InsCodigo'])) {
-                $actualizar = "UPDATE libros SET estado = 0 WHERE isbn = '".$isbn."';";
-               //  DELETE FROM `libros` WHERE `libros`.`isbn` = '".$isbn."' AND `libros`.`categoriaLibro_catLibId` = '".$categoria."';
-                
-                $eliminar= "('DELETE FROM Productos WHERE InsCodigo= :InsCodigo')";
-                
-                $resultado = $this->conexion->prepare($eliminar);
-                $eliminacion = $resultado->execute(array($InsCodigo));
-                return ['eliminacion' => $eliminacion, 'mensaje' => $mensaje];
-     
-                
-        } catch (Exception $exc) {
-            return ['eliminacion' => $eliminacion, 'mensaje' => $exc->getTraceAsString()];
-        }*/
     }
 
 }
