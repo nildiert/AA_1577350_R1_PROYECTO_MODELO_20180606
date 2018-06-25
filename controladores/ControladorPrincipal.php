@@ -14,6 +14,8 @@ include_once PATH . 'controladores/CategoriaLibroControlador.php';
 include_once PATH . 'modelos/modeloLibro/ValidadorLibros.php';
 include_once PATH . 'controladores/InsumosControlador.php';
 include_once PATH . 'modelos/modeloInsumos/ValidadorInsumos.php';
+include_once PATH . 'controladores/ProductosControlador.php';
+include_once PATH . 'modelos/modeloProductos/ValidadorProductos.php';
 
 /* * ********************************************** */
 
@@ -138,9 +140,59 @@ switch ($datos['ruta']) {
         $InsumosControlador = new InsumosControlador($datos);
         $InsumosControlador->InsumosControlador();
         break;
-    case "eliminarInsumos":
+        case "eliminarInsumos":
         $InsumosControlador = new InsumosControlador($datos);
         $InsumosControlador->InsumosControlador();
         break;        
+        case "confirmaEliminarInsumos":
+            if ($datos['ruta'] == "confirmaEliminarInsumos") {
+    
+                $validarRegistro = new ValidadorInsumos();
+                $erroresValidacion = $validarRegistro->validarFormularioInsertarInsumos($datos);
+            }
+    ////////////////////////////////////////////////////////////////
+            if (isset($erroresValidacion) && $erroresValidacion != FALSE) {
+                $erroresValidacion = json_encode($erroresValidacion);
+                if ($datos['ruta'] == "confirmaEliminarInsumos") {
+                    header("location:../principal.php?contenido=vistas/vistasInsumos/vistaEliminarInsumos.php&erroresValidacion=" . $erroresValidacion);
+                }
+            }
+            $InsumosControlador = new InsumosControlador($datos);
+            $InsumosControlador->InsumosControlador();
+            break;
+    case "eliminarProductos":
+        $ProductosControlador = new ProductosControlador($datos);
+        $ProductosControlador->ProductosControlador();
+        break;        
+        case "listarProductos":
+        $ProductosControlador = new ProductosControlador($datos);
+        $ProductosControlador->ProductosControlador();
+        break;
+    case "insertarProductos":
+        if ($datos['ruta'] == "insertarProductos") {
+
+            $validarRegistro = new ValidadorProductos();
+            $erroresValidacion = $validarRegistro->validarFormularioInsertarProductos($datos);
+        }        
+    case "actualizarProductos":
+        $ProductosControlador = new ProductosControlador($datos);
+        $ProductosControlador->ProductosControlador();
+        break;
+    case "confirmaActualizarProductos":
+        if ($datos['ruta'] == "confirmaActualizarProductos") {
+
+            $validarRegistro = new ValidadorProductos();
+            $erroresValidacion = $validarRegistro->validarFormularioInsertarProductos($datos);
+        }
+////////////////////////////////////////////////////////////////
+        if (isset($erroresValidacion) && $erroresValidacion != FALSE) {
+            $erroresValidacion = json_encode($erroresValidacion);
+            if ($datos['ruta'] == "confirmaActualizarProductos") {
+                header("location:../principal.php?contenido=vistas/vistasProductos/vistaActualizarProductos.php&erroresValidacion=" . $erroresValidacion);
+            }
+        }
+        $ProductosControlador = new ProductosControlador($datos);
+        $ProductosControlador->ProductosControlador();
+        break;
 }
 ?>

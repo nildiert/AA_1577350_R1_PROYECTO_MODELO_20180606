@@ -148,8 +148,24 @@ $seguridad->seguridad("login.php");
                                 
                             </ul>
                         </li>-->
-                        <li class="nav-label">PROYECTO KSQ DIGITAL</li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-envelope"></i><span class="hide-menu">Gestión de insumos</span></a>
+                        <li class="nav-label">KSQ DIGITAL</li>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-shopping-bag"></i><span class="hide-menu">Ventas</span></a>
+                            <ul aria-expanded="true" class="collapse">
+                                <li><a href="controladores/ControladorPrincipal.php?ruta=listarOrdProd">Listado de Ventas</a></li>
+                                <li><a onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasOrdProd/vistaInsertarOrdProd.php'">Agregar Venta</a></li>
+                                
+
+                            </ul>
+                        </li>                        
+                        <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-archive"></i><span class="hide-menu">Productos</span></a>
+                            <ul aria-expanded="true" class="collapse">
+                                <li><a href="controladores/ControladorPrincipal.php?ruta=listarProductos">Listado de Productos</a></li>
+                                <li><a onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasProductos/vistaInsertarProductos.php'">Agregar Productos</a></li>
+                                
+
+                            </ul>
+                        </li>                        
+                        <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-spinner"></i><span class="hide-menu">Insumos</span></a>
                             <ul aria-expanded="true" class="collapse">
                                 <li><a href="controladores/ControladorPrincipal.php?ruta=listarInsumos">Listado de Insumos</a></li>
                                 <li><a onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasInsumos/vistaInsertarInsumos.php'">Agregar Insumos</a></li>

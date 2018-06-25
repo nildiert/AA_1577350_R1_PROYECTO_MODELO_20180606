@@ -6,7 +6,7 @@ include_once PATH . 'modelos/ConBdMySql.php';
 include_once PATH . 'modelos/UsuarioBD.php';
 include_once PATH . 'modelos/InterfaceCRUD.php';
 
-class InsumosDAO extends ConBdMySql/* implements InterfaceCRUD */
+class ProductosDAO extends ConBdMySql/* implements InterfaceCRUD */
 {
 
     private $cantidadTotalRegistros;
@@ -19,22 +19,22 @@ class InsumosDAO extends ConBdMySql/* implements InterfaceCRUD */
     public function seleccionarTodos()
     {
         $planConsulta = "SELECT i.InsCodigo,i.InsNombre,i.InsCantActual,i.InsUnidadMedida,i.InsPrecio ";
-        $planConsulta .= "FROM insumos i ";
+        $planConsulta .= "FROM Productos i ";
   //      $planConsulta .= "WHERE i.InsEstado=1 ";//
 
-        $registrosInsumos = $this->conexion->prepare($planConsulta); //Se envia la consulta
-        $registrosInsumos->execute(); //Ejecución de la consulta
-        $listadoRegistrosInsumos = array();
+        $registrosProductos = $this->conexion->prepare($planConsulta); //Se envia la consulta
+        $registrosProductos->execute(); //Ejecución de la consulta
+        $listadoRegistrosProductos = array();
 
-        while ($registro = $registrosInsumos->fetch(PDO::FETCH_OBJ)) {
-            $listadoRegistrosInsumos[] = $registro;
+        while ($registro = $registrosProductos->fetch(PDO::FETCH_OBJ)) {
+            $listadoRegistrosProductos[] = $registro;
         }
 
         $this->cierreBd();
-        return $listadoRegistrosInsumos;
+        return $listadoRegistrosProductos;
     }
 
-    public function consultaPaginada(InsumosVO $consultarInsumos = null, $limit = null, $pagInicio = null)
+    public function consultaPaginada(ProductosVO $consultarProductos = null, $limit = null, $pagInicio = null)
     {
 
         $parametrosPaginacion = $this->solicitudPaginacion();
@@ -94,7 +94,7 @@ class InsumosDAO extends ConBdMySql/* implements InterfaceCRUD */
         }
 
         $planConsulta = "SELECT i.InsCodigo,i.InsNombre,i.InsCantActual,i.InsUnidadMedida,i.InsPrecio ";
-        $planConsulta .= "FROM insumos i ";
+        $planConsulta .= "FROM Productos i ";
         //$planConsulta .= "WHERE i.InsEstado=1 ";
 
 
@@ -144,10 +144,10 @@ class InsumosDAO extends ConBdMySql/* implements InterfaceCRUD */
         $listar = $this->conexion->prepare($planConsulta);
         $listar->execute();
 
-        $listadoInsumos = array();
+        $listadoProductos = array();
 
         while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
-            $listadoInsumos[] = $registro;
+            $listadoProductos[] = $registro;
         }
 
         $listar2 = $this->conexion->prepare("SELECT FOUND_ROWS() as total;");
@@ -157,7 +157,7 @@ class InsumosDAO extends ConBdMySql/* implements InterfaceCRUD */
         }
         $this->cantidadTotalRegistros = $totalRegistros;
 
-        return array($totalRegistros, $listadoInsumos);
+        return array($totalRegistros, $listadoProductos);
     }
 
     public function solicitudPaginacion($limit = 5)
@@ -190,19 +190,19 @@ class InsumosDAO extends ConBdMySql/* implements InterfaceCRUD */
         $conteoEnlaces = 0;
         for ($i = $_GET['pag']; $i < ($_GET['pag'] + $limit) && $i < $totalPag && $conteoEnlaces < $totalEnlacesPaginacion; $i++) {
 
-            $dbs[] = "<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=$i'>$i</a>";
+            $dbs[] = "<a href='controladores/ControladorPrincipal.php?ruta=listarProductos&pag=$i'>$i</a>";
             $conteoEnlaces++;
             $siguiente = $i;
         }
 
-        $mostrar = "<center><a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=0'>..::PAGINAS INICIALES::..</a><br>";
-        $mostrar .= "<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=" . (($anterior)) . "'>..::BLOQUE ANTERIOR::..</a>";
+        $mostrar = "<center><a href='controladores/ControladorPrincipal.php?ruta=listarProductos&pag=0'>..::PAGINAS INICIALES::..</a><br>";
+        $mostrar .= "<a href='controladores/ControladorPrincipal.php?ruta=listarProductos&pag=" . (($anterior)) . "'>..::BLOQUE ANTERIOR::..</a>";
 
         $mostrar .= implode("-", $dbs);
 
         if ($_GET['pag'] < $totalPag) {
-            $mostrar .= "<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=" . ($siguiente + 1) . "'>..::BLOQUE SIGUIENTE::..</a><br>";
-            $mostrar .= "<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=" . ($totalPag - $totalEnlacesPaginacion) . "'>..::BLOQUE FINAL::..</a><br></center>";
+            $mostrar .= "<a href='controladores/ControladorPrincipal.php?ruta=listarProductos&pag=" . ($siguiente + 1) . "'>..::BLOQUE SIGUIENTE::..</a><br>";
+            $mostrar .= "<a href='controladores/ControladorPrincipal.php?ruta=listarProductos&pag=" . ($totalPag - $totalEnlacesPaginacion) . "'>..::BLOQUE FINAL::..</a><br></center>";
         }
 
         return $mostrar;
@@ -213,7 +213,7 @@ class InsumosDAO extends ConBdMySql/* implements InterfaceCRUD */
         //
         //        $resultadoConsulta = FALSE;
         
-        $planConsulta = "select * from Insumos i ";
+        $planConsulta = "select * from Productos i ";
         $planConsulta .= " where i.InsCodigo= ? ;";
         $listar = $this->conexion->prepare($planConsulta);
         $listar->execute(array($sId[0]));
@@ -234,7 +234,7 @@ class InsumosDAO extends ConBdMySql/* implements InterfaceCRUD */
         
         try {
 
-            $inserta = $this->conexion->prepare('INSERT INTO Insumos (InsCodigo, InsNombre, InsCantActual, InsUnidadMedida, InsPrecio) VALUES ( :InsCodigo, :InsNombre, :InsCantActual, :InsUnidadMedida, :InsPrecio );');
+            $inserta = $this->conexion->prepare('INSERT INTO Productos (InsCodigo, InsNombre, InsCantActual, InsUnidadMedida, InsPrecio) VALUES ( :InsCodigo, :InsNombre, :InsCantActual, :InsUnidadMedida, :InsPrecio );');
             $inserta->bindParam(":InsCodigo", $registro['InsCodigo']);
             $inserta->bindParam(":InsNombre", $registro['InsNombre']);
             $inserta->bindParam(":InsCantActual", $registro['InsCantActual']);
@@ -262,7 +262,7 @@ class InsumosDAO extends ConBdMySql/* implements InterfaceCRUD */
             $InsCodigo = $registro[0]['InsCodigo'];
 
             if (isset($registro[0]['InsCodigo'])) {
-                $actualizar = "UPDATE insumos SET InsCantActual= ? , InsNombre = ? , InsUnidadMedida = ? , InsPrecio = ? WHERE InsCodigo= ? ;";
+                $actualizar = "UPDATE Productos SET InsCantActual= ? , InsNombre = ? , InsUnidadMedida = ? , InsPrecio = ? WHERE InsCodigo= ? ;";
                 $resultado = $this->conexion->prepare($actualizar);
                 $actualizacion = $resultado->execute(array($InsCantActual, $InsNombre, $InsUnidadMedida, $categoria, $InsCodigo));
                 return ['actualizacion' => $actualizacion, 'mensaje' => $mensaje];
@@ -275,22 +275,29 @@ class InsumosDAO extends ConBdMySql/* implements InterfaceCRUD */
     }
 
     public function eliminar($eId) {
+/* 
         try {
-        $InsCodigo = $eId[0]['InsCodigo'];
 
-        if (isset($eId[0]['InsCodigo'])) {
-            $eliminar = "DELETE FROM insumos WHERE InsCodigo= ? ;";
-            $resultado = $this->conexion->prepare($eliminar);
-            $eliminacion = $resultado->execute(array($InsCodigo));
-            return ['eliminacion' => $eliminacion, 'mensaje' => $mensaje];
-        }
-    } catch (Exception $exc) {
-        return ['eliminacion' => $eliminacion, 'mensaje' => $exc->getTraceAsString()];
-    }
-//    var_dump ($actualizacion);
-    exit();
+    
 
+            $InsCodigo=$eId[0]['InsCodigo'];
+
+            if (isset($eId[0]['InsCodigo'])) {
+                $actualizar = "UPDATE libros SET estado = 0 WHERE isbn = '".$isbn."';";
+               //  DELETE FROM `libros` WHERE `libros`.`isbn` = '".$isbn."' AND `libros`.`categoriaLibro_catLibId` = '".$categoria."';
+                
+                $eliminar= "('DELETE FROM Productos WHERE InsCodigo= :InsCodigo')";
+                
+                $resultado = $this->conexion->prepare($eliminar);
+                $eliminacion = $resultado->execute(array($InsCodigo));
+                return ['eliminacion' => $eliminacion, 'mensaje' => $mensaje];
+     
+                
+        } catch (Exception $exc) {
+            return ['eliminacion' => $eliminacion, 'mensaje' => $exc->getTraceAsString()];
+        }*/
     }
+
 }
 
 

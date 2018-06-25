@@ -81,7 +81,7 @@ class InsumosControlador {
                     $_SESSION['InsCantActual'] = $this->datos['InsCantActual'];
                     $_SESSION['InsUnidadMedida'] = $this->datos['InsUnidadMedida'];
                     $_SESSION['InsPrecio'] = $this->datos['InsPrecio'];
-                    $_SESSION['mensaje'] = "El Insumos ya existe en el sistema.";
+                    $_SESSION['mensaje'] = "El Insumo ya existe en el sistema.";
                     if ($this->datos['ruta'] == 'insertarInsumos') {//si al insertar un usuario en el formulario de Agregar nuevo usuario y éste ya existe a listarRegistrosUsuario_s.php
                         header("location:../principal.php?contenido=vistas/vistasInsumos/vistaInsertarInsumos.php");
                     }
@@ -123,11 +123,28 @@ class InsumosControlador {
 //                $consultaInsumos = new InsumosVO();
             $consultaDeInsumos = $gestarInsumos->seleccionarId(array($this->datos["idAct"])); //Se consulta el Insumos para traer los datos.
 
+            
+            $eliminarDatosInsumos = $consultaDeInsumos['registroEncontrado'][0];
+            session_start();
+            $_SESSION['eliminarDatosInsumos'] = $eliminarDatosInsumos;
+            header("location:../principal.php?contenido=vistas/vistasInsumos/vistaeliminarInsumos.php");
+
 
 
             session_start();            
             default:
                 break;
+            case "confirmaEliminarInsumos":
+                $usuarioBd = new UsuarioBd(USUARIO_BD, CONTRASENIA_BD);
+                $gestarInsumos = new InsumosDAO($usuarioBd, BASE, SERVIDOR);
+//                $consultaInsumos = new InsumosVO();
+                $eliminarInsumos = $gestarInsumos->eliminar(array($this->datos)); //Se envía datos del Insumos para eliminar.
+
+                $eliminarInsumos = $consultaDeInsumos['registroEncontrado'][0];
+                session_start();
+                $_SESSION['mensaje'] = "Se ha eliminado el insumo.";
+                header("location:ControladorPrincipal.php?ruta=listarInsumos");
+                break;                
         }
     }
 

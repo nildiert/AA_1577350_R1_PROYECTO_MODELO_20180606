@@ -260,14 +260,16 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
         </span>
 
         <br>
+        <div>
         <a name="listaDeInsumos" id="a"></a>
         <br>
-        <p>Total de Registros:
+        <p class="text-secundary">Total de Registros:
             <?php echo $totalRegistros; ?>
         </p>
-        <br>
         
-        <table class="table table-hover table-responsive-sm table-responsive-md table-responsive-lg     table-responsive-xl">
+        </div>
+        
+        <table class="table table-hover table-responsive-sm table-responsive-md table-responsive-lg    table-responsive-xl">
             <thead>
                 <tr>
                     <TH style="width: 100">CODIGO</TH>
@@ -284,26 +286,26 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
             foreach ($listaDeInsumos as $key => $value) {
                 ?>
             <tr>
-                <td style="width: 100">
+                <td style="width: 100" class="text-dark">
                     <?php echo $listaDeInsumos[$i]->InsCodigo; ?>
                 </td>
-                <td style="width: 100">
+                <td style="width: 100" class="text-dark">
                     <?php echo strtoupper($listaDeInsumos[$i]->InsNombre); ?>
                 </td>
-                <td style="width: 100">
+                <td style="width: 100" class="text-dark">
                     <?php echo strtoupper($listaDeInsumos[$i]->InsCantActual); ?>
                 </td>
-                <td style="width: 100">
-                    <?php echo strtoupper($listaDeInsumos[$i]->InsUnidadMedida); ?>
+                <td style="width: 100" class="text-dark">
+                   <b> <?php echo strtoupper($listaDeInsumos[$i]->InsUnidadMedida); ?></b>
                 </td>
-                <td style="width: 100">
+                <td style="width: 100" class="text-dark">
                     <?php echo strtoupper($listaDeInsumos[$i]->InsPrecio); ?>
                 </td>
 
-                <td style="width: 100">
+                <td style="width: 100" class="text-dark">
                     <a class="btn btn-info btn-rounded m-b-10 m-l-5"  href="controladores/ControladorPrincipal.php?ruta=actualizarInsumos&idAct=<?php echo $listaDeInsumos[$i]->InsCodigo; ?>">Actualizar</a>
                 </td>
-                <td style="width: 100">
+                <td style="width: 100" class="text-dark">
                     <a class="btn btn-danger btn-rounded m-b-10 m-l-5" href="controladores/ControladorPrincipal.php?ruta=eliminarInsumos&idAct=<?php echo $listaDeInsumos[$i]->InsCodigo; ?>">Eliminar</a>
                 </td>
                 <?php
