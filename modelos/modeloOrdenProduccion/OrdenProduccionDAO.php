@@ -286,14 +286,19 @@ class OrdenProduccionDAO extends ConBdMySql/* implements InterfaceCRUD */
             $OrdPObservaciones = $registro[0]['OrdPObservaciones'];
 
             if (isset($registro[0]['OrdPId'])) {
-                $actualizar = "UPDATE ordenproduccion SET OrdPCant= ? , ProNombre = ? , OrdPAsignada = ? , OrdPFecha = ? , OrdPObservaciones = ? WHERE OrdPId= ? ;";
+                $actualizar = "UPDATE ordenproduccion SET OrdPCant= '".$OrdPCant."', OrdPAsignada = '".$OrdPAsignada."' , OrdPFecha = '".$OrdPFecha."' , OrdPObservaciones = '".$OrdPObservaciones."' WHERE OrdPId= '".$OrdPId."' ;";
                 $resultado = $this->conexion->prepare($actualizar);
                 
                 
-                $actualizacion = $resultado->execute(array($OrdPCant, $ProNombre, $OrdPAsignada, $OrdPFecha, $OrdPObservaciones,$OrdPId));
+                if($actualizacion = $resultado->execute()){
                 //var_dump($resultado);
-                //exit();
+                //exit();  
+                $actualizar = "UPDATE productos SET ProNombre = '".$ProNombre."' WHERE ProCodigo= '" . $OrdPId . "' ;";
+                $resultado = $this->conexion->prepare($actualizar);
+                $actualizacion = $resultado->execute();
+
                 return ['actualizacion' => $actualizacion, 'mensaje' => $mensaje];
+                }
             }
         } catch (Exception $exc) {
             return ['actualizacion' => $actualizacion, 'mensaje' => $exc->getTraceAsString()];

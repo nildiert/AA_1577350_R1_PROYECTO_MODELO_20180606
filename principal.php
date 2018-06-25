@@ -173,14 +173,17 @@ $seguridad->seguridad("login.php");
                                 
 
                             </ul>
-                        </li>                        
+                        </li>     
+                        <?php if (isset($_SESSION['rolesEnSesion']) && in_array(1, $_SESSION['rolesEnSesion'])) {?>
+<!--                            <li><a href="controladores/ControladorPrincipal.php?ruta=listarCargo">Gestión de Cargos</a></li>-->
+
                         <li class="nav-label">ADMINISTRADOR</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-users"></i><span class="hide-menu">Registro</span></a>
                             <ul aria-expanded="true" class="collapse">
                                 <li><a class="hide-menu" href="controladores/ControladorPrincipal.php?ruta=Registro" >Registro de usuarios</a></li>
                                 
                                 
-
+                        <?php }?>
                             </ul>
                         </li>                        
                         

@@ -279,7 +279,67 @@ switch ($datos['ruta']) {
         header("location:../principal.php?contenido=registro2.php");
         break;
     }
-     
+    case"listarAsigRol":
+        $asigRolControlador = new AsigRolControlador($datos);
+        $asigRolControlador->asigRolControlador();
+        break;
+/********************************************************************************************************************************/    
+   case "insertarAsigRol":
+        if ($datos['ruta'] == "insertarAsigRol") {
+            $validarRegistro = new ValidadorAsigRol();
+            $erroresValidacion = $validarRegistro->validarFormularioInsertarAsigRol($datos);
+        }
+        if (isset($erroresValidacion)) {
+            $erroresValidacion = json_encode($erroresValidacion);
+            if ($datos['ruta'] == "insertarAsigRol") {
+                header("location:../principal.php?contenido=vistas/vistasAsigRol/vistaInsertarAsigRol.php&erroresValidacion=" . $erroresValidacion);
+            }
+        }
+        $asigRolControlador = new AsigRolControlador($datos);
+        $asigRolControlador->asigRolControlador();
+        break;
+/********************************************************************************************************************************/    
+    case "actualizarAsigRol":
+        $asigRolControlador = new AsigRolControlador($datos);
+        $asigRolControlador->asigRolControlador();
+        break;
+    case "confirmaActualizarAsigRol":
+        if ($datos['ruta'] == "confirmaActualizarAsigRol") {
+
+            $validarRegistro = new ValidadorAsigRol();
+            $erroresValidacion = $validarRegistro->validarFormularioInsertarAsigRol($datos);
+        }
+        if (isset($erroresValidacion) && $erroresValidacion != FALSE) {
+            $erroresValidacion = json_encode($erroresValidacion);
+            if ($datos['ruta'] == "confirmaActualizarAsigRol") {
+                header("location:../principal.php?contenido=vistas/vistasAsigRol/vistaActualizarAsigRol.php&erroresValidacion=" . $erroresValidacion);
+            }
+        }
+        $asigRolControlador = new AsigRolControlador($datos);
+        $asigRolControlador->asigRolControlador();
+        break;
+/********************************************************************************************************************************/    
+/********************************************************************************************************************************/    
+    case "eliminarAsigRol":
+         $asigRolControlador = new AsigRolControlador($datos);
+         $asigRolControlador->asigRolControlador();
+         break;
+    case "confirmaEliminarAsigRol":
+            if ($datos['ruta'] == "confirmaEliminarAsigRol") {
+    
+                $validarRegistro = new ValidadorAsigRol();
+               $erroresValidacion = $validarRegistro->validarFormularioInsertarAsigRol($datos);
+           }
+   ////////////////////////////////////////////////////////////////
+            if (isset($erroresValidacion) && $erroresValidacion != FALSE) {
+                $erroresValidacion = json_encode($erroresValidacion);
+                if ($datos['ruta'] == "confirmaEliminarAsigRol") {
+                    header("location:../principal.php?contenido=vistas/vistasAsigRol/vistaEliminarAsigRol.php&erroresValidacion=" . $erroresValidacion);
+                }
+            }
+            $asigRolControlador = new AsigRolControlador($datos);
+            $asigRolControlador->asigRolControlador();
+         break;     
   
 }
     ?>
